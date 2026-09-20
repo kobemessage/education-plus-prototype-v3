@@ -1,0 +1,76 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+def page(page_id, title, body, active="首页"):
+    nav = "".join(f'<button class="{"active" if n==active else ""}" onclick="v3Go({r!r})"><b>{ico}</b>{n}</button>' for n,r,ico in [("首页","1","⌂"),("服务","11","▦"),("活动","12","◇"),("我的","10","○")])
+    return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{'../' if page_id[0].isalpha() else ''}v3.css"></head><body><script>window.EP_PAGE={page_id!r}</script><header class="v3-top"><button class="v3-back" onclick="v3Go('1')">‹</button><h1>{title}</h1><span class="v3-badge">[演示数据]</span></header><main class="v3-shell">{body}</main><footer class="v3-footer">{nav}</footer><script src="{'../' if page_id[0].isalpha() else ''}v3-ui.js"></script><script src="{'../' if page_id[0].isalpha() else ''}routes.js"></script></body></html>'''
+
+pages = {}
+pages['01.html'] = page('1','教育Plus', '''
+<section class="v3-hero"><small>贵州教育报 · 教育+</small><h2>看见校园成长的每一种可能</h2><p>内容展示为主，交互服务为辅。V3.0 聚焦校园阅读、作品、采写、高校与科学素养。</p></section>
+<section class="v3-section"><div class="v3-section-head"><h3>五大内容板块</h3><span>校园内容与成果展播</span></div><div class="v3-grid">
+<button class="v3-card" onclick="v3Go('2')"><i class="v3-icon">读</i><strong>读书会</strong><p>领读员、共读内容与名家阅读</p></button>
+<button class="v3-card" onclick="v3Go('3')"><i class="v3-icon">文</i><strong>少年派</strong><p>写作、书画、赛事与成长档案</p></button>
+<button class="v3-card" onclick="v3Go('4')"><i class="v3-icon">记</i><strong>小记者</strong><p>资格申请、投稿与电子证</p></button>
+<button class="v3-card" onclick="v3Go('5')"><i class="v3-icon">校</i><strong>教育看板</strong><p>大学、社团与主题活动</p></button>
+<button class="v3-card" onclick="v3Go('7')"><i class="v3-icon">科</i><strong>科学港</strong><p>小小发明家与一起来寻宝</p></button>
+</div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>三大服务工具</h3><span>清晰说明服务边界</span></div><div class="v3-grid three">
+<button class="v3-card" onclick="v3Go('6')"><strong>公益课堂</strong><p>回放优先</p></button><button class="v3-card" onclick="v3Go('8')"><strong>填志愿</strong><p>外部服务</p></button><button class="v3-card" onclick="v3Go('9')"><strong>订报刊</strong><p>数字预览</p></button></div></section>
+<div class="v3-note">V3.0 为交互演示。人物、学校、活动和内容均为演示数据；外部平台、视频号和订阅服务尚未真实接入。</div>''')
+
+pages['02.html'] = page('2','读书会', '''
+<section class="v3-hero"><small>书香校园 · 内容展示</small><h2>让阅读连接每一所学校</h2><p>V3.0 聚焦三条内容主线，校园读书会由后台配置，前台展示成果。</p></section>
+<section class="v3-section"><div class="v3-grid"><button class="v3-card" onclick="v3Go('R01')"><i class="v3-icon">领</i><strong>来做领读员</strong><p>培训课程与领读方法</p></button><button class="v3-card" onclick="v3Go('R12')"><i class="v3-icon">共</i><strong>大家一起读</strong><p>新闻、读后感、书单与校园读书会</p></button><button class="v3-card" onclick="v3Go('R03')"><i class="v3-icon">名</i><strong>名家谈阅读</strong><p>名家讲座与阅读分享</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>共读精选</h3><span>编辑推荐</span></div><div class="v3-list"><button class="v3-row" onclick="v3Go('R05')"><span class="grow"><strong>在山水与文字之间认识贵州</strong><p>全省校园读后感精选 · [演示数据]</p></span><span>›</span></button><button class="v3-row" onclick="v3Go('R07')"><span class="grow"><strong>本月经典推荐书单</strong><p>小学、初中、高中分龄推荐</p></span><span>›</span></button></div></section><div class="v3-note">校园读书会由平台后台统一配置；前台不提供自主创建或管理入口。</div>''')
+
+pages['07.html'] = page('7','科学港', '''
+<section class="v3-hero"><small>青少年科学素养成果展播</small><h2>发现问题，也动手创造</h2><p>围绕“小小发明家”和“一起来寻宝”展示活动、征集作品与阶段成果。</p></section>
+<section class="v3-section"><div class="v3-grid"><button class="v3-card" onclick="v3Go('K03')"><i class="v3-icon">⚙</i><strong>小小发明家</strong><p>校园创意发明征集与成果展示</p></button><button class="v3-card" onclick="v3Go('K02')"><i class="v3-icon">⌖</i><strong>一起来寻宝</strong><p>探访家乡科学宝藏并提交作品</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>优秀成果</h3><span>编辑精选</span></div><div class="v3-list"><button class="v3-row" onclick="v3Go('K01')"><span class="v3-icon">桥</span><span class="grow"><strong>会“呼吸”的校园雨水花园</strong><p>贵阳实验小学 王*瑞 · 小小发明家</p></span><span class="v3-state">已展播</span></button><button class="v3-row" onclick="v3Go('K01')"><span class="v3-icon">山</span><span class="grow"><strong>喀斯特岩洞里的水滴密码</strong><p>黔南州实验学校 李*然 · 一起来寻宝</p></span><span class="v3-state">精选</span></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>科普小问答</h3><span>由编辑部整理发布</span></div><div class="v3-card"><strong>为什么溶洞里会形成石笋？</strong><p>水滴携带的矿物质在漫长时间里沉积，形成形态各异的地质景观。此栏目不开放用户实时提问。</p></div></section>''')
+
+pages['09.html'] = page('9','订报刊', '''
+<section class="v3-hero"><small>贵州教育报 · 数字展读</small><h2>本期报纸抢先看</h2><p>浏览头版与精选版面；正式订阅将前往官方微信订阅小程序。</p></section><div class="v3-paper"><div class="mast">贵州教育报</div><div class="headline">聚焦立德树人，记录贵州校园的新变化</div><div class="cols"></div><small>2026年9月 · 演示版面</small></div>
+<section class="v3-section"><div class="v3-section-head"><h3>精选版面</h3><span>图片 / PDF 预览</span></div><div class="v3-grid"><button class="v3-card" onclick="v3Go('N01')"><strong>校园新闻</strong><p>第02版 · 版面导读</p></button><button class="v3-card" onclick="v3Go('N01')"><strong>师生成长</strong><p>第04版 · 作品精选</p></button></div></section>
+<div class="v3-note">订阅购买、支付、配送、发票与对公信息由官方订阅服务负责，本原型不处理交易。</div><div class="v3-actions"><button class="v3-btn" onclick="v3Go('N02')">前往官方订阅服务</button><button class="v3-btn secondary" onclick="v3Toast('咨询专线：0851-8682XXXX（演示）')">订阅咨询</button></div>''', '服务')
+
+pages['06.html'] = page('6','公益课堂', '''
+<section class="v3-hero"><small>省级骨干教师公开课</small><h2>好课随时回看</h2><p>课程回放为主，直播为辅，展示讲师、合作学校、课程时间与地点。</p></section><section class="v3-section"><div class="v3-section-head"><h3>精选回放</h3><span>直接观看</span></div><div class="v3-list"><button class="v3-row" onclick="v3Go('C03')"><span class="v3-icon">▶</span><span class="grow"><strong>把家乡写进作文里</strong><p>讲师：周老师 · 贵阳市实验小学 · 42分钟</p></span><span class="v3-state">可回放</span></button><button class="v3-row" onclick="v3Go('C01')"><span class="v3-icon">课</span><span class="grow"><strong>课程详情与讲师介绍</strong><p>课程大纲、合作学校与章节安排</p></span><span>›</span></button></div></section><section class="v3-section"><div class="v3-card"><strong>下一场直播</strong><p>9月25日 19:30 · 贵州省实验中学录播教室</p><div class="v3-actions"><button class="v3-btn" onclick="v3Go('C02')">跳转微信视频号（演示）</button></div></div></section><div class="v3-note">视频号直播与账号能力尚未接入；本模块不提供资料下载、学习时长或预约功能。</div>''','服务')
+
+pages['08.html'] = page('8','填志愿', '''
+<section class="v3-hero"><small>第三方升学信息导引</small><h2>查询公开信息，理性参考</h2><p>聚合政策与第三方服务入口，不提供自研录取算法或录取概率承诺。</p></section><section class="v3-section"><div class="v3-list"><button class="v3-row" onclick="v3Go('V01')"><span class="v3-icon">策</span><span class="grow"><strong>招考政策与公开数据</strong><p>查看第三方公开信息目录</p></span><span>›</span></button><button class="v3-row" onclick="v3Go('V02')"><span class="v3-icon">外</span><span class="grow"><strong>外部服务接入说明</strong><p>了解跳转范围与责任边界</p></span><span>›</span></button></div></section><div class="v3-note">外部平台尚未真实接入。所有信息仅供参考，请以教育主管部门和招生院校正式发布为准。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('第三方平台待接入')">前往第三方平台（演示）</button>''','服务')
+
+pages['10.html'] = page('10','我的', '''
+<section class="v3-hero"><small>个人素养中心</small><h2>林*辰</h2><p>贵阳市第一实验小学 · 五年级 · [演示数据]</p></section><div class="v3-list">
+<button class="v3-row" onclick="v3Go('J07')"><span class="v3-icon">证</span><span class="grow"><strong>小记者资格与电子证</strong><p>审核通过 · 电子证可查看</p></span><span class="v3-state">已通过</span></button>
+<button class="v3-row" onclick="v3Go('G05')"><span class="v3-icon">稿</span><span class="grow"><strong>我的投稿</strong><p>统一查看少年派、小记者、教育看板与科学港作品</p></span><span>›</span></button>
+<button class="v3-row" onclick="v3Go('G04')"><span class="v3-icon">活</span><span class="grow"><strong>已确认活动</strong><p>查看报名已确认的线上征集与校园展播</p></span><span>›</span></button>
+<button class="v3-row" onclick="v3Go('G03')"><span class="v3-icon">藏</span><span class="grow"><strong>我的收藏</strong><p>收藏的文章、课程与作品</p></span><span>›</span></button>
+<button class="v3-row" onclick="v3Go('G06')"><span class="v3-icon">我</span><span class="grow"><strong>个人资料</strong><p>维护基础信息与隐私设置</p></span><span>›</span></button></div><div class="v3-note">小记者资格审核与普通微信账号注册相互独立。</div>''', '我的')
+
+pages['11.html'] = page('11','服务', '''
+<section class="v3-hero"><small>全省公益服务大厅</small><h2>内容专区与便民工具</h2><p>八个入口均直达对应模块，已按 V3.0 范围收敛。</p></section><section class="v3-section"><div class="v3-section-head"><h3>内容专区</h3><span>5项</span></div><div class="v3-grid">''' + ''.join(f'<button class="v3-card" onclick="v3Go(\'{r}\')"><strong>{n}</strong><p>{d}</p></button>' for r,n,d in [('2','读书会','共读与名家阅读'),('3','少年派','作品与赛事'),('4','小记者','采写成长'),('5','教育看板','高校内容'),('7','科学港','科学成果')]) + '''</div></section><section class="v3-section"><div class="v3-section-head"><h3>便民工具</h3><span>3项</span></div><div class="v3-grid three"><button class="v3-card" onclick="v3Go('6')"><strong>公益课堂</strong><p>回放</p></button><button class="v3-card" onclick="v3Go('8')"><strong>填志愿</strong><p>外跳</p></button><button class="v3-card" onclick="v3Go('9')"><strong>订报刊</strong><p>预览</p></button></div></section><div class="v3-note">所有服务均为原型演示或待接入；不采集真实交易信息。</div>''','服务')
+
+pages['stitch/J07.html'] = page('J07','小记者资格申请', '''
+<section class="v3-hero"><small>独立资格审核</small><h2>申请成为校园小记者</h2><p>普通微信账号仅用于登录；小记者资格需另行提交并由后台教研人员核验。</p></section><form class="v3-card v3-form" onsubmit="return v3Submit(this,'申请已提交，等待后台核验（演示）')"><div class="v3-field"><label>学生真实姓名</label><input required placeholder="请输入学生姓名"></div><div class="v3-field"><label>学校全称</label><input required placeholder="请输入学校全称"></div><div class="v3-field"><label>所在年级</label><select required><option value="">请选择</option><option>小学四年级</option><option>小学五年级</option><option>小学六年级</option><option>初中一年级</option></select></div><div class="v3-field"><label>监护人姓名</label><input required placeholder="请输入监护人姓名"></div><div class="v3-field"><label>监护人联系方式</label><input required inputmode="tel" pattern="1[3-9][0-9]{9}" placeholder="11位手机号"></div><div class="v3-upload">＋ 上传学校少先队 / 教务处盖章推荐材料<br><small>支持照片或 PDF（原型演示，不会实际上传）</small></div><label style="font-size:12px"><input type="checkbox" required> 已阅读资格审核与隐私说明</label><button class="v3-btn" type="submit">提交资格申请</button></form><div class="v3-note">本资格只用于校园采写身份审核，不承诺升学加分、线下研学、实践学时或商业权益。</div>''','我的')
+
+pages['stitch/K01.html'] = page('K01','科学成果详情','''<section class="v3-hero"><small>小小发明家 · 精选成果</small><h2>会“呼吸”的校园雨水花园</h2><p>贵阳实验小学 王*瑞 · 指导老师 陈老师 · [演示数据]</p></section><div class="v3-card"><strong>作品说明</strong><p>团队观察校园积水问题，利用透水层、储水槽和植物根系设计雨水循环模型。作品经编辑部整理后展播。</p></div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('已收藏作品')">收藏</button><button class="v3-btn secondary" onclick="v3Toast('分享海报已生成（演示）')">分享</button></div>''')
+pages['stitch/K02.html'] = page('K02','一起来寻宝作品提交','''<section class="v3-hero"><small>作品征集</small><h2>记录家乡的科学宝藏</h2><p>上传探访图文或短视频，审核通过后进入成果展播。</p></section><form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label>作品标题</label><input required></div><div class="v3-field"><label>探访地点</label><input required></div><div class="v3-field"><label>作品说明</label><textarea required></textarea></div><div class="v3-upload">＋ 添加图片或视频（演示）</div><button class="v3-btn" type="submit">提交作品</button></form>''')
+pages['stitch/K03.html'] = page('K03','小小发明家作品提交','''<section class="v3-hero"><small>创意发明征集</small><h2>让小创意解决真问题</h2><p>提交问题观察、创意方案和模型照片，编辑审核后择优展播。</p></section><form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label>发明名称</label><input required></div><div class="v3-field"><label>想解决的问题</label><textarea required></textarea></div><div class="v3-field"><label>创意方案</label><textarea required></textarea></div><div class="v3-upload">＋ 添加模型照片（演示）</div><button class="v3-btn" type="submit">提交作品</button></form>''')
+pages['stitch/K04.html'] = page('K04','我的科学港作品','''<section class="v3-hero"><small>作品记录</small><h2>我的科学创作</h2><p>只展示作品审核状态，不包含实时专家对话。</p></section><div class="v3-list"><div class="v3-row"><span class="grow"><strong>校园节水装置</strong><p>小小发明家 · 2026-09-18</p></span><span class="v3-state">审核中</span></div><div class="v3-row"><span class="grow"><strong>桥梁结构寻访</strong><p>一起来寻宝 · 2026-08-20</p></span><span class="v3-state">已展播</span></div></div>''','我的')
+pages['stitch/K05.html'] = page('K05','科普问答详情','''<section class="v3-hero"><small>编辑部精编科普</small><h2>为什么溶洞里会形成石笋？</h2><p>内容来源：公开科普资料整理 · [演示数据]</p></section><div class="v3-card"><strong>编辑解读</strong><p>雨水渗入石灰岩层后溶解矿物质，水滴落到洞底时二氧化碳逸出，矿物质逐渐沉积。漫长岁月里，沉积物由下向上生长，形成石笋。</p></div><div class="v3-note">本栏目由编辑部策划发布，不提供用户提问或专家实时答复。</div>''')
+pages['stitch/N01.html'] = page('N01','数字报精选版面','''<section class="v3-hero"><small>数字报展读</small><h2>本期精选版面</h2><p>图片/PDF 预览为版式演示。</p></section><div class="v3-paper"><div class="mast">贵州教育报</div><div class="headline">校园里的创新实践，让学习连接真实生活</div><div class="cols"></div></div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('正在打开高清预览（演示）')">高清预览</button><button class="v3-btn secondary" onclick="v3Go('9')">返回本期</button></div>''','服务')
+pages['stitch/N02.html'] = page('N02','外部订阅服务说明','''<section class="v3-hero"><small>外部平台跳转占位</small><h2>前往官方订阅小程序</h2><p>正式上线后由贵州教育报确认目标小程序与跳转方式。</p></section><div class="v3-note">继续后将离开教育Plus。订阅购买、支付、配送、发票和售后由官方订阅服务提供并承担责任。</div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('外部订阅小程序待接入')">继续前往（演示）</button><button class="v3-btn secondary" onclick="v3Go('9')">暂不前往</button></div>''','服务')
+
+pages['stitch/C01.html'] = page('C01','公益课堂详情','''<section class="v3-hero"><small>课程回放 · 语文</small><h2>把家乡写进作文里</h2><p>周老师 · 贵阳市实验小学 · 合作示范校公开课</p></section><div class="v3-card"><strong>课程大纲</strong><p>1. 从生活中寻找题材<br>2. 用动作与细节塑造人物<br>3. 让结尾回到具体画面</p></div><section class="v3-section"><div class="v3-section-head"><h3>回放章节</h3><span>共42分钟</span></div><div class="v3-list"><button class="v3-row" onclick="v3Go('C03')"><span class="v3-icon">▶</span><span class="grow"><strong>第一章：从身边发现好故事</strong><p>12:30</p></span></button><button class="v3-row" onclick="v3Go('C03')"><span class="v3-icon">▶</span><span class="grow"><strong>第二章：让细节会说话</strong><p>15:40</p></span></button></div></section>''','服务')
+pages['stitch/C02.html'] = page('C02','公益课堂直播','''<section class="v3-hero"><small>外部直播 · 演示</small><h2>阅读如何帮助我们写作</h2><p>9月25日 19:30 · 贵州省实验中学录播教室</p></section><div class="v3-note">直播将在官方微信视频号播放。当前仅为跳转占位，不代表视频号或账号能力已接入。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('微信视频号待接入')">即将跳转微信视频号（演示）</button>''','服务')
+pages['stitch/C03.html'] = page('C03','公益课堂回放','''<section class="v3-hero"><small>视频回放 · 演示</small><h2>把家乡写进作文里</h2><p>第一章：从身边发现好故事</p></section><div class="v3-card" style="aspect-ratio:16/9;display:grid;place-items:center;background:#173c34;color:white"><button class="v3-btn" onclick="v3Toast('开始播放演示视频')">▶ 播放回放</button></div><section class="v3-section"><div class="v3-card"><strong>本章要点</strong><p>观察熟悉的人、地点与生活片段，记录真实细节，再提炼清晰主题。</p></div></section><div class="v3-note">视频内容与播放能力均为原型演示。</div>''','服务')
+
+for path, content in pages.items():
+    target = ROOT / path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(content, encoding='utf-8')
+
+print(f'generated {len(pages)} V3 pages')
