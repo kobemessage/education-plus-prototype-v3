@@ -56,14 +56,14 @@ pages["01.html"] = page("1", "教育Plus", '''
 <p>连接校园内容、成长记录与公益教育服务。</p><button class="v3-cta" onclick="v3Go('11')">立即浏览</button></div></section>
 <section class="v3-panel" aria-labelledby="home-entry-title"><div class="v3-section-head"><h3 id="home-entry-title">八大板块</h3><span>内容与服务直达</span></div>
 <div class="v3-entry-grid">
-<button class="v3-entry" onclick="v3Go('2')">''' + icon("menu_book") + '''<strong>读书会</strong><small>共读精选</small></button>
-<button class="v3-entry" onclick="v3Go('3')">''' + icon("draw") + '''<strong>少年派</strong><small>创作展示</small></button>
-<button class="v3-entry" onclick="v3Go('4')">''' + icon("photo_camera") + '''<strong>小记者</strong><small>采写成长</small></button>
-<button class="v3-entry" onclick="v3Go('5')">''' + icon("school") + '''<strong>教育看板</strong><small>校园风采</small></button>
-<button class="v3-entry" onclick="v3Go('6')">''' + icon("co_present") + '''<strong>公益课堂</strong><small>直播回放</small></button>
-<button class="v3-entry" onclick="v3Go('7')">''' + icon("science") + '''<strong>科学港</strong><small>探索创造</small></button>
-<button class="v3-entry" onclick="v3Go('8')">''' + icon("explore") + '''<strong>填志愿</strong><small>信息导引</small></button>
-<button class="v3-entry" onclick="v3Go('9')">''' + icon("newspaper") + '''<strong>订报刊</strong><small>数字展读</small></button>
+<button class="v3-entry" onclick="v3Go('2')">''' + icon("menu_book") + '''<strong>读书会</strong></button>
+<button class="v3-entry" onclick="v3Go('3')">''' + icon("draw") + '''<strong>少年派</strong></button>
+<button class="v3-entry" onclick="v3Go('4')">''' + icon("photo_camera") + '''<strong>小记者</strong></button>
+<button class="v3-entry" onclick="v3Go('5')">''' + icon("school") + '''<strong>教育看板</strong></button>
+<button class="v3-entry" onclick="v3Go('6')">''' + icon("co_present") + '''<strong>公益课堂</strong></button>
+<button class="v3-entry" onclick="v3Go('7')">''' + icon("science") + '''<strong>科学港</strong></button>
+<button class="v3-entry" onclick="v3Go('8')">''' + icon("explore") + '''<strong>填志愿</strong></button>
+<button class="v3-entry" onclick="v3Go('9')">''' + icon("newspaper") + '''<strong>订报刊</strong></button>
 </div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>正在直播</h3><span>微信视频号待接入</span></div>
 ''' + row("数学专题公益课", "函数图像与解题思路 · 1.2万人观看（演示）", "6", image="assets/v3/public-class.jpg", state="直播中") + '''</section>
