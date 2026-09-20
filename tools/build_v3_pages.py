@@ -29,7 +29,7 @@ def page(page_id, title, body, active="首页", subtitle="", home=False):
     )
     if home:
         header = (
-            '<header class="v3-top v3-brand-top"><div class="v3-top-copy">'
+            f'<header class="v3-top v3-brand-top"><img class="v3-header-leaves" src="{prefix}assets/v3/header-leaves.jpg" alt=""><div class="v3-top-copy">'
             '<h1>教育+ <em>V3.0</em></h1>'
             '<p>贵州教育资讯 · 权威教育服务入口</p></div>'
             '<span class="v3-badge">演示数据</span></header>'
