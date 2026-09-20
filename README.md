@@ -14,6 +14,12 @@
 
 所有人物、学校、活动和作品均为演示数据；视频号、第三方平台与官方订阅小程序均为待接入占位。
 
+## 在线交付
+
+- GitHub Pages：<https://kobemessage.github.io/education-plus-prototype-v3/>
+- GitHub 仓库：<https://github.com/kobemessage/education-plus-prototype-v3>
+- Stitch 九屏画布：<https://stitch.withgoogle.com/projects/4508869701961086440>
+
 ## 本地预览
 
 ```bash
@@ -28,3 +34,4 @@ python3 -m http.server 4173
 - 所有清单路由均已完成文件存在性、HTTP 加载和浏览器渲染检查。
 - 小记者资格申请已验证必填校验和提交状态反馈。
 - 方案 C 视觉真值保存在 `assets/v3/design-reference-v3.png`，上线前按同尺寸截图执行设计对比。
+- 最终设计质量记录见 `design-qa.md`。
