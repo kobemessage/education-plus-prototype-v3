@@ -1,3 +1,4 @@
 window.v3Go=function(route){if(parent!==window)parent.postMessage({educationPlusRoute:String(route)},location.origin);else location.href='index.html#'+route};
 window.v3Toast=function(message){let t=document.querySelector('.v3-toast');if(!t){t=document.createElement('div');t.className='v3-toast';document.body.append(t)}t.textContent=message;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)};
 window.v3Submit=function(form,message){const btn=form.querySelector('button[type="submit"]');btn.disabled=true;const old=btn.textContent;btn.textContent='处理中…';setTimeout(()=>{btn.disabled=false;btn.textContent=old;v3Toast(message||'提交成功，已进入审核流程（演示）')},650);return false};
+document.addEventListener('click',event=>{const tab=event.target.closest('.v3-tab');if(!tab)return;const group=tab.closest('.v3-tabs');group.querySelectorAll('.v3-tab').forEach(item=>item.classList.toggle('active',item===tab));v3Toast(`已切换至“${tab.textContent.trim()}”（演示）`)});

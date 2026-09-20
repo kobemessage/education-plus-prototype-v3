@@ -2,13 +2,13 @@
   const page = String(window.EP_PAGE || document.documentElement.dataset.page || '');
   const activeRoute = page === '1' ? '1' : page === '12' ? '12' : page === '10' ? '10' : '11';
   const items = [
-    ['1', '首页', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.4 12 3l8.5 7.4v9.1h-5.4v-5.8H8.9v5.8H3.5z"/></svg>'],
-    ['11', '服务', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx=".8"/><rect x="14" y="3.5" width="6.5" height="6.5" rx=".8"/><rect x="3.5" y="14" width="6.5" height="6.5" rx=".8"/><rect x="14" y="14" width="6.5" height="6.5" rx=".8"/></svg>'],
-    ['12', '活动', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3m10-3v3M4.5 7.5h15v12h-15z"/><path d="M9 11.5h6v4H9z"/></svg>'],
-    ['10', '我的', '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.2" r="3.6"/><path d="M5.2 20.5v-1.7c0-3.4 3-5.9 6.8-5.9s6.8 2.5 6.8 5.9v1.7z"/></svg>']
+    ['1', '首页', '<span class="material-symbols-outlined" aria-hidden="true">home</span>'],
+    ['11', '服务', '<span class="material-symbols-outlined" aria-hidden="true">apps</span>'],
+    ['12', '活动', '<span class="material-symbols-outlined" aria-hidden="true">event</span>'],
+    ['10', '我的', '<span class="material-symbols-outlined" aria-hidden="true">person</span>']
   ];
 
-  const labels = ['首页', '书会', '读书会', '少年派', '小记者', '致青春', '公益课', '科学港', '填志愿', '订报刊', '服务', '活动', '我的'];
+  const labels = ['首页', '书会', '读书会', '少年派', '小记者', '教育看板', '公益课堂', '科学港', '填志愿', '订报刊', '服务', '活动', '我的'];
   const iconLabels = {
     arrow_back: '返回', arrow_back_ios: '返回', arrow_back_ios_new: '返回', close: '关闭',
     more_horiz: '更多', person: '个人中心', account_circle: '个人中心', notifications: '消息通知',
@@ -18,15 +18,15 @@
   };
 
   const demoText = (() => {
-    if (page === '1') return '贵阳市 · 8个服务入口 · 2项内容更新';
-    if (page === '2' || page.startsWith('R')) return '贵阳市实验三中 · 连续打卡12天 · 1,280积分';
-    if (page === '3' || page.startsWith('S')) return '林奕辰 · 6篇成长作品 · 2篇获评优秀';
-    if (page === '4' || page.startsWith('J')) return '林奕辰 · 审核中1篇 · 已刊发2篇';
-    if (page === '5' || page.startsWith('Y')) return '贵州大学 · 已发布3条 · 审核中1条';
-    if (page === '6' || page.startsWith('C')) return '王老师 · 4节公益课 · 1.2万人次观看';
-    if (page === '7' || page.startsWith('K')) return '黔灵山科学观察 · 2条记录 · 1条专家回复';
-    if (page === '8' || page.startsWith('V')) return '高三学生 · 3项测评 · 6所收藏院校';
-    if (page === '9' || page.startsWith('N')) return '订单 GZJY20260918001 · 已支付 · 待派送';
+    if (page === '1') return '8个服务入口 · 2项内容更新';
+    if (page === '2' || page.startsWith('R')) return '3条内容主线 · 8个阅读页面';
+    if (page === '3' || page.startsWith('S')) return '6篇成长作品 · 2篇编辑精选';
+    if (page === '4' || page.startsWith('J')) return '资格审核中 · 2条投稿记录';
+    if (page === '5' || page.startsWith('Y')) return '3条校园内容 · 1条审核中';
+    if (page === '6' || page.startsWith('C')) return '4节公益课 · 直播与回放演示';
+    if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
+    if (page === '8' || page.startsWith('V')) return '公开信息 · 第三方服务待接入';
+    if (page === '9' || page.startsWith('N')) return '数字报预览 · 外部订阅待接入';
     if (page === '10') return '个人中心 · 2项进行中 · 5条成长记录';
     if (page === '12') return '全省活动 · 5项演示 · 2项进行中';
     return '服务中心 · 8类服务 · 3条新消息';
@@ -82,13 +82,13 @@
     #ep-global-nav button{appearance:none!important;border:0!important;background:transparent!important;margin:0!important;padding:8px 2px 7px!important;min-width:0!important;min-height:68px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;color:#879a94!important;font:600 14px/1.1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif!important;letter-spacing:0!important;box-shadow:none!important;border-radius:0!important;transform:none!important}
     #ep-global-nav button:active{background:#f4f8f6!important}
     #ep-global-nav button:focus-visible{outline:3px solid #efbd23!important;outline-offset:-3px!important}
-    #ep-global-nav svg{display:block!important;width:29px!important;height:29px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.9!important;stroke-linecap:round!important;stroke-linejoin:round!important;flex:none!important}
+    #ep-global-nav .material-symbols-outlined{display:block!important;font-size:27px!important;line-height:1!important;font-variation-settings:'FILL' 0,'wght' 420,'GRAD' 0,'opsz' 24!important;flex:none!important}
     #ep-global-nav button[data-active="true"]{color:#087f73!important;font-weight:700!important}
-    #ep-global-nav button[data-active="true"] svg{stroke-width:2.35!important}
+    #ep-global-nav button[data-active="true"] .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 520,'GRAD' 0,'opsz' 24!important}
     .ep-demo-strip{box-sizing:border-box!important;margin:8px 16px 12px!important;padding:9px 12px!important;display:flex!important;align-items:center!important;gap:8px!important;min-height:38px!important;border:1px solid #dcebe5!important;border-radius:12px!important;background:#f2faf7!important;color:#526a63!important;font:500 12px/1.45 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif!important;box-shadow:none!important}
     .ep-demo-strip strong{flex:none!important;padding:2px 6px!important;border-radius:5px!important;background:#dff3ec!important;color:#087f73!important;font-weight:700!important}
     .ep-demo-strip span{min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
-    @media(max-width:360px){#ep-global-nav button{font-size:13px!important}#ep-global-nav svg{width:27px!important;height:27px!important}}
+    @media(max-width:360px){#ep-global-nav button{font-size:13px!important}#ep-global-nav .material-symbols-outlined{font-size:25px!important}}
   `;
   document.head.append(style);
 
