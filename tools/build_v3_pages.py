@@ -43,9 +43,9 @@ def page(page_id, title, body, active="首页", subtitle="", home=False):
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260920-v3c2"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260920-v3c3"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260920-v3c2"></script><script src="{prefix}routes.js?v=20260920-v3c2"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260920-v3c3"></script><script src="{prefix}routes.js?v=20260920-v3c3"></script></body></html>'''
 
 
 pages = {}
