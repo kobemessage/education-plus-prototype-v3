@@ -43,9 +43,9 @@ def page(page_id, title, body, active="首页", subtitle="", home=False):
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260920-v3c3"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260920-v3c6"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260920-v3c3"></script><script src="{prefix}routes.js?v=20260920-v3c3"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260920-v3c6"></script><script src="{prefix}routes.js?v=20260920-v3c6"></script></body></html>'''
 
 
 pages = {}
@@ -59,8 +59,8 @@ pages["01.html"] = page("1", "教育Plus", '''
 <button class="v3-entry" onclick="v3Go('2')">''' + icon("menu_book") + '''<strong>读书会</strong></button>
 <button class="v3-entry" onclick="v3Go('3')">''' + icon("draw") + '''<strong>少年派</strong></button>
 <button class="v3-entry" onclick="v3Go('4')">''' + icon("photo_camera") + '''<strong>小记者</strong></button>
-<button class="v3-entry" onclick="v3Go('5')">''' + icon("school") + '''<strong>教育看板</strong></button>
-<button class="v3-entry" onclick="v3Go('6')">''' + icon("co_present") + '''<strong>公益课堂</strong></button>
+<button class="v3-entry" onclick="v3Go('5')">''' + icon("school") + '''<strong>致青春</strong></button>
+<button class="v3-entry" onclick="v3Go('6')">''' + icon("co_present") + '''<strong>公益课</strong></button>
 <button class="v3-entry" onclick="v3Go('7')">''' + icon("science") + '''<strong>科学港</strong></button>
 <button class="v3-entry" onclick="v3Go('8')">''' + icon("explore") + '''<strong>填志愿</strong></button>
 <button class="v3-entry" onclick="v3Go('9')">''' + icon("newspaper") + '''<strong>订报刊</strong></button>
@@ -68,7 +68,7 @@ pages["01.html"] = page("1", "教育Plus", '''
 <section class="v3-section"><div class="v3-section-head"><h3>正在直播</h3><span>微信视频号待接入</span></div>
 ''' + row("数学专题公益课", "函数图像与解题思路 · 1.2万人观看（演示）", "6", image="assets/v3/public-class.jpg", state="直播中") + '''</section>
 <section class="v3-section"><div class="v3-section-head"><h3>今日推荐</h3><button class="v3-more" onclick="v3Go('12')">查看全部</button></div>
-''' + row("校园里的春天：一场关于成长的对话", "教育看板 · 校园生活图文精选（演示）", "5", image="assets/v3/campus-view.jpg") + '''</section>
+''' + row("校园里的春天：一场关于成长的对话", "致青春 · 校园生活图文精选（演示）", "5", image="assets/v3/campus-view.jpg") + '''</section>
 <div class="v3-note info">V3.0 为交互原型。人物、学校、活动和作品均为演示数据；外部平台、视频号及订阅服务尚未真实接入。</div>
 ''', home=True)
 
@@ -88,8 +88,8 @@ pages["02.html"] = page("2", "读书会", '''
 <div class="v3-note info">校园读书会由平台后台统一配置，前台不提供自主创建、积分、排行或打卡入口。</div>
 ''', subtitle="阅读 · 思考 · 分享 · 成长")
 
-pages["06.html"] = page("6", "公益课堂", '''
-<section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课堂教学演示图"><div>
+pages["06.html"] = page("6", "公益课", '''
+<section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>
 <small>直播 · 回放 · 课程</small><h2>好课随时回看</h2><p>展示课程内容、教师、参与学校与课程详情。</p><button class="v3-cta" onclick="v3Go('C03')">观看回放</button></div></section>
 <div class="v3-tabs"><button class="v3-tab active">全部课程</button><button class="v3-tab">小学</button><button class="v3-tab">初中</button><button class="v3-tab">高中</button><button class="v3-tab">家庭教育</button></div>
 <section class="v3-section"><div class="v3-section-head"><h3>精选回放</h3><span>直接观看</span></div>
@@ -134,7 +134,7 @@ pages["10.html"] = page("10", "我的", '''
 <div class="v3-metric-row"><div class="v3-metric"><strong>6</strong><span>投稿记录</span></div><div class="v3-metric"><strong>3</strong><span>参与活动</span></div><div class="v3-metric"><strong>8</strong><span>内容收藏</span></div></div>
 <section class="v3-section"><div class="v3-section-head"><h3>我的记录</h3><span>统一查看</span></div><div class="v3-list">
 ''' + row("小记者资格与电子证", "等待后台审核（演示）", "J07", icon_name="badge", state="审核中") + '''
-''' + row("我的投稿", "少年派、小记者、教育看板与科学港", "G05", icon_name="edit_document") + '''
+''' + row("我的投稿", "少年派、小记者、致青春与科学港", "G05", icon_name="edit_document") + '''
 ''' + row("参与活动", "查看已经确认的活动记录", "G04", icon_name="event_available") + '''
 ''' + row("我的收藏", "收藏的文章、课程与作品", "G03", icon_name="favorite") + '''
 ''' + row("个人资料", "维护演示账号基础信息", "G06", icon_name="manage_accounts") + '''
@@ -145,7 +145,7 @@ services = [
     ("2", "读书会", "共读与名家阅读", "menu_book"),
     ("3", "少年派", "作品与赛事", "draw"),
     ("4", "小记者", "采写成长", "photo_camera"),
-    ("5", "教育看板", "高校内容", "school"),
+    ("5", "致青春", "高校内容", "school"),
     ("7", "科学港", "科学成果", "science"),
 ]
 service_cards = "".join(
@@ -156,7 +156,7 @@ pages["11.html"] = page("11", "服务", f'''
 <section class="v3-hero"><small>教育Plus V3.0 · 服务大厅</small><h2>内容专区<br>与便民工具</h2><p>八个入口直达对应模块，功能边界清晰呈现。</p></section>
 <section class="v3-section"><div class="v3-section-head"><h3>内容专区</h3><span>5项</span></div><div class="v3-grid">{service_cards}</div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>便民工具</h3><span>3项</span></div><div class="v3-grid three">
-<button class="v3-card" onclick="v3Go('6')">{icon("co_present")}<strong>公益课堂</strong><p>直播回放</p></button>
+<button class="v3-card" onclick="v3Go('6')">{icon("co_present")}<strong>公益课</strong><p>直播回放</p></button>
 <button class="v3-card" onclick="v3Go('8')">{icon("explore","blue")}<strong>填志愿</strong><p>外部导引</p></button>
 <button class="v3-card" onclick="v3Go('9')">{icon("newspaper","amber")}<strong>订报刊</strong><p>数字展读</p></button></div></section>
 <div class="v3-note info">所有人物、数据与内容均为演示；外部服务为待接入占位，不采集真实交易信息。</div>
@@ -205,16 +205,16 @@ pages["stitch/N02.html"] = page("N02", "外部订阅服务说明", '''
 <section class="v3-hero"><small>外部平台跳转占位</small><h2>前往官方<br>订阅服务</h2><p>正式上线后由贵州教育报确认目标小程序与跳转方式。</p></section><div class="v3-note">继续后将离开教育Plus。订阅购买、支付、配送、发票和售后由外部官方订阅服务提供并承担责任。</div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('外部订阅服务待接入')">继续前往（演示）</button><button class="v3-btn secondary" onclick="v3Go('9')">暂不前往</button></div>
 ''', active="服务")
 
-pages["stitch/C01.html"] = page("C01", "公益课堂详情", '''
-<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课堂演示图"><div><small>课程回放 · 语文</small><h2>把家乡写进作文里</h2><p>教师与合作学校信息待确认</p></div></section><div class="v3-card"><strong>课程大纲</strong><p>1. 从生活中寻找题材<br>2. 用动作与细节塑造人物<br>3. 让结尾回到具体画面</p></div><section class="v3-section"><div class="v3-section-head"><h3>回放章节</h3><span>时长演示</span></div><div class="v3-list">
+pages["stitch/C01.html"] = page("C01", "公益课详情", '''
+<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课演示图"><div><small>课程回放 · 语文</small><h2>把家乡写进作文里</h2><p>教师与合作学校信息待确认</p></div></section><div class="v3-card"><strong>课程大纲</strong><p>1. 从生活中寻找题材<br>2. 用动作与细节塑造人物<br>3. 让结尾回到具体画面</p></div><section class="v3-section"><div class="v3-section-head"><h3>回放章节</h3><span>时长演示</span></div><div class="v3-list">
 ''' + row("第一章：从身边发现好故事", "12:30 · 演示", "C03", icon_name="play_circle") + '''
 ''' + row("第二章：让细节会说话", "15:40 · 演示", "C03", icon_name="play_circle") + '''</div></section>
 ''', active="服务")
-pages["stitch/C02.html"] = page("C02", "公益课堂直播", '''
-<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课堂直播演示图"><div><small>外部直播 · 演示</small><h2>阅读如何帮助我们写作</h2><p>直播时间与教师信息待确认</p></div></section><div class="v3-note">直播将在贵州教育报确认的视频号播放。当前仅为跳转占位，不代表视频号或账号能力已接入。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('微信视频号待接入')">即将跳转微信视频号（演示）</button>
+pages["stitch/C02.html"] = page("C02", "公益课直播", '''
+<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课直播演示图"><div><small>外部直播 · 演示</small><h2>阅读如何帮助我们写作</h2><p>直播时间与教师信息待确认</p></div></section><div class="v3-note">直播将在贵州教育报确认的视频号播放。当前仅为跳转占位，不代表视频号或账号能力已接入。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('微信视频号待接入')">即将跳转微信视频号（演示）</button>
 ''', active="服务")
-pages["stitch/C03.html"] = page("C03", "公益课堂回放", '''
-<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课堂回放演示图"><div><small>视频回放 · 演示</small><h2>把家乡写进作文里</h2><p>第一章：从身边发现好故事</p></div></section><div class="v3-card" style="aspect-ratio:16/9;display:grid;place-items:center;background:#153f37;color:white"><button class="v3-btn" onclick="v3Toast('开始播放演示视频')"><span class="material-symbols-outlined" style="vertical-align:middle">play_arrow</span> 播放回放</button></div><section class="v3-section"><div class="v3-card"><strong>本章要点</strong><p>观察熟悉的人、地点与生活片段，记录真实细节，再提炼清晰主题。</p></div></section><div class="v3-note info">视频内容与播放能力均为原型演示。</div>
+pages["stitch/C03.html"] = page("C03", "公益课回放", '''
+<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课回放演示图"><div><small>视频回放 · 演示</small><h2>把家乡写进作文里</h2><p>第一章：从身边发现好故事</p></div></section><div class="v3-card" style="aspect-ratio:16/9;display:grid;place-items:center;background:#153f37;color:white"><button class="v3-btn" onclick="v3Toast('开始播放演示视频')"><span class="material-symbols-outlined" style="vertical-align:middle">play_arrow</span> 播放回放</button></div><section class="v3-section"><div class="v3-card"><strong>本章要点</strong><p>观察熟悉的人、地点与生活片段，记录真实细节，再提炼清晰主题。</p></div></section><div class="v3-note info">视频内容与播放能力均为原型演示。</div>
 ''', active="服务")
 
 for path, content in pages.items():

@@ -8,7 +8,7 @@
     ['10', '我的', '<span class="material-symbols-outlined" aria-hidden="true">person</span>']
   ];
 
-  const labels = ['首页', '书会', '读书会', '少年派', '小记者', '教育看板', '公益课堂', '科学港', '填志愿', '订报刊', '服务', '活动', '我的'];
+  const labels = ['首页', '书会', '读书会', '少年派', '小记者', '致青春', '公益课', '科学港', '填志愿', '订报刊', '服务', '活动', '我的'];
   const iconLabels = {
     arrow_back: '返回', arrow_back_ios: '返回', arrow_back_ios_new: '返回', close: '关闭',
     more_horiz: '更多', person: '个人中心', account_circle: '个人中心', notifications: '消息通知',

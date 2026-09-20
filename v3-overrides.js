@@ -1,6 +1,6 @@
 (()=>{
   const id=String(window.EP_PAGE||'');
-  const replacements=[['致青春','教育看板'],['名师公益课','公益课堂'],['公益课','公益课堂'],['科学追问官','小小发明家']];
+  const replacements=[['科学追问官','小小发明家']];
   const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
   while(n=walk.nextNode()){if(n.parentElement&&/^(SCRIPT|STYLE)$/.test(n.parentElement.tagName))continue;let s=n.nodeValue;for(const [a,b] of replacements)s=s.split(a).join(b);n.nodeValue=s}
   const mark=document.createElement('div');mark.className='v3-global-mark';mark.textContent='[演示数据] · V3.0 原型';document.body.append(mark);
