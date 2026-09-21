@@ -45,9 +45,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c13"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c14"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c13"></script><script src="{prefix}routes.js?v=20260921-v3c13"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c14"></script><script src="{prefix}routes.js?v=20260921-v3c14"></script></body></html>'''
 
 
 pages = {}
@@ -77,7 +77,10 @@ pages["01.html"] = page("1", "教育Plus", '''
 pages["02.html"] = page("2", "读书会", '''
 <section class="v3-hero has-image"><img src="assets/v3/reading-campus.jpg" alt="校园共读演示图"><div>
 <small>阅读 · 思考 · 分享 · 成长</small><h2>在书中遇见<br>更好的自己</h2><p>聚焦领读、共读与名家阅读三条内容主线。</p></div></section>
-<div class="v3-tabs" aria-label="读书会栏目"><button class="v3-tab active" onclick="v3Go('R12')">大家一起读</button><button class="v3-tab" onclick="v3Go('R03')">名家谈阅读</button><button class="v3-tab" onclick="v3Go('R01')">做领读员</button></div>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid" aria-label="读书会二级导航">
+<button class="v3-card" onclick="v3Go('R12')">''' + icon("groups_3") + '''<strong>大家一起读</strong><p>校园共读与主题书单</p></button>
+<button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>访谈、讲座与阅读方法</p></button>
+<button class="v3-card" onclick="v3Go('R01')">''' + icon("co_present", "blue") + '''<strong>做领读员</strong><p>培训课程与领读实践</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>领读精选</h3><button class="v3-more" onclick="v3Go('R01')">更多</button></div>
 ''' + row("主题书单：在山水与文字之间认识贵州", "分龄阅读建议 · 编辑精选（演示）", "R07", image="assets/v3/reading-campus.jpg", state="主题书单") + '''</section>
 <section class="v3-panel"><div class="v3-section-head"><h3>共读书目</h3><button class="v3-more" onclick="v3Go('R12')">更多</button></div>
@@ -93,7 +96,7 @@ pages["02.html"] = page("2", "读书会", '''
 pages["03.html"] = page("3", "少年派", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="校园学生创作演示图"><div>
 <small>写作 · 艺术 · 展示 · 成长</small><h2>让每一次创作<br>都被认真看见</h2><p>展示学生作品、热门赛事、名师指导与成长档案。</p><button class="v3-cta" onclick="v3Go('S02')">提交作品</button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>创作与成长</h3><span>4项服务</span></div><div class="v3-grid">
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>创作与成长</h3><span>4项服务</span></div><div class="v3-grid" aria-label="少年派二级导航">
 <button class="v3-card" onclick="v3Go('S01')">''' + icon("gallery_thumbnail") + '''<strong>作品展示</strong><p>图文与艺术作品精选</p></button>
 <button class="v3-card" onclick="v3Go('S03')">''' + icon("campaign","amber") + '''<strong>热门赛事</strong><p>查看征集主题与规则</p></button>
 <button class="v3-card" onclick="v3Go('S05')">''' + icon("rate_review","blue") + '''<strong>名师指导</strong><p>查看编辑与教师建议</p></button>
@@ -107,31 +110,37 @@ pages["03.html"] = page("3", "少年派", '''
 pages["04.html"] = page("4", "小记者", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="校园小记者采写演示图"><div>
 <small>入驻 · 采写 · 作品 · 荣誉</small><h2>记录校园现场<br>写下真实成长</h2><p>从资格申请到采写投稿，形成线上作品成长档案。</p></div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>小记者入驻</h3><span>资料提交 · 资格审核</span></div><div class="v3-grid">
-<button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>申请入驻</strong><p>填写资料与学校推荐</p></button>
-<button class="v3-card" onclick="v3Go('J08')">''' + icon("fact_check","amber") + '''<strong>资格审核</strong><p>查看材料核验进度</p></button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>采写成长</h3><span>4项功能</span></div><div class="v3-grid">
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>采写与成长</h3><span>4项服务</span></div><div class="v3-grid" aria-label="小记者二级导航">
+<button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>入驻资格</strong><p>提交资料与学校推荐</p></button>
 <button class="v3-card" onclick="v3Go('J02')">''' + icon("edit_note") + '''<strong>采写投稿</strong><p>提交校园新闻与专访</p></button>
 <button class="v3-card" onclick="v3Go('J04')">''' + icon("folder_copy","blue") + '''<strong>作品档案</strong><p>查看录用与刊发记录</p></button>
-<button class="v3-card" onclick="v3Go('J05')">''' + icon("photo_camera") + '''<strong>小记者风采</strong><p>优秀作品与个人展示</p></button>
-<button class="v3-card" onclick="v3Go('J06')">''' + icon("workspace_premium","amber") + '''<strong>风采荣誉</strong><p>查看见报与入选证明</p></button></div></section>
+<button class="v3-card" onclick="v3Go('J05')">''' + icon("workspace_premium","amber") + '''<strong>风采荣誉</strong><p>优秀小记者与作品荣誉</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>资格与荣誉状态</h3><span>在线查询</span></div><div class="v3-list">
+''' + row("资格审核", "查看学校推荐材料核验进度", "J08", icon_name="fact_check", state="审核中") + '''
+''' + row("荣誉证书", "查看见报与优秀作品入选证明", "J06", icon_name="workspace_premium") + '''</div></section>
 <div class="v3-note info">小记者一期仅提供线上资格审核、校园采写、投稿与作品展示，不包含线下研学、活动报名、签到、核销或实践学时。</div>
 ''', subtitle="入驻资格 · 采写投稿 · 作品档案")
 
 pages["05.html"] = page("5", "致青春", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="高校校园生活演示图"><div>
 <small>高校青年内容共创</small><h2>看见大学里的<br>青春与创造</h2><p>展示校园生活、社团风采和教育报主题活动。</p></div></section>
-<div class="v3-tabs" aria-label="致青春栏目"><button class="v3-tab active" onclick="v3Go('Y01')">我的大学</button><button class="v3-tab" onclick="v3Go('Y02')">多彩社团</button><button class="v3-tab" onclick="v3Go('Y03')">主题活动</button></div>
-<section class="v3-panel v3-youth-entry"><div><span class="material-symbols-outlined">edit_square</span><span><strong>创作入口</strong><small>图文或短视频 · 统一审核</small></span></div><button class="v3-btn" onclick="v3Go('Y04')">发布创作</button></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>青春内容</h3><span>4项服务</span></div><div class="v3-grid" aria-label="致青春二级导航">
+<button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>我的大学</strong><p>校园生活与青春故事</p></button>
+<button class="v3-card" onclick="v3Go('Y02')">''' + icon("groups", "blue") + '''<strong>多彩社团</strong><p>社团入驻与风采展示</p></button>
+<button class="v3-card" onclick="v3Go('Y03')">''' + icon("campaign", "amber") + '''<strong>主题活动</strong><p>教育报组织的线上征集</p></button>
+<button class="v3-card" onclick="v3Go('Y04')">''' + icon("edit_square") + '''<strong>创作入口</strong><p>发布图文或短视频</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>我的大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
 ''' + row("晚风穿过图书馆：我的大学普通一天", "某高校 · 林*同学 · 图文 [演示数据]", "Y01", image="assets/v3/campus-view.jpg") + '''</section>
-<section class="v3-grid"><button class="v3-card" onclick="v3Go('Y02')">''' + icon("groups") + '''<strong>社团入驻</strong><p>提交资料并查看资格审核</p></button><button class="v3-card" onclick="v3Go('Y03')">''' + icon("campaign","amber") + '''<strong>教育报主题活动</strong><p>查看线上征集与展播</p></button></section>
 <div class="v3-note info">社团入驻与个人创作使用不同入口；主题活动由教育报组织发布，所有内容和状态均为演示数据。</div>
 ''', subtitle="我的大学 · 多彩社团 · 主题活动")
 
 pages["06.html"] = page("6", "公益课", '''
 <section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>
 <small>直播 · 回放 · 课程</small><h2>好课随时回看</h2><p>展示课程内容、教师、参与学校与课程详情。</p><button class="v3-cta" onclick="v3Go('C03')">观看回放</button></div></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>公益课服务</h3><span>3项服务</span></div><div class="v3-grid" aria-label="公益课二级导航">
+<button class="v3-card" onclick="v3Go('C03')">''' + icon("play_circle") + '''<strong>课程回放</strong><p>按课程主题观看回放</p></button>
+<button class="v3-card" onclick="v3Go('C01')">''' + icon("menu_book", "blue") + '''<strong>课程详情</strong><p>查看教师、学校与大纲</p></button>
+<button class="v3-card" onclick="v3Go('C02')">''' + icon("live_tv", "amber") + '''<strong>直播说明</strong><p>视频号直播待接入</p></button></div></section>
 <section class="v3-course-search" aria-label="公益课搜索">
   <div class="v3-search-box"><span class="material-symbols-outlined" aria-hidden="true">search</span><input id="courseSearch" type="search" aria-label="搜索老师、课程或基本信息" placeholder="搜索老师、课程或基本信息" autocomplete="off" oninput="v3SearchCourses(this)"><button id="courseSearchClear" class="v3-search-clear" type="button" onclick="v3ClearCourseSearch()" hidden>清除</button></div>
   <div class="v3-search-hint">可搜索教师、课程名称、学段、学科与课程关键词</div>
@@ -151,28 +160,32 @@ pages["06.html"] = page("6", "公益课", '''
 pages["07.html"] = page("7", "科学港", '''
 <section class="v3-hero has-image"><img src="assets/v3/science-lab.jpg" alt="学生制作机器人演示图"><div>
 <small>探索 · 实践 · 创造 · 分享</small><h2>好奇心<br>让世界更精彩</h2><p>展示科学活动、作品与探访记录。</p></div></section>
-<section class="v3-list">
-''' + row("小小发明家", "奇思妙想，从校园真实问题开始", "K03", image="assets/v3/science-lab.jpg") + '''
-''' + row("一起来寻宝", "发现身边的科学，提交探访作品", "K02", image="assets/v3/campus-view.jpg") + '''
-''' + row("科普作品", "用作品分享科学发现与创意", "K01", icon_name="experiment") + '''
-''' + row("探访记录", "走进实践现场，记录真实体验", "K04", icon_name="fact_check") + '''
-''' + row("编辑答疑", "编辑部整理发布的科普内容", "K05", icon_name="forum", state="内容栏目") + '''
-</section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>科学探索</h3><span>5项服务</span></div><div class="v3-grid" aria-label="科学港二级导航">
+<button class="v3-card" onclick="v3Go('K03')">''' + icon("precision_manufacturing") + '''<strong>小小发明家</strong><p>从真实问题开始创造</p></button>
+<button class="v3-card" onclick="v3Go('K02')">''' + icon("travel_explore", "amber") + '''<strong>一起来寻宝</strong><p>发现身边的科学宝藏</p></button>
+<button class="v3-card" onclick="v3Go('K01')">''' + icon("experiment", "blue") + '''<strong>科普作品</strong><p>分享科学发现与创意</p></button>
+<button class="v3-card" onclick="v3Go('K04')">''' + icon("fact_check") + '''<strong>探访记录</strong><p>记录线上探访成果</p></button>
+<button class="v3-card" onclick="v3Go('K05')">''' + icon("forum", "amber") + '''<strong>编辑答疑</strong><p>编辑部精编科普内容</p></button></div></section>
 <div class="v3-note info">科学港展示活动成果和编辑内容，不提供用户向科学家实时提问、专家答复或竞赛获奖承诺。</div>
 ''', subtitle="探索 · 实践 · 创造 · 分享")
 
 pages["08.html"] = page("8", "填志愿", '''
 <section class="v3-hero"><small>升学信息导引 · 外部服务待接入</small><h2>查公开信息<br>做理性选择</h2><p>汇总政策信息与第三方服务入口，不提供录取概率或录取结果承诺。</p></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>信息服务</h3><span>以正式发布为准</span></div><div class="v3-grid">
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>信息服务</h3><span>4项服务</span></div><div class="v3-grid" aria-label="填志愿二级导航">
 <button class="v3-card" onclick="v3Go('V01')">''' + icon("policy") + '''<strong>招考政策</strong><p>查看公开政策和时间节点</p></button>
 <button class="v3-card" onclick="v3Go('V01')">''' + icon("database","blue") + '''<strong>公开数据</strong><p>汇总官方可查信息目录</p></button>
-<button class="v3-card" onclick="v3Go('V02')">''' + icon("open_in_new","amber") + '''<strong>第三方服务</strong><p>了解跳转范围与责任边界</p></button>
-<button class="v3-card" onclick="v3Toast('院校检索待接入')">''' + icon("search") + '''<strong>院校检索</strong><p>功能入口占位</p></button></div></section>
+<button class="v3-card" onclick="v3Toast('院校检索待接入')">''' + icon("search") + '''<strong>院校检索</strong><p>公开检索功能待接入</p></button>
+<button class="v3-card" onclick="v3Go('V02')">''' + icon("open_in_new","amber") + '''<strong>第三方服务</strong><p>了解跳转范围与责任边界</p></button></div></section>
 <div class="v3-note">外部平台尚未真实接入。所有信息仅供参考，请以教育主管部门和招生院校正式发布为准。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('第三方平台待接入')">前往第三方平台（演示）</button>
 ''', active="服务", subtitle="公开信息 · 理性参考")
 
 pages["09.html"] = page("9", "订报刊", '''
 <section class="v3-hero"><small>贵州教育报 · 数字展读</small><h2>本期报纸<br>抢先看</h2><p>浏览头版与精选版面；正式订阅将前往官方订阅服务。</p></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>报刊服务</h3><span>4项服务</span></div><div class="v3-grid" aria-label="订报刊二级导航">
+<button class="v3-card" onclick="document.querySelector('.v3-paper').scrollIntoView({behavior:'smooth',block:'start'})">''' + icon("newspaper") + '''<strong>本期报纸</strong><p>查看当期头版演示</p></button>
+<button class="v3-card" onclick="v3Go('N01')">''' + icon("article", "blue") + '''<strong>精选版面</strong><p>浏览数字版面导读</p></button>
+<button class="v3-card" onclick="v3Go('N02')">''' + icon("open_in_new", "amber") + '''<strong>订阅说明</strong><p>官方订阅服务待接入</p></button>
+<button class="v3-card" onclick="v3Toast('订阅咨询方式待甲方确认')">''' + icon("support_agent") + '''<strong>订阅咨询</strong><p>热线与渠道待确认</p></button></div></section>
 <div class="v3-paper"><div class="mast">贵州教育报</div><div class="headline">记录校园里的真实成长与教育实践</div><div class="cols"></div><small>演示版面 · 期号待确认</small></div>
 <section class="v3-section"><div class="v3-section-head"><h3>精选版面</h3><span>图片 / PDF 预览</span></div><div class="v3-grid"><button class="v3-card" onclick="v3Go('N01')">''' + icon("article") + '''<strong>校园新闻</strong><p>版面导读 · 演示</p></button><button class="v3-card" onclick="v3Go('N01')">''' + icon("groups","blue") + '''<strong>师生成长</strong><p>作品精选 · 演示</p></button></div></section>
 <div class="v3-note">订阅购买、支付、配送、发票与对公信息由外部官方订阅服务负责，本原型不处理交易。</div><div class="v3-actions"><button class="v3-btn" onclick="v3Go('N02')">订阅服务说明</button><button class="v3-btn secondary" onclick="v3Toast('咨询方式待确认')">订阅咨询</button></div>
