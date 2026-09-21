@@ -43,9 +43,9 @@ def page(page_id, title, body, active="首页", subtitle="", home=False):
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260920-v3c6"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c10"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260920-v3c6"></script><script src="{prefix}routes.js?v=20260920-v3c6"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c10"></script><script src="{prefix}routes.js?v=20260921-v3c10"></script></body></html>'''
 
 
 pages = {}
@@ -91,10 +91,18 @@ pages["02.html"] = page("2", "读书会", '''
 pages["06.html"] = page("6", "公益课", '''
 <section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>
 <small>直播 · 回放 · 课程</small><h2>好课随时回看</h2><p>展示课程内容、教师、参与学校与课程详情。</p><button class="v3-cta" onclick="v3Go('C03')">观看回放</button></div></section>
-<div class="v3-tabs"><button class="v3-tab active">全部课程</button><button class="v3-tab">小学</button><button class="v3-tab">初中</button><button class="v3-tab">高中</button><button class="v3-tab">家庭教育</button></div>
-<section class="v3-section"><div class="v3-section-head"><h3>精选回放</h3><span>直接观看</span></div>
-''' + row("数学专题公益课", "教师信息待确认 · 初中数学 · 42分钟", "C03", image="assets/v3/public-class.jpg", state="可回放") + '''
-<div style="height:10px"></div>''' + row("把家乡写进作文里", "教师信息待确认 · 小学语文 · 36分钟", "C01", icon_name="play_circle") + '''</section>
+<section class="v3-course-search" aria-label="公益课搜索">
+  <div class="v3-search-box"><span class="material-symbols-outlined" aria-hidden="true">search</span><input id="courseSearch" type="search" aria-label="搜索老师、课程或基本信息" placeholder="搜索老师、课程或基本信息" autocomplete="off" oninput="v3SearchCourses(this)"><button id="courseSearchClear" class="v3-search-clear" type="button" onclick="v3ClearCourseSearch()" hidden>清除</button></div>
+  <div class="v3-search-hint">可搜索教师、课程名称、学段、学科与课程关键词</div>
+</section>
+<section class="v3-section"><div class="v3-section-head"><h3>精选回放</h3><span id="courseSearchCount">共 3 门演示课程</span></div>
+<div class="v3-list" id="courseSearchResults">
+<button class="v3-row" data-course-search="周老师 数学专题公益课 初中数学 函数图像 解题思路 42分钟 回放" onclick="v3Go('C03')"><img class="v3-thumb" src="assets/v3/public-class.jpg" alt="演示内容配图"><span class="grow"><strong>数学专题公益课</strong><p>周老师（演示） · 初中数学 · 函数图像 · 42分钟</p></span><span class="v3-state">可回放</span></button>
+<button class="v3-row" data-course-search="陈老师 把家乡写进作文里 小学语文 写作方法 生活观察 36分钟 回放" onclick="v3Go('C01')"><span class="v3-icon"><span class="material-symbols-outlined">play_circle</span></span><span class="grow"><strong>把家乡写进作文里</strong><p>陈老师（演示） · 小学语文 · 写作方法 · 36分钟</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" data-course-search="王老师 陪孩子建立阅读习惯 家庭教育 亲子阅读 阅读习惯 28分钟 回放" onclick="v3Toast('课程详情为演示内容')"><span class="v3-icon amber"><span class="material-symbols-outlined">family_restroom</span></span><span class="grow"><strong>陪孩子建立阅读习惯</strong><p>王老师（演示） · 家庭教育 · 亲子阅读 · 28分钟</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="v3-search-empty" id="courseSearchEmpty" hidden><span class="material-symbols-outlined" aria-hidden="true">search_off</span><strong>没有找到相关课程</strong><p>请尝试搜索教师、课程名称、学段或其他关键词。</p><button type="button" onclick="v3ClearCourseSearch()">清除搜索</button></div>
+</section>
 <section class="v3-panel"><div class="v3-section-head"><h3>下一场直播</h3><span>时间待确认</span></div><p style="font-size:12px;color:var(--v3-muted);line-height:1.7;margin:0">正式直播将在贵州教育报确认的视频号中进行。当前仅展示跳转和直播占位状态。</p><div class="v3-actions"><button class="v3-btn" onclick="v3Go('C02')">查看直播说明</button></div></section>
 <div class="v3-note">视频号和账号能力尚未接入；本模块不提供资料下载、学习时长统计或直播预约。</div>
 ''', active="服务", subtitle="直播 · 回放 · 课程")
@@ -206,15 +214,15 @@ pages["stitch/N02.html"] = page("N02", "外部订阅服务说明", '''
 ''', active="服务")
 
 pages["stitch/C01.html"] = page("C01", "公益课详情", '''
-<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课演示图"><div><small>课程回放 · 语文</small><h2>把家乡写进作文里</h2><p>教师与合作学校信息待确认</p></div></section><div class="v3-card"><strong>课程大纲</strong><p>1. 从生活中寻找题材<br>2. 用动作与细节塑造人物<br>3. 让结尾回到具体画面</p></div><section class="v3-section"><div class="v3-section-head"><h3>回放章节</h3><span>时长演示</span></div><div class="v3-list">
-''' + row("第一章：从身边发现好故事", "12:30 · 演示", "C03", icon_name="play_circle") + '''
-''' + row("第二章：让细节会说话", "15:40 · 演示", "C03", icon_name="play_circle") + '''</div></section>
+<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课演示图"><div><small>课程回放 · 语文</small><h2>把家乡写进作文里</h2><p>陈老师（演示） · 合作学校待确认</p></div></section><div class="v3-card"><strong>课程大纲</strong><p>1. 从生活中寻找题材<br>2. 用动作与细节塑造人物<br>3. 让结尾回到具体画面</p></div><section class="v3-section"><div class="v3-section-head"><h3>回放章节</h3><span>时长演示</span></div><div class="v3-list">
+<button class="v3-row" onclick="v3Toast('章节回放为演示内容')">''' + icon("play_circle") + '''<span class="grow"><strong>第一章：从身边发现好故事</strong><p>12:30 · 演示</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" onclick="v3Toast('章节回放为演示内容')">''' + icon("play_circle") + '''<span class="grow"><strong>第二章：让细节会说话</strong><p>15:40 · 演示</p></span><span class="material-symbols-outlined">chevron_right</span></button></div></section>
 ''', active="服务")
 pages["stitch/C02.html"] = page("C02", "公益课直播", '''
 <section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课直播演示图"><div><small>外部直播 · 演示</small><h2>阅读如何帮助我们写作</h2><p>直播时间与教师信息待确认</p></div></section><div class="v3-note">直播将在贵州教育报确认的视频号播放。当前仅为跳转占位，不代表视频号或账号能力已接入。</div><button class="v3-btn" style="width:100%" onclick="v3Toast('微信视频号待接入')">即将跳转微信视频号（演示）</button>
 ''', active="服务")
 pages["stitch/C03.html"] = page("C03", "公益课回放", '''
-<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课回放演示图"><div><small>视频回放 · 演示</small><h2>把家乡写进作文里</h2><p>第一章：从身边发现好故事</p></div></section><div class="v3-card" style="aspect-ratio:16/9;display:grid;place-items:center;background:#153f37;color:white"><button class="v3-btn" onclick="v3Toast('开始播放演示视频')"><span class="material-symbols-outlined" style="vertical-align:middle">play_arrow</span> 播放回放</button></div><section class="v3-section"><div class="v3-card"><strong>本章要点</strong><p>观察熟悉的人、地点与生活片段，记录真实细节，再提炼清晰主题。</p></div></section><div class="v3-note info">视频内容与播放能力均为原型演示。</div>
+<section class="v3-hero has-image"><img src="../assets/v3/public-class.jpg" alt="公益课回放演示图"><div><small>视频回放 · 初中数学</small><h2>数学专题公益课</h2><p>周老师（演示） · 函数图像与解题思路</p></div></section><div class="v3-card" style="aspect-ratio:16/9;display:grid;place-items:center;background:#153f37;color:white"><button class="v3-btn" onclick="v3Toast('开始播放演示视频')"><span class="material-symbols-outlined" style="vertical-align:middle">play_arrow</span> 播放回放</button></div><section class="v3-section"><div class="v3-card"><strong>本章要点</strong><p>从坐标系识别函数图像，理解变量关系，并用图像信息梳理解题步骤。</p></div></section><div class="v3-note info">课程教师、视频内容与播放能力均为原型演示。</div>
 ''', active="服务")
 
 for path, content in pages.items():
