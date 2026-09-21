@@ -19,6 +19,14 @@
   document.querySelectorAll('[onclick*="R09"],[onclick*="R10"],[onclick*="R11"],[onclick*="N03"],[onclick*="N04"],[onclick*="N05"],[onclick*="G08"]').forEach(el=>el.style.display='none');
   if(id==='4'){
     const host=document.querySelector('main>div')||document.querySelector('main');
-    if(host&&!document.getElementById('v3-journalist-apply')){const a=document.createElement('button');a.id='v3-journalist-apply';a.className='w-full rounded-xl p-4 bg-white shadow-sm text-left flex items-center gap-3';a.innerHTML='<span class="material-symbols-outlined text-primary">how_to_reg</span><span class="flex-1"><b class="block">小记者资格申请</b><small class="text-outline">独立审核 · 需学校盖章推荐材料</small></span><span class="material-symbols-outlined text-primary">chevron_right</span>';a.onclick=()=>window.epGo('J07');host.insertBefore(a,host.children[2]||null)}
+    if(host&&!document.getElementById('v3-journalist-onboarding')){
+      const section=document.createElement('section');
+      section.id='v3-journalist-onboarding';
+      section.className='v3-journalist-onboarding';
+      section.setAttribute('aria-label','小记者入驻与资格审核');
+      section.innerHTML='<div class="v3-journalist-onboarding-head"><div><span class="material-symbols-outlined">how_to_reg</span><strong>小记者入驻</strong></div><span>提交资料 · 资格审核</span></div><div class="v3-journalist-onboarding-grid"><button type="button" data-onboarding-route="J07"><span class="v3-icon"><span class="material-symbols-outlined">person_add</span></span><span><strong>申请入驻</strong><small>填写资料与学校推荐</small></span><span class="material-symbols-outlined">chevron_right</span></button><button type="button" data-onboarding-route="J08"><span class="v3-icon amber"><span class="material-symbols-outlined">fact_check</span></span><span><strong>资格审核</strong><small>查看材料核验进度</small></span><span class="material-symbols-outlined">chevron_right</span></button></div>';
+      section.querySelectorAll('[data-onboarding-route]').forEach(button=>button.onclick=()=>window.epGo(button.dataset.onboardingRoute));
+      host.insertBefore(section,host.children[2]||null);
+    }
   }
 })();
