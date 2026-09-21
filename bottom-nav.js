@@ -1,6 +1,7 @@
 (() => {
-  const page = String(window.EP_PAGE || document.documentElement.dataset.page || '');
-  const activeRoute = page === '1' ? '1' : page === '12' ? '12' : page === '10' ? '10' : '11';
+  const inferredPage = (location.pathname.match(/\/([A-Z]\d{2}|\d{2})\.html$/i) || [])[1] || '';
+  const page = String(window.EP_PAGE || document.documentElement.dataset.page || inferredPage).replace(/^0+(?=\d)/, '');
+  const activeRoute = page === '1' ? '1' : page === '12' ? '12' : (page === '10' || page.startsWith('G')) ? '10' : '11';
   const items = [
     ['1', '首页', '<span class="material-symbols-outlined" aria-hidden="true">home</span>'],
     ['11', '服务', '<span class="material-symbols-outlined" aria-hidden="true">apps</span>'],
@@ -27,7 +28,7 @@
     if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
     if (page === '8' || page.startsWith('V')) return '公开信息 · 第三方服务待接入';
     if (page === '9' || page.startsWith('N')) return '数字报预览 · 外部订阅待接入';
-    if (page === '10') return '个人中心 · 2项进行中 · 5条成长记录';
+    if (page === '10' || page.startsWith('G')) return '个人中心 · 2项进行中 · 5条成长记录';
     if (page === '12') return '全省活动 · 5项演示 · 2项进行中';
     return '服务中心 · 8类服务 · 3条新消息';
   })();

@@ -1,32 +1,75 @@
 (()=>{
-  const id=String(window.EP_PAGE||'');
-  const replacements=[['科学追问官','小小发明家']];
-  const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
-  while(n=walk.nextNode()){if(n.parentElement&&/^(SCRIPT|STYLE)$/.test(n.parentElement.tagName))continue;let s=n.nodeValue;for(const [a,b] of replacements)s=s.split(a).join(b);n.nodeValue=s}
-  const mark=document.createElement('div');mark.className='v3-global-mark';mark.textContent='[演示数据] · V3.0 原型';document.body.append(mark);
+  const inferred=(location.pathname.match(/\/([A-Z]\d{2})\.html$/i)||[])[1];
+  const id=String(window.EP_PAGE||inferred||'').toUpperCase();
+  const pageTitles={
+    R01:'做领读员',R02:'领读课程详情',R03:'名家谈阅读',R04:'名家讲座详情',R05:'读后感精选',R06:'读后感详情',R07:'共读书库',R08:'书目详情',R12:'全省校园读书会',R13:'学校读书会主页',
+    S01:'少年派作品详情',S02:'少年派作品投稿',S03:'热门赛事详情',S04:'投稿进度',S05:'名师指导详情',S06:'成长作品档案',
+    J01:'小记者作品详情',J02:'小记者采写投稿',J03:'小记者投稿进度',J04:'小记者作品档案',J05:'小记者风采',J06:'小记者风采荣誉',J07:'小记者入驻申请',J08:'小记者资格审核',
+    Y01:'我的大学动态详情',Y02:'社团入驻申请',Y03:'贵州教育报主题活动',Y04:'创作发布',Y05:'我的发布',
+    C01:'公益课详情',C02:'公益课直播',C03:'公益课回放',
+    K01:'科学成果详情',K02:'一起来寻宝作品提交',K03:'小小发明家作品提交',K04:'我的科学港作品',K05:'编辑答疑',
+    V01:'招考政策与公开数据',V02:'第三方服务接入说明',N01:'数字报精选版面',N02:'外部订阅服务说明',
+    G01:'搜索结果',G02:'消息与通知',G03:'我的收藏',G04:'我的活动记录',G05:'我的投稿',G06:'个人资料',G07:'教育资讯详情'
+  };
+  const groups={R:['读书会','2'],S:['少年派','3'],J:['小记者','4'],Y:['致青春','5'],C:['公益课','6'],K:['科学港','7'],V:['填志愿','8'],N:['订报刊','9'],G:['我的','10']};
+  const group=groups[id[0]]||['教育Plus','1'];
+  const replacements=[['名师公益课','公益课'],['公益课堂','公益课'],['教育看板','致青春'],['科学追问官','编辑答疑']];
+  const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
+  while(node=walk.nextNode()){
+    if(node.parentElement&&/^(SCRIPT|STYLE)$/.test(node.parentElement.tagName))continue;
+    let text=node.nodeValue;
+    for(const [from,to] of replacements)text=text.split(from).join(to);
+    if(/^[JK]/.test(id))text=text.replaceAll('研学手记','探访记录').replaceAll('线下打卡','线下记录');
+    node.nodeValue=text;
+  }
+
+  const isNativeV3=Boolean(document.querySelector('body > .v3-top,body > header.v3-top'));
+  if(!isNativeV3&&id){
+    document.body.classList.add('v3-legacy-unified');
+    const oldHeader=document.querySelector('body > header');
+    if(oldHeader)oldHeader.classList.add('ep-legacy-header');
+    const main=document.querySelector('main');
+    if(main)main.classList.add('ep-unified-main');
+    const header=document.createElement('header');
+    header.className='v3-top ep-unified-top';
+    header.innerHTML=`<button class="v3-back" type="button" aria-label="返回${group[0]}"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>${pageTitles[id]||group[0]}</h1><p>${group[0]} · 教育Plus V3.0</p></div><span class="v3-badge">演示数据</span>`;
+    header.querySelector('button').addEventListener('click',()=>window.epGo?window.epGo(group[1]):history.back());
+    document.body.prepend(header);
+  }
+
+  if(!document.querySelector('.v3-global-mark')){
+    const mark=document.createElement('div');mark.className='v3-global-mark';mark.textContent='[演示数据] · V3.0 原型';document.body.append(mark);
+  }
+
   if(/^R/.test(id)){
     const readingWalk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let readingNode;
     while(readingNode=readingWalk.nextNode()){
       if(readingNode.parentElement&&/^(SCRIPT|STYLE)$/.test(readingNode.parentElement.tagName))continue;
-      readingNode.nodeValue=readingNode.nodeValue.replaceAll('打卡','共读记录').replaceAll('积分','成长记录').replaceAll('排行榜','精选展示').replaceAll('排行','精选');
+      readingNode.nodeValue=readingNode.nodeValue.replaceAll('阅读打卡','共读记录').replaceAll('积分排行','精选展示').replaceAll('阅读积分','成长记录');
     }
-    document.querySelectorAll('[onclick*="openCheckinModal"],#checkinModal').forEach(el=>el.style.display='none');
+    document.querySelectorAll('[onclick*="openCheckinModal"],#checkinModal').forEach(el=>el.hidden=true);
   }
-  const banned=id==='1'?['读书会打卡与共读进度','向科学家提出真实问题']:id==='2'?['阅读打卡','阅读积分','阅读排行']:id==='3'||/^S/.test(id)?['评论区','全部评论','发表评论']:id==='10'?['阅读积分','订单与发票','科学港投稿与提问']:id==='11'?['阅读打卡','科学提问','报刊发票']:[];
-  for(const phrase of banned){
-    for(const el of [...document.querySelectorAll('body *')]){if(el.children.length===0&&el.textContent.trim().includes(phrase)){const box=el.closest('button,a,[class*="rounded"],[class*="grid"]')||el;box.style.display='none'}}
-  }
-  document.querySelectorAll('[onclick*="R09"],[onclick*="R10"],[onclick*="R11"],[onclick*="N03"],[onclick*="N04"],[onclick*="N05"],[onclick*="G08"]').forEach(el=>el.style.display='none');
-  if(id==='4'){
-    const host=document.querySelector('main>div')||document.querySelector('main');
-    if(host&&!document.getElementById('v3-journalist-onboarding')){
-      const section=document.createElement('section');
-      section.id='v3-journalist-onboarding';
-      section.className='v3-journalist-onboarding';
-      section.setAttribute('aria-label','小记者入驻与资格审核');
-      section.innerHTML='<div class="v3-journalist-onboarding-head"><div><span class="material-symbols-outlined">how_to_reg</span><strong>小记者入驻</strong></div><span>提交资料 · 资格审核</span></div><div class="v3-journalist-onboarding-grid"><button type="button" data-onboarding-route="J07"><span class="v3-icon"><span class="material-symbols-outlined">person_add</span></span><span><strong>申请入驻</strong><small>填写资料与学校推荐</small></span><span class="material-symbols-outlined">chevron_right</span></button><button type="button" data-onboarding-route="J08"><span class="v3-icon amber"><span class="material-symbols-outlined">fact_check</span></span><span><strong>资格审核</strong><small>查看材料核验进度</small></span><span class="material-symbols-outlined">chevron_right</span></button></div>';
-      section.querySelectorAll('[data-onboarding-route]').forEach(button=>button.onclick=()=>window.epGo(button.dataset.onboardingRoute));
-      host.insertBefore(section,host.children[2]||null);
+
+  const removedRoutes=['R09','R10','R11','N03','N04','N05','G08'];
+  document.querySelectorAll('[onclick],[data-ep-route],a[href]').forEach(el=>{
+    const source=[el.getAttribute('onclick'),el.dataset.epRoute,el.getAttribute('href')].filter(Boolean).join(' ');
+    if(removedRoutes.some(route=>source.includes(route)))el.hidden=true;
+  });
+
+  const hiddenPhrases=/^S/.test(id)?['评论区','全部评论','发表评论']:id==='G03'?['采风活动','科学港实践']:[];
+  hiddenPhrases.forEach(phrase=>{
+    document.querySelectorAll('body *').forEach(el=>{
+      if(el.children.length===0&&(el.textContent||'').includes(phrase)){
+        const block=el.closest('article,[class*="card"],a,button')||el;
+        block.hidden=true;
+      }
+    });
+  });
+
+  document.querySelectorAll('button,a,[role="button"]').forEach(control=>{
+    if(!control.hasAttribute('aria-label')){
+      const label=(control.textContent||'').replace(/\s+/g,' ').trim();
+      if(label)control.setAttribute('aria-label',label.slice(0,80));
     }
-  }
+  });
 })();

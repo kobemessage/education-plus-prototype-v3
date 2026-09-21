@@ -1,86 +1,14 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>教育Plus｜致青春</title>
-  <link rel="stylesheet" href="youth.css">
-  <link rel="stylesheet" href="v3.css?v=20260921-v3c8">
-</head>
-<body>
-  <header class="topbar">
-    <button class="back" aria-label="返回首页" onclick="youthGo(1)">‹</button>
-    <div class="heading"><h1>教育Plus · 致青春</h1><p>高校青年内容共创与校园生活展示</p></div>
-    <span class="more">•••</span>
-  </header>
-  <main class="page">
-    <nav class="tabs" aria-label="致青春三个栏目"><div>
-      <button class="tab active" onclick="switchYouthTab('campus',this)">我的大学</button>
-      <button class="tab" onclick="switchYouthTab('clubs',this)">多彩社团</button>
-      <button class="tab" onclick="switchYouthTab('topics',this)">主题活动</button>
-    </div></nav>
-    <section class="toolbar">
-      <div><strong>创作入口</strong><small>图文或短视频 · 提交后统一审核</small></div>
-      <button class="btn" onclick="youthGo('Y04')">发布创作</button>
-    </section>
-    <div class="row between"><span class="eyebrow">贵州高校青年共创</span><button class="btn ghost" onclick="youthGo('Y05')">我的发布</button></div>
-
-    <section class="pane" data-pane="campus">
-      <div class="section-head"><h2>我的大学</h2><small>校园生活碎片广场</small></div>
-      <article class="card clickable" onclick="youthGo('Y01')">
-        <div class="author"><div class="avatar">贵大</div><div class="min0"><b>林溪 · 贵州大学</b><div class="meta">2小时前 · 花溪校区</div></div><span class="tag">图文</span></div>
-        <div class="title">晚风穿过图书馆：我的大学普通一天</div>
-        <p class="desc">晨读、食堂和社团排练，都是四年青春里值得留下的小片段。</p>
-        <div class="media"><span class="caption">校园生活 · 6张照片</span></div>
-        <div class="actions"><button class="action" onclick="event.stopPropagation();toggleAction(this,'已点赞')">♡ 156</button><button class="action" onclick="event.stopPropagation();youthToast('评论区已打开')">💬 28</button><button class="action" onclick="event.stopPropagation();toggleAction(this,'已收藏')">☆ 收藏</button><button class="action" onclick="event.stopPropagation();youthToast('分享卡片已生成')">↗ 分享</button></div>
-      </article>
-      <article class="card clickable" onclick="youthGo('Y01')">
-        <div class="author"><div class="avatar">师大</div><div class="min0"><b>周然 · 贵州师范大学</b><div class="meta">昨天 · 大学城校区</div></div><span class="tag blue">短视频</span></div>
-        <div class="title">三分钟记录校园雨后的晚霞</div>
-        <p class="desc">一段手机镜头里的操场、晚霞和下课铃。</p>
-        <div class="media"><span class="caption">▶ 00:48 · 演示视频</span></div>
-      </article>
-    </section>
-
-    <section class="pane" data-pane="clubs" hidden>
-      <div class="section-head"><h2>多彩社团</h2><small>社团入驻与风采展示</small></div>
-      <article class="card club-entry">
-        <span class="tag">平台功能</span>
-        <div class="title">高校社团入驻</div>
-        <p class="desc">由社团负责人提交学校、社团介绍和联系人信息，平台审核后开放社团主页。</p>
-        <button class="btn block" onclick="youthGo('Y02')">申请社团入驻</button>
-      </article>
-      <div class="section-head"><h2>已入驻社团</h2><small>演示数据</small></div>
-      <article class="card">
-        <div class="row"><div class="avatar">剧</div><div class="min0"><b>溪山戏剧社</b><div class="meta">贵州大学 · 指导教师：陈老师</div></div><span class="tag yellow">招新中</span></div>
-        <div class="media club"><span class="caption">原创舞台剧 · 社团排练日记</span></div>
-        <p class="desc">社团介绍、动态、活动、成果和招新信息集中展示。</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="avatar">音</div><div class="min0"><b>青年音乐社</b><div class="meta">贵州财经大学</div></div><span class="tag">活跃</span></div>
-        <p class="desc">每周音乐分享会，欢迎热爱器乐、演唱和创作的同学关注。</p>
-      </article>
-    </section>
-
-    <section class="pane" data-pane="topics" hidden>
-      <div class="section-head"><h2>主题活动</h2><small>贵州教育报组织</small></div>
-      <article class="card clickable" onclick="youthGo('Y03')">
-        <div class="row between"><span class="tag">贵州教育报发起</span><span class="tag yellow">征集中 · 演示</span></div>
-        <div class="title">“我和我的大学”高校图文与短视频征集</div>
-        <p class="desc">贵州教育报面向高校学生组织的主题活动，记录校园生活、青春感悟与实践成果。</p>
-        <div class="media activity"><span class="caption">活动数据为原型演示</span></div>
-        <button class="btn block" onclick="event.stopPropagation();youthGo('Y03')">查看活动详情</button>
-      </article>
-      <article class="card">
-        <span class="tag">贵州教育报组织</span>
-        <div class="title">高校青春影像季</div>
-        <p class="desc">围绕校园人物、社团风采与实践课堂征集影像故事，具体安排以正式发布为准。</p>
-        <div class="meta">筹备中 · 演示活动</div>
-      </article>
-    </section>
-  </main>
-  <nav class="bottomnav"><button onclick="youthGo(1)"><b>⌂</b>首页</button><button class="active"><b>♡</b>致青春</button><button onclick="youthGo(12)"><b>▣</b>活动</button><button onclick="youthGo(10)"><b>♙</b>我的</button></nav>
-  <div class="toast"></div>
-  <script>window.EP_PAGE='5'</script><script src="youth.js"></script><script src="routes.js?v=20260921-v3c8"></script><script src="bottom-nav.js?v=20260921-v3c8"></script><script src="v3-overrides.js?v=20260921-v3c8"></script>
-</body>
-</html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>致青春｜教育Plus V3.0</title><link rel="stylesheet" href="v3.css?v=20260921-v3c13"></head>
+<body><script>window.EP_PAGE='5'</script><header class="v3-top"><button class="v3-back" aria-label="返回首页" onclick="v3Go('1')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>致青春</h1><p>我的大学 · 多彩社团 · 主题活动</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
+<section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="高校校园生活演示图"><div>
+<small>高校青年内容共创</small><h2>看见大学里的<br>青春与创造</h2><p>展示校园生活、社团风采和教育报主题活动。</p></div></section>
+<div class="v3-tabs" aria-label="致青春栏目"><button class="v3-tab active" onclick="v3Go('Y01')">我的大学</button><button class="v3-tab" onclick="v3Go('Y02')">多彩社团</button><button class="v3-tab" onclick="v3Go('Y03')">主题活动</button></div>
+<section class="v3-panel v3-youth-entry"><div><span class="material-symbols-outlined">edit_square</span><span><strong>创作入口</strong><small>图文或短视频 · 统一审核</small></span></div><button class="v3-btn" onclick="v3Go('Y04')">发布创作</button></section>
+<section class="v3-section"><div class="v3-section-head"><h3>我的大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
+<button class="v3-row" onclick="v3Go('Y01')"><img class="v3-thumb" src="assets/v3/campus-view.jpg" alt="演示内容配图"><span class="grow"><strong>晚风穿过图书馆：我的大学普通一天</strong><p>某高校 · 林*同学 · 图文 [演示数据]</p></span><span class="material-symbols-outlined">chevron_right</span></button></section>
+<section class="v3-grid"><button class="v3-card" onclick="v3Go('Y02')"><span class="v3-icon "><span class="material-symbols-outlined">groups</span></span><strong>社团入驻</strong><p>提交资料并查看资格审核</p></button><button class="v3-card" onclick="v3Go('Y03')"><span class="v3-icon amber"><span class="material-symbols-outlined">campaign</span></span><strong>教育报主题活动</strong><p>查看线上征集与展播</p></button></section>
+<div class="v3-note info">社团入驻与个人创作使用不同入口；主题活动由教育报组织发布，所有内容和状态均为演示数据。</div>
+</main>
+<footer class="v3-footer"><button class="" onclick="v3Go('1')" aria-label="首页"><span class="material-symbols-outlined">home</span><span>首页</span></button><button class="active" onclick="v3Go('11')" aria-label="服务"><span class="material-symbols-outlined">apps</span><span>服务</span></button><button class="" onclick="v3Go('12')" aria-label="活动"><span class="material-symbols-outlined">event</span><span>活动</span></button><button class="" onclick="v3Go('10')" aria-label="我的"><span class="material-symbols-outlined">person</span><span>我的</span></button></footer><script src="v3-ui.js?v=20260921-v3c13"></script><script src="routes.js?v=20260921-v3c13"></script></body></html>
