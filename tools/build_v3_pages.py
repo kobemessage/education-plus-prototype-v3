@@ -45,15 +45,15 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c14"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c15"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c14"></script><script src="{prefix}routes.js?v=20260921-v3c14"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c15"></script><script src="{prefix}routes.js?v=20260921-v3c15"></script></body></html>'''
 
 
 pages = {}
 
 pages["01.html"] = page("1", "教育Plus", '''
-<section class="v3-hero has-image"><img src="assets/v3/reading-campus.jpg" alt="校园学生共读演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div>
 <small>教育Plus · 清新校园青绿</small><h2>让阅读点亮<br>更广阔的未来</h2>
 <p>连接校园内容、成长记录与公益教育服务。</p><button class="v3-cta" onclick="v3Go('11')">立即浏览</button></div></section>
 <section class="v3-panel" aria-label="八大板块导航">
@@ -70,19 +70,19 @@ pages["01.html"] = page("1", "教育Plus", '''
 <section class="v3-section"><div class="v3-section-head"><h3>正在直播</h3><span>微信视频号待接入</span></div>
 ''' + row("数学专题公益课", "函数图像与解题思路 · 1.2万人观看（演示）", "6", image="assets/v3/public-class.jpg", state="直播中") + '''</section>
 <section class="v3-section"><div class="v3-section-head"><h3>今日推荐</h3><button class="v3-more" onclick="v3Go('12')">查看全部</button></div>
-''' + row("校园里的春天：一场关于成长的对话", "致青春 · 校园生活图文精选（演示）", "5", image="assets/v3/campus-view.jpg") + '''</section>
+''' + row("校园里的春天：一场关于成长的对话", "致青春 · 校园生活图文精选（演示）", "5", image="assets/v3/university-life-v2.jpg") + '''</section>
 <div class="v3-note info">V3.0 为交互原型。人物、学校、活动和作品均为演示数据；外部平台、视频号及订阅服务尚未真实接入。</div>
 ''', home=True)
 
 pages["02.html"] = page("2", "读书会", '''
-<section class="v3-hero has-image"><img src="assets/v3/reading-campus.jpg" alt="校园共读演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div>
 <small>阅读 · 思考 · 分享 · 成长</small><h2>在书中遇见<br>更好的自己</h2><p>聚焦领读、共读与名家阅读三条内容主线。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid" aria-label="读书会二级导航">
 <button class="v3-card" onclick="v3Go('R12')">''' + icon("groups_3") + '''<strong>大家一起读</strong><p>校园共读与主题书单</p></button>
 <button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>访谈、讲座与阅读方法</p></button>
 <button class="v3-card" onclick="v3Go('R01')">''' + icon("co_present", "blue") + '''<strong>做领读员</strong><p>培训课程与领读实践</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>领读精选</h3><button class="v3-more" onclick="v3Go('R01')">更多</button></div>
-''' + row("主题书单：在山水与文字之间认识贵州", "分龄阅读建议 · 编辑精选（演示）", "R07", image="assets/v3/reading-campus.jpg", state="主题书单") + '''</section>
+''' + row("主题书单：在山水与文字之间认识贵州", "分龄阅读建议 · 编辑精选（演示）", "R07", image="assets/v3/campus-reading-v2.jpg", state="主题书单") + '''</section>
 <section class="v3-panel"><div class="v3-section-head"><h3>共读书目</h3><button class="v3-more" onclick="v3Go('R12')">更多</button></div>
 <div class="v3-list">
 <button class="v3-row" onclick="v3Go('R06')">''' + icon("auto_stories") + '''<span class="grow"><strong>《平凡的世界》</strong><p>阅读进度 62% · 内容展示</p><div class="v3-progress"><i style="width:62%"></i></div></span><span class="material-symbols-outlined">chevron_right</span></button>
@@ -94,7 +94,7 @@ pages["02.html"] = page("2", "读书会", '''
 ''', subtitle="阅读 · 思考 · 分享 · 成长")
 
 pages["03.html"] = page("3", "少年派", '''
-<section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="校园学生创作演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/youth-creation-v2.jpg" alt="学生进行书画创作的演示图"><div>
 <small>写作 · 艺术 · 展示 · 成长</small><h2>让每一次创作<br>都被认真看见</h2><p>展示学生作品、热门赛事、名师指导与成长档案。</p><button class="v3-cta" onclick="v3Go('S02')">提交作品</button></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>创作与成长</h3><span>4项服务</span></div><div class="v3-grid" aria-label="少年派二级导航">
 <button class="v3-card" onclick="v3Go('S01')">''' + icon("gallery_thumbnail") + '''<strong>作品展示</strong><p>图文与艺术作品精选</p></button>
@@ -102,13 +102,13 @@ pages["03.html"] = page("3", "少年派", '''
 <button class="v3-card" onclick="v3Go('S05')">''' + icon("rate_review","blue") + '''<strong>名师指导</strong><p>查看编辑与教师建议</p></button>
 <button class="v3-card" onclick="v3Go('S06')">''' + icon("folder_copy") + '''<strong>成长档案</strong><p>汇总个人作品与状态</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>精选作品</h3><button class="v3-more" onclick="v3Go('S01')">查看详情</button></div>
-''' + row("梧桐树下的旧书摊", "某实验小学 · 林*辰 · 散文 [演示数据]", "S01", image="assets/v3/campus-view.jpg", state="编辑精选") + '''</section>
+''' + row("梧桐树下的旧书摊", "某实验小学 · 林*辰 · 散文 [演示数据]", "S01", image="assets/v3/youth-creation-v2.jpg", state="编辑精选") + '''</section>
 <section class="v3-panel"><div class="v3-section-head"><h3>征集中</h3><span>[演示数据]</span></div><strong style="font-size:14px">“筑梦黔山”青少年作品征集</strong><p style="font-size:12px;line-height:1.65;color:var(--v3-muted)">征集作文、诗歌和书画作品，审核通过后进入专题展示。</p><button class="v3-btn" onclick="v3Go('S03')">参与征集</button></section>
 <div class="v3-note info">作品、学校、人物、赛事与审核状态均为演示数据；平台不收取评审或认证费用。</div>
 ''', subtitle="作品展示 · 赛事 · 指导 · 档案")
 
 pages["04.html"] = page("4", "小记者", '''
-<section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="校园小记者采写演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/campus-reporter-v2.jpg" alt="校园小记者采访教师的演示图"><div>
 <small>入驻 · 采写 · 作品 · 荣誉</small><h2>记录校园现场<br>写下真实成长</h2><p>从资格申请到采写投稿，形成线上作品成长档案。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>采写与成长</h3><span>4项服务</span></div><div class="v3-grid" aria-label="小记者二级导航">
 <button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>入驻资格</strong><p>提交资料与学校推荐</p></button>
@@ -122,7 +122,7 @@ pages["04.html"] = page("4", "小记者", '''
 ''', subtitle="入驻资格 · 采写投稿 · 作品档案")
 
 pages["05.html"] = page("5", "致青春", '''
-<section class="v3-hero has-image"><img src="assets/v3/campus-view.jpg" alt="高校校园生活演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/university-life-v2.jpg" alt="大学生在校园交流学习的演示图"><div>
 <small>高校青年内容共创</small><h2>看见大学里的<br>青春与创造</h2><p>展示校园生活、社团风采和教育报主题活动。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>青春内容</h3><span>4项服务</span></div><div class="v3-grid" aria-label="致青春二级导航">
 <button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>我的大学</strong><p>校园生活与青春故事</p></button>
@@ -130,7 +130,7 @@ pages["05.html"] = page("5", "致青春", '''
 <button class="v3-card" onclick="v3Go('Y03')">''' + icon("campaign", "amber") + '''<strong>主题活动</strong><p>教育报组织的线上征集</p></button>
 <button class="v3-card" onclick="v3Go('Y04')">''' + icon("edit_square") + '''<strong>创作入口</strong><p>发布图文或短视频</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>我的大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
-''' + row("晚风穿过图书馆：我的大学普通一天", "某高校 · 林*同学 · 图文 [演示数据]", "Y01", image="assets/v3/campus-view.jpg") + '''</section>
+''' + row("晚风穿过图书馆：我的大学普通一天", "某高校 · 林*同学 · 图文 [演示数据]", "Y01", image="assets/v3/university-life-v2.jpg") + '''</section>
 <div class="v3-note info">社团入驻与个人创作使用不同入口；主题活动由教育报组织发布，所有内容和状态均为演示数据。</div>
 ''', subtitle="我的大学 · 多彩社团 · 主题活动")
 
@@ -158,7 +158,7 @@ pages["06.html"] = page("6", "公益课", '''
 ''', active="服务", subtitle="直播 · 回放 · 课程")
 
 pages["07.html"] = page("7", "科学港", '''
-<section class="v3-hero has-image"><img src="assets/v3/science-lab.jpg" alt="学生制作机器人演示图"><div>
+<section class="v3-hero has-image"><img src="assets/v3/science-exploration-v2.jpg" alt="学生在贵州喀斯特地貌开展科学探访的演示图"><div>
 <small>探索 · 实践 · 创造 · 分享</small><h2>好奇心<br>让世界更精彩</h2><p>展示科学活动、作品与探访记录。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>科学探索</h3><span>5项服务</span></div><div class="v3-grid" aria-label="科学港二级导航">
 <button class="v3-card" onclick="v3Go('K03')">''' + icon("precision_manufacturing") + '''<strong>小小发明家</strong><p>从真实问题开始创造</p></button>
@@ -180,7 +180,7 @@ pages["08.html"] = page("8", "填志愿", '''
 ''', active="服务", subtitle="公开信息 · 理性参考")
 
 pages["09.html"] = page("9", "订报刊", '''
-<section class="v3-hero"><small>贵州教育报 · 数字展读</small><h2>本期报纸<br>抢先看</h2><p>浏览头版与精选版面；正式订阅将前往官方订阅服务。</p></section>
+<section class="v3-hero has-image"><img src="assets/v3/newspaper-preview-v2.jpg" alt="教育报数字版面展读演示图"><div><small>贵州教育报 · 数字展读</small><h2>本期报纸<br>抢先看</h2><p>浏览头版与精选版面；正式订阅将前往官方订阅服务。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>报刊服务</h3><span>4项服务</span></div><div class="v3-grid" aria-label="订报刊二级导航">
 <button class="v3-card" onclick="document.querySelector('.v3-paper').scrollIntoView({behavior:'smooth',block:'start'})">''' + icon("newspaper") + '''<strong>本期报纸</strong><p>查看当期头版演示</p></button>
 <button class="v3-card" onclick="v3Go('N01')">''' + icon("article", "blue") + '''<strong>精选版面</strong><p>浏览数字版面导读</p></button>
@@ -254,7 +254,7 @@ pages["stitch/J07.html"] = page("J07", "小记者入驻申请", '''
 <div class="v3-field"><label for="journalistPhone">监护人联系方式</label><input id="journalistPhone" required inputmode="tel" pattern="1[3-9][0-9]{9}" autocomplete="off" placeholder="11位手机号"></div>
 <input id="journalistProof" type="hidden" value="">
 <button class="v3-upload" type="button" onclick="v3SelectJournalistProof()"><span class="material-symbols-outlined">upload_file</span><span id="journalistProofLabel"><strong>选择学校盖章推荐材料</strong><br><small>支持照片或 PDF（演示，不会实际上传）</small></span></button>
-<label style="font-size:11px;line-height:1.6"><input type="checkbox" required> 已阅读资格审核与隐私说明，并确认由监护人知情提交</label>
+<label style="font-size:11px;line-height:1.6"><input type="checkbox" required aria-label="确认已阅读资格审核与隐私说明并由监护人知情提交"> 已阅读资格审核与隐私说明，并确认由监护人知情提交</label>
 <button class="v3-btn" type="submit">提交入驻申请</button></form>
 <div class="v3-note info">本页仅演示入驻流程，不会上传或留存填写的个人资料。提交后可进入“资格审核”查看演示进度。</div>
 <div class="v3-note">小记者资格仅用于校园采写身份审核，不承诺升学加分、实践学时或商业权益。</div>
@@ -277,10 +277,10 @@ pages["stitch/J08.html"] = page("J08", "小记者资格审核", '''
 ''', subtitle="材料核验 · 审核进度 · 结果查询", back_route="4", back_label="返回小记者")
 
 pages["stitch/R12.html"] = page("R12", "全省校园读书会", '''
-<section class="v3-hero has-image"><img src="../assets/v3/reading-campus.jpg" alt="校园师生共读演示图"><div><small>大家一起读 · 共读书会</small><h2>一起读一本好书</h2><p>发现校园读书会、共读书目、活动动态与加入说明。</p></div></section>
+<section class="v3-hero has-image"><img src="../assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div><small>大家一起读 · 共读书会</small><h2>一起读一本好书</h2><p>发现校园读书会、共读书目、活动动态与加入说明。</p></div></section>
 <section class="v3-metric-row" aria-label="共读书会演示数据"><div class="v3-metric"><strong>286</strong><span>学校 [演示]</span></div><div class="v3-metric"><strong>12.8万</strong><span>学生 [演示]</span></div><div class="v3-metric"><strong>9,420</strong><span>作品 [演示]</span></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>本期共读书目</h3><button class="v3-more" onclick="v3Go('R07')">全部书目</button></div>
-''' + row("《人类群星闪耀时》", "分龄导读 · 进度与人数均为演示数据", "R08", image="../assets/v3/reading-campus.jpg", state="共读中") + '''</section>
+''' + row("《人类群星闪耀时》", "分龄导读 · 进度与人数均为演示数据", "R08", image="../assets/v3/campus-reading-v2.jpg", state="共读中") + '''</section>
 <section class="v3-section"><div class="v3-section-head"><h3>校园读书会</h3><span>后台统一配置</span></div><div class="v3-list">
 ''' + row("某中学“黔青悦读”读书会", "学校资料 · 共读书目 · 活动动态 [演示数据]", "R13", icon_name="school", state="共读中") + '''
 ''' + row("某小学“童声共读”读书会", "学校资料 · 分龄阅读 · 作品展示 [演示数据]", "R13", icon_name="local_library", state="展示中") + '''</div></section>
@@ -289,11 +289,11 @@ pages["stitch/R12.html"] = page("R12", "全省校园读书会", '''
 ''', subtitle="学校资料 · 共读书目 · 活动动态", back_route="2", back_label="返回读书会")
 
 pages["stitch/R13.html"] = page("R13", "学校读书会主页", '''
-<section class="v3-hero has-image"><img src="../assets/v3/reading-campus.jpg" alt="学校读书会演示图"><div><small>某中学 · [演示数据]</small><h2>“黔青悦读”读书会</h2><p>共读经典、分享思考，让阅读成为校园里的共同成长。</p></div></section>
+<section class="v3-hero has-image"><img src="../assets/v3/campus-reading-v2.jpg" alt="学校读书会共同阅读的演示图"><div><small>某中学 · [演示数据]</small><h2>“黔青悦读”读书会</h2><p>共读经典、分享思考，让阅读成为校园里的共同成长。</p></div></section>
 <section class="v3-metric-row"><div class="v3-metric"><strong>286</strong><span>参与师生 [演示]</span></div><div class="v3-metric"><strong>12</strong><span>参与班级 [演示]</span></div><div class="v3-metric"><strong>36</strong><span>精选作品 [演示]</span></div></section>
 <section class="v3-panel"><div class="v3-section-head"><h3>学校资料</h3><span>[演示数据]</span></div><p class="v3-body-copy">指导教师：周*老师 · 学校信息待确认<br>读书会简介：围绕经典阅读、主题分享与优秀作品展示开展校园共读。</p></section>
 <section class="v3-section"><div class="v3-section-head"><h3>本期共读书目</h3><button class="v3-more" onclick="v3Go('R08')">书目详情</button></div>
-''' + row("《人类群星闪耀时》", "本期主题：选择、勇气与责任 [演示数据]", "R08", image="../assets/v3/reading-campus.jpg", state="共读中") + '''</section>
+''' + row("《人类群星闪耀时》", "本期主题：选择、勇气与责任 [演示数据]", "R08", image="../assets/v3/campus-reading-v2.jpg", state="共读中") + '''</section>
 <section class="v3-section"><div class="v3-section-head"><h3>活动动态</h3><span>内容展示</span></div><div class="v3-list">
 ''' + row("班级共读分享会", "图文动态 · 日期待确认 [演示数据]", "R06", icon_name="forum") + '''
 ''' + row("优秀读后感展示", "学生作品 · 作者已脱敏 [演示数据]", "R05", icon_name="article") + '''</div></section>
@@ -302,17 +302,17 @@ pages["stitch/R13.html"] = page("R13", "学校读书会主页", '''
 ''', subtitle="学校资料 · 共读书目 · 活动动态", back_route="R12", back_label="返回全省校园读书会")
 
 pages["stitch/K01.html"] = page("K01", "科学成果详情", '''
-<section class="v3-hero has-image"><img src="../assets/v3/science-lab.jpg" alt="学生科学创作演示图"><div><small>小小发明家 · 精选成果</small><h2>校园节水装置</h2><p>学生作品 · 演示数据</p></div></section>
+<section class="v3-hero has-image"><img src="../assets/v3/science-exploration-v2.jpg" alt="学生开展科学探访的演示图"><div><small>小小发明家 · 精选成果</small><h2>校园节水装置</h2><p>学生作品 · 演示数据</p></div></section>
 <div class="v3-card"><strong>作品说明</strong><p>从校园用水观察出发，完成问题记录、方案草图和模型验证。作品经编辑部审核后进行成果展播。</p></div>
 <div class="v3-actions"><button class="v3-btn" onclick="v3Toast('已收藏作品')">收藏</button><button class="v3-btn secondary" onclick="v3Toast('分享海报已生成（演示）')">分享</button></div>
 ''')
 pages["stitch/K02.html"] = page("K02", "一起来寻宝作品提交", '''
-<section class="v3-hero"><small>探访记录 · 作品征集</small><h2>记录家乡的<br>科学宝藏</h2><p>提交探访图文或短视频，审核通过后进入成果展播。</p></section>
-<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label>作品标题</label><input required></div><div class="v3-field"><label>探访地点</label><input required></div><div class="v3-field"><label>作品说明</label><textarea required></textarea></div><div class="v3-upload" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加图片或视频（演示）</div><button class="v3-btn" type="submit">提交作品</button></form>
+<section class="v3-hero has-image"><img src="../assets/v3/science-exploration-v2.jpg" alt="学生开展科学探访的演示图"><div><small>探访记录 · 作品征集</small><h2>记录家乡的<br>科学宝藏</h2><p>提交探访图文或短视频，审核通过后进入成果展播。</p></div></section>
+<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceTreasureTitle">作品标题</label><input id="scienceTreasureTitle" required></div><div class="v3-field"><label for="scienceTreasurePlace">探访地点</label><input id="scienceTreasurePlace" required></div><div class="v3-field"><label for="scienceTreasureDescription">作品说明</label><textarea id="scienceTreasureDescription" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加图片或视频（演示）</button><button class="v3-btn" type="submit">提交作品</button></form>
 ''')
 pages["stitch/K03.html"] = page("K03", "小小发明家作品提交", '''
 <section class="v3-hero"><small>科普作品 · 创意征集</small><h2>让小创意<br>解决真问题</h2><p>提交问题观察、创意方案和模型照片，编辑审核后择优展播。</p></section>
-<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label>发明名称</label><input required></div><div class="v3-field"><label>想解决的问题</label><textarea required></textarea></div><div class="v3-field"><label>创意方案</label><textarea required></textarea></div><div class="v3-upload" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加模型照片（演示）</div><button class="v3-btn" type="submit">提交作品</button></form>
+<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceInventionName">发明名称</label><input id="scienceInventionName" required></div><div class="v3-field"><label for="scienceProblem">想解决的问题</label><textarea id="scienceProblem" required></textarea></div><div class="v3-field"><label for="scienceIdea">创意方案</label><textarea id="scienceIdea" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加模型照片（演示）</button><button class="v3-btn" type="submit">提交作品</button></form>
 ''')
 pages["stitch/K04.html"] = page("K04", "我的科学港作品", '''
 <section class="v3-hero"><small>作品记录</small><h2>我的科学创作</h2><p>查看科普作品和探访记录的审核状态。</p></section><div class="v3-list">
@@ -324,7 +324,7 @@ pages["stitch/K05.html"] = page("K05", "编辑答疑", '''
 ''')
 
 pages["stitch/N01.html"] = page("N01", "数字报精选版面", '''
-<section class="v3-hero"><small>数字报展读</small><h2>本期精选版面</h2><p>图片 / PDF 预览为版式演示。</p></section><div class="v3-paper"><div class="mast">贵州教育报</div><div class="headline">校园里的创新实践，让学习连接真实生活</div><div class="cols"></div></div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('正在打开高清预览（演示）')">高清预览</button><button class="v3-btn secondary" onclick="v3Go('9')">返回本期</button></div>
+<section class="v3-hero has-image"><img src="../assets/v3/newspaper-preview-v2.jpg" alt="教育报数字版面展读演示图"><div><small>数字报展读</small><h2>本期精选版面</h2><p>图片 / PDF 预览为版式演示。</p></div></section><div class="v3-paper"><img class="v3-paper-preview" src="../assets/v3/newspaper-preview-v2.jpg" alt="教育报精选版面演示预览"><div class="mast">贵州教育报</div><div class="headline">校园里的创新实践，让学习连接真实生活</div></div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('正在打开高清预览（演示）')">高清预览</button><button class="v3-btn secondary" onclick="v3Go('9')">返回本期</button></div>
 ''', active="服务")
 pages["stitch/N02.html"] = page("N02", "外部订阅服务说明", '''
 <section class="v3-hero"><small>外部平台跳转占位</small><h2>前往官方<br>订阅服务</h2><p>正式上线后由贵州教育报确认目标小程序与跳转方式。</p></section><div class="v3-note">继续后将离开教育Plus。订阅购买、支付、配送、发票和售后由外部官方订阅服务提供并承担责任。</div><div class="v3-actions"><button class="v3-btn" onclick="v3Toast('外部订阅服务待接入')">继续前往（演示）</button><button class="v3-btn secondary" onclick="v3Go('9')">暂不前往</button></div>

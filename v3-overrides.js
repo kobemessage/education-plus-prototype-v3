@@ -23,6 +23,13 @@
     node.nodeValue=text;
   }
 
+  document.querySelectorAll('main h1').forEach(heading=>{
+    const replacement=document.createElement('h2');
+    [...heading.attributes].forEach(attribute=>replacement.setAttribute(attribute.name,attribute.value));
+    replacement.innerHTML=heading.innerHTML;
+    heading.replaceWith(replacement);
+  });
+
   const isNativeV3=Boolean(document.querySelector('body > .v3-top,body > header.v3-top'));
   if(!isNativeV3&&id){
     document.body.classList.add('v3-legacy-unified');
@@ -37,8 +44,14 @@
     document.body.prepend(header);
   }
 
-  if(!document.querySelector('.v3-global-mark')){
-    const mark=document.createElement('div');mark.className='v3-global-mark';mark.textContent='[演示数据] · V3.0 原型';document.body.append(mark);
+  document.querySelectorAll('main button[aria-label^="返回"],main a[aria-label^="返回"]').forEach(control=>control.classList.add('ep-inner-back'));
+  const duplicateTitles={G03:'我的收藏',G04:'我的活动记录',R03:'名家谈阅读',R05:'读后感精选'};
+  if(duplicateTitles[id]){
+    document.querySelectorAll('main h1,main h2,main h3,main span,main div').forEach(element=>{
+      if(element.children.length===0&&(element.textContent||'').trim()===duplicateTitles[id]&&element.getBoundingClientRect().top<280){
+        element.classList.add('ep-duplicate-title');
+      }
+    });
   }
 
   if(/^R/.test(id)){
@@ -71,5 +84,14 @@
       const label=(control.textContent||'').replace(/\s+/g,' ').trim();
       if(label)control.setAttribute('aria-label',label.slice(0,80));
     }
+  });
+  document.querySelectorAll('input:not([type="hidden"]),select,textarea').forEach(control=>{
+    if(control.getAttribute('aria-label')||control.getAttribute('aria-labelledby'))return;
+    if(control.id&&document.querySelector(`label[for="${CSS.escape(control.id)}"]`))return;
+    const wrapped=control.closest('label');
+    const group=control.closest('.form-group,.v3-field');
+    const label=wrapped||group?.querySelector('label');
+    const accessibleName=((label?.textContent||control.placeholder||control.name||'表单字段').replace(/\s+/g,' ').trim()).slice(0,80);
+    control.setAttribute('aria-label',accessibleName);
   });
 })();

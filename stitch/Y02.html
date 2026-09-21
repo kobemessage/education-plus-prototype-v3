@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>社团入驻申请</title>
   <link rel="stylesheet" href="../youth.css">
-  <link rel="stylesheet" href="../v3.css?v=20260921-v3c14">
+  <link rel="stylesheet" href="../v3.css?v=20260921-v3c15">
 </head>
 <body>
   <header class="topbar">
@@ -34,12 +34,12 @@
       <div class="form-group"><label for="clubContact">联系电话 <span class="required">*</span></label><input id="clubContact" required inputmode="tel" pattern="1[3-9][0-9]{9}" placeholder="请输入11位手机号"></div>
       <div class="form-group"><label for="clubIntro">社团简介 <span class="required">*</span></label><textarea id="clubIntro" required maxlength="300" placeholder="请介绍社团定位、主要活动和特色，300字以内"></textarea></div>
       <div class="form-group"><label>证明材料 <span class="required">*</span></label><div class="upload" id="clubUpload" role="button" tabindex="0" onclick="simulateClubUpload()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();simulateClubUpload()}"><b id="clubUploadText">上传校内登记或指导教师证明</b><div class="meta">支持图片或 PDF；原型仅演示选择状态</div></div><input id="clubUploadState" type="hidden" value=""></div>
-      <label class="check"><input type="checkbox" required><span>我确认所填信息真实，并已获得学校或指导教师同意。<span class="required">*</span></span></label>
+      <label class="check"><input type="checkbox" required aria-label="确认信息真实并获得学校或指导教师同意"><span>我确认所填信息真实，并已获得学校或指导教师同意。<span class="required">*</span></span></label>
       <button class="btn block" id="clubSubmitButton" type="submit" style="margin-top:18px">提交入驻申请</button>
     </form>
     <p class="intro">当前为交互原型，提交结果保存在本机浏览器，不会上传真实资料。正式审核时效与材料清单待平台确认。</p>
   </main>
   <div class="toast"></div>
-  <script>window.EP_PAGE='Y02'</script><script src="../youth.js"></script><script src="../routes.js?v=20260921-v3c14"></script><script src="../bottom-nav.js?v=20260921-v3c14"></script><script src="../v3-overrides.js?v=20260921-v3c14"></script>
+  <script>window.EP_PAGE='Y02'</script><script src="../youth.js"></script><script src="../routes.js?v=20260921-v3c15"></script><script src="../bottom-nav.js?v=20260921-v3c15"></script><script src="../v3-overrides.js?v=20260921-v3c15"></script>
 </body>
 </html>
