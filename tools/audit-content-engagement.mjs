@@ -146,8 +146,8 @@ await page.locator('#readingBook').fill('《平凡的世界》');
 await page.locator('#readingTitle').fill('平凡生活里的选择');
 await page.locator('#readingBody').fill('这是一段用于验证投稿流程的演示正文，包含阅读体会、人物理解与个人成长感受。');
 await page.getByRole('button', { name: '提交审核' }).click();
-await page.waitForTimeout(750);
-if (await page.locator('.v3-toast.show').count() !== 1) failures.push('R05.html: 投稿完成后未给出成功反馈');
+await page.locator('.v3-toast.show').waitFor({ state: 'visible', timeout: 3000 })
+  .catch(() => failures.push('R05.html: 投稿完成后未给出成功反馈'));
 
 await page.goto(`${baseUrl}/stitch/G02.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.locator('[data-path="S04"]').dispatchEvent('click');
