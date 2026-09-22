@@ -38,6 +38,12 @@ for (const route of routes) {
   const response = await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'domcontentloaded', timeout: 20000 });
   await page.waitForTimeout(80);
   if (!response?.ok()) failures.push(`${route}: HTTP ${response?.status() || 'no response'}`);
+  if (id !== '11') {
+    await page.waitForFunction(() => {
+      const images = [...document.querySelectorAll('.ep-discovery-media')];
+      return images.length >= 2 && images.every(image => image.complete && image.naturalWidth >= 320);
+    }, null, { timeout: 15000 }).catch(() => {});
+  }
   const result = await page.evaluate(({ needsEngagement }) => {
     const buttons = [...document.querySelectorAll('button,a,[role="button"]')];
     const labels = buttons.map(control => [control.getAttribute('aria-label'), control.textContent].filter(Boolean).join(' '));
