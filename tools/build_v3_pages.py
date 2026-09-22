@@ -45,9 +45,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260921-v3c15"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260922-v3c16"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260921-v3c15"></script><script src="{prefix}routes.js?v=20260921-v3c15"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260922-v3c16"></script><script src="{prefix}routes.js?v=20260922-v3c16"></script></body></html>'''
 
 
 pages = {}
@@ -77,7 +77,7 @@ pages["01.html"] = page("1", "教育Plus", '''
 pages["02.html"] = page("2", "读书会", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div>
 <small>阅读 · 思考 · 分享 · 成长</small><h2>在书中遇见<br>更好的自己</h2><p>聚焦领读、共读与名家阅读三条内容主线。</p></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid" aria-label="读书会二级导航">
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid three" aria-label="读书会二级导航">
 <button class="v3-card" onclick="v3Go('R12')">''' + icon("groups_3") + '''<strong>大家一起读</strong><p>校园共读与主题书单</p></button>
 <button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>访谈、讲座与阅读方法</p></button>
 <button class="v3-card" onclick="v3Go('R01')">''' + icon("co_present", "blue") + '''<strong>做领读员</strong><p>培训课程与领读实践</p></button></div></section>
@@ -137,7 +137,7 @@ pages["05.html"] = page("5", "致青春", '''
 pages["06.html"] = page("6", "公益课", '''
 <section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>
 <small>直播 · 回放 · 课程</small><h2>好课随时回看</h2><p>展示课程内容、教师、参与学校与课程详情。</p><button class="v3-cta" onclick="v3Go('C03')">观看回放</button></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>公益课服务</h3><span>3项服务</span></div><div class="v3-grid" aria-label="公益课二级导航">
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>公益课服务</h3><span>3项服务</span></div><div class="v3-grid three" aria-label="公益课二级导航">
 <button class="v3-card" onclick="v3Go('C03')">''' + icon("play_circle") + '''<strong>课程回放</strong><p>按课程主题观看回放</p></button>
 <button class="v3-card" onclick="v3Go('C01')">''' + icon("menu_book", "blue") + '''<strong>课程详情</strong><p>查看教师、学校与大纲</p></button>
 <button class="v3-card" onclick="v3Go('C02')">''' + icon("live_tv", "amber") + '''<strong>直播说明</strong><p>视频号直播待接入</p></button></div></section>
