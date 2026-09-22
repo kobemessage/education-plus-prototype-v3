@@ -57,6 +57,12 @@ for (const route of routes) {
         width: image.naturalWidth
       })),
       orderedImages: document.querySelectorAll('.ep-discovery-copy + .ep-discovery-media').length,
+      missingAlt: [...document.images].filter(image => !image.hasAttribute('alt')).length,
+      unnamedControls: buttons.filter(control => {
+        const name = [control.getAttribute('aria-label'), control.getAttribute('title'), control.textContent]
+          .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+        return !name;
+      }).length,
       like: !needsEngagement || labels.some(label => /点赞|赞同/.test(label)),
       favorite: !needsEngagement || labels.some(label => /收藏|关注/.test(label)),
       share: !needsEngagement || labels.some(label => /分享|转发|海报/.test(label)),
@@ -71,6 +77,8 @@ for (const route of routes) {
     failures.push(`${route}: 栏目图片未完整 ${JSON.stringify(result.discoveryImages)}`);
   }
   if (!result.like || !result.favorite || !result.share) failures.push(`${route}: 互动不完整 ${JSON.stringify(result)}`);
+  if (result.missingAlt) failures.push(`${route}: ${result.missingAlt} 张图片缺少 alt 属性`);
+  if (result.unnamedControls) failures.push(`${route}: ${result.unnamedControls} 个控件缺少可访问名称`);
   if (result.overflow > 5) failures.push(`${route}: 水平溢出 ${result.overflow}px`);
   if (errors.length) failures.push(`${route}: ${errors.join(' | ')}`);
   page.off('pageerror', onPageError);
@@ -127,6 +135,45 @@ if (await page.locator('.ep-access-toast.show').count() !== 1) failures.push('S0
 await page.goto(`${baseUrl}/stitch/G03.html?guest=1`, { waitUntil: 'domcontentloaded' });
 if (await page.locator('#ep-access-gate').count() !== 1) failures.push('G03.html: 私有页面未拦截游客');
 
+await page.goto(`${baseUrl}/stitch/R05.html?guest=1`, { waitUntil: 'domcontentloaded' });
+await page.getByRole('button', { name: /提交读后感/ }).click();
+if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('R05.html: 游客投稿未触发登录提示');
+
+await page.goto(`${baseUrl}/stitch/R05.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.getByRole('button', { name: /提交读后感/ }).click();
+if (await page.locator('#readingSubmissionSheet:not([hidden])').count() !== 1) failures.push('R05.html: 登录后未打开读后感投稿表单');
+await page.locator('#readingBook').fill('《平凡的世界》');
+await page.locator('#readingTitle').fill('平凡生活里的选择');
+await page.locator('#readingBody').fill('这是一段用于验证投稿流程的演示正文，包含阅读体会、人物理解与个人成长感受。');
+await page.getByRole('button', { name: '提交审核' }).click();
+await page.waitForTimeout(750);
+if (await page.locator('.v3-toast.show').count() !== 1) failures.push('R05.html: 投稿完成后未给出成功反馈');
+
+await page.goto(`${baseUrl}/stitch/G02.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.locator('[data-path="S04"]').dispatchEvent('click');
+await page.waitForURL(/index\.html#S04$/);
+if (!page.url().endsWith('index.html#S04')) failures.push('G02.html: 消息详情按钮未进入对应投稿记录');
+
+await page.route('**/stitch/J02.html*', async route => {
+  await new Promise(resolve => setTimeout(resolve, 350));
+  await route.continue();
+});
+await page.goto(`${baseUrl}/index.html?audit=loading#J02`, { waitUntil: 'domcontentloaded' });
+if (await page.locator('#phone-loading:not([hidden])').count() !== 1) failures.push('index.html: 新页面加载时未显示状态');
+await page.locator('#phone-loading').waitFor({ state: 'hidden', timeout: 5000 }).catch(() => failures.push('index.html: 页面载入后加载状态未关闭'));
+await page.unroute('**/stitch/J02.html*');
+
+await page.evaluate(() => {
+  localStorage.setItem('ep-v3-authenticated', '1');
+  localStorage.setItem('ep-v3-engagement', '{}');
+  localStorage.setItem('ep-reading-submission', '{}');
+});
+const resetNavigation = page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+await page.evaluate(() => resetDemo()).catch(() => {});
+await resetNavigation;
+const remainingDemoKeys = await page.evaluate(() => Object.keys(localStorage).filter(key => key.startsWith('ep-')));
+if (remainingDemoKeys.length) failures.push(`index.html: 重置后仍保留状态 ${remainingDemoKeys.join(', ')}`);
+
 for (const [route, file] of [
   ['01.html?auth=1', 'content-richness-home.png'],
   ['12.html?auth=1', 'content-richness-activities.png'],
@@ -148,4 +195,6 @@ if (failures.length) {
 console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
 console.log('PASS 作品/活动点赞、收藏、分享与登录边界');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
+console.log('PASS 读后感投稿、消息详情、页面加载与演示重置');
+console.log('PASS 图片 alt、交互控件可访问名称');
 console.log('PASS 390px 移动端无水平溢出');

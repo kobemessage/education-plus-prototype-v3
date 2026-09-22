@@ -187,7 +187,7 @@
     .ep-discovery-card:nth-child(3):last-child .ep-discovery-media{aspect-ratio:16/7}
     .ep-discovery-arrow{align-self:flex-end;color:#7d968e;font-size:18px!important}
     .ep-discovery-demo{margin:11px 1px 0;color:#7d918a;font-size:10px;line-height:1.45;text-align:right}
-    #ep-login-dialog{position:fixed;inset:0;z-index:10050;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(9,35,29,.48);backdrop-filter:blur(3px)}
+    #ep-login-dialog{position:fixed;inset:0;z-index:13050;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(9,35,29,.48);backdrop-filter:blur(3px)}
     #ep-login-dialog[hidden]{display:none!important}
     #ep-login-dialog .ep-login-sheet{box-sizing:border-box;width:min(100%,390px);padding:22px 18px calc(18px + env(safe-area-inset-bottom,0px));border-radius:24px 24px 18px 18px;background:#fff;color:#173f36;box-shadow:0 18px 44px rgba(8,36,30,.22);font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif}
     #ep-login-dialog .ep-login-icon{width:46px;height:46px;margin-bottom:12px;border-radius:15px;background:#e1f4ed;color:#087f73;display:flex;align-items:center;justify-content:center;font-size:24px}
@@ -205,7 +205,7 @@
     #ep-access-gate .ep-gate-hint{margin:0 0 18px;padding:10px 12px;border-radius:12px;background:#f3f8f6;color:#527067;font-size:12px;line-height:1.55}
     #ep-access-gate button{width:100%;min-height:48px;margin-top:9px;border:1px solid #cfe2dc;border-radius:14px;background:#fff;color:#376158;font:700 14px/1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;cursor:pointer}
     #ep-access-gate button[data-primary="true"]{border-color:#087f73;background:#087f73;color:#fff}
-    .ep-access-toast{position:fixed;left:50%;bottom:96px;z-index:10060;max-width:calc(100vw - 40px);padding:10px 16px;border-radius:999px;background:#183e34;color:#fff;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:0 8px 22px rgba(8,36,30,.2);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s}
+    .ep-access-toast{position:fixed;left:50%;bottom:96px;z-index:13060;max-width:calc(100vw - 40px);padding:10px 16px;border-radius:999px;background:#183e34;color:#fff;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:0 8px 22px rgba(8,36,30,.2);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s}
     .ep-access-toast.show{transform:translate(-50%,0);opacity:1}
     @media(max-width:360px){.ep-access-note{font-size:11px}.ep-published-actions button,.ep-action-added{font-size:12px;padding:0 7px}.ep-discovery{padding:14px}.ep-discovery-card{padding:11px}.ep-inline-engagement .ep-inline-label{display:none}}
     @media(prefers-reduced-motion:reduce){.ep-discovery-card{transition:none}.ep-discovery-card:hover{transform:none}}

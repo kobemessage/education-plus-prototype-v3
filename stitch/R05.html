@@ -6,7 +6,7 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-  <link rel="stylesheet" href="../v3.css?v=20260922-v3c21"></head><body class="bg-surface text-on-surface font-body-default text-body-default min-h-screen flex flex-col items-center"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,100,90,0.04)]"><div class="h-11 flex items-center justify-between px-margin-page"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[22px]">local_library</span><h1 class="font-headline-section text-headline-section text-on-surface tracking-tight">读后感精选</h1></div><div class="flex items-center justify-end gap-space-sm w-capsule-safe-right"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(0,100,90,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div aria-hidden="true" class="w-12 h-8 rounded-full bg-surface-container-high/60 flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">more_horiz</span></div></div></div></header><main class="flex flex-col w-full max-w-[390px] pt-11 px-margin-page pb-20 bg-surface mt-11 min-h-screen"><div class="flex flex-col w-full pb-space-2xl">
+  <link rel="stylesheet" href="../v3.css?v=20260922-product-audit-v1"></head><body class="bg-surface text-on-surface font-body-default text-body-default min-h-screen flex flex-col items-center"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,100,90,0.04)]"><div class="h-11 flex items-center justify-between px-margin-page"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[22px]">local_library</span><h1 class="font-headline-section text-headline-section text-on-surface tracking-tight">读后感精选</h1></div><div class="flex items-center justify-end gap-space-sm w-capsule-safe-right"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(0,100,90,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div aria-hidden="true" class="w-12 h-8 rounded-full bg-surface-container-high/60 flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">more_horiz</span></div></div></div></header><main class="flex flex-col w-full max-w-[390px] pt-11 px-margin-page pb-20 bg-surface mt-11 min-h-screen"><div class="flex flex-col w-full pb-space-2xl">
 <!-- Page Header Sub-strip -->
 <div class="flex flex-col gap-space-2xs mb-space-md">
 <div class="flex items-center justify-between">
@@ -366,12 +366,25 @@
 </div>
 </div>
 <div class="flex items-center justify-end gap-space-sm pt-space-xs">
-<button class="px-space-lg py-2 rounded-full bg-primary text-on-primary font-body-medium text-body-medium shadow-sm active:scale-95 transition-transform flex items-center gap-space-xs" onclick="openPublishModal()">
+<button class="px-space-lg py-2 rounded-full bg-primary text-on-primary font-body-medium text-body-medium shadow-sm active:scale-95 transition-transform flex items-center gap-space-xs" data-ep-requires-login="true" onclick="openPublishModal()">
 <span class="material-symbols-outlined text-[18px]">edit</span>
 <span>提交读后感</span>
 </button>
 </div>
 </div>
+</div>
+<div class="v3-service-sheet" id="readingSubmissionSheet" hidden>
+<button class="v3-service-sheet-backdrop" type="button" onclick="closePublishModal()" aria-label="关闭读后感投稿"></button>
+<section class="v3-service-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="readingSubmissionTitle">
+<div class="v3-service-sheet-head"><div><small>读书会投稿</small><h3 id="readingSubmissionTitle">提交读后感</h3></div><button class="v3-service-sheet-close" type="button" onclick="closePublishModal()" aria-label="关闭"><span class="material-symbols-outlined">close</span></button></div>
+<p class="v3-service-sheet-intro">填写书名、标题与正文。提交后进入编辑审核，本页内容均为原型演示。</p>
+<form class="v3-form" onsubmit="return submitReadingResponse(this)">
+<div class="v3-field"><label for="readingBook">书名</label><input id="readingBook" name="book" required placeholder="例如：《平凡的世界》"></div>
+<div class="v3-field"><label for="readingTitle">读后感标题</label><input id="readingTitle" name="title" required placeholder="写下这篇读后感的标题"></div>
+<div class="v3-field"><label for="readingBody">正文</label><textarea id="readingBody" name="body" required minlength="30" placeholder="至少填写 30 个字，写下你的阅读体会"></textarea></div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs"><button class="px-space-lg py-2 rounded-full border border-outline-variant bg-white text-on-surface-variant" type="button" onclick="closePublishModal()">暂不提交</button><button class="px-space-lg py-2 rounded-full bg-primary text-on-primary font-body-medium text-body-medium" type="submit">提交审核</button></div>
+</form>
+</section>
 </div>
 <!-- Simple Vanilla Interactive Script -->
 <script>
@@ -427,6 +440,39 @@
   }
 
   function openPublishModal() {
-    console.log('Navigate to reading log submission');
+    const sheet = document.getElementById('readingSubmissionSheet');
+    if (!sheet) return;
+    sheet.hidden = false;
+    document.body.classList.add('v3-sheet-open');
+    requestAnimationFrame(() => document.getElementById('readingBook')?.focus());
   }
-</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,100,90,0.05)]" data-active-classes="text-primary font-body-medium"><div class="flex justify-around items-center h-14 max-w-[390px] mx-auto px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-11 transition-all text-primary font-body-medium" data-path="reading-club-hub" href="#"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-caption text-label-caption mt-space-2xs">书会</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="campus-activities" href="#"><span class="material-symbols-outlined text-[22px]">event_available</span><span class="font-label-caption text-label-caption mt-space-2xs">活动</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="academic-services" href="#"><span class="material-symbols-outlined text-[22px]">school</span><span class="font-label-caption text-label-caption mt-space-2xs">服务</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="member-profile" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-caption text-label-caption mt-space-2xs">我的</span></a></div></nav><script>window.EP_PAGE="R05";</script><script src="../access-control.js?v=20260922-content-media-v1"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../bottom-nav.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script></body></html>
+
+  function closePublishModal() {
+    const sheet = document.getElementById('readingSubmissionSheet');
+    if (!sheet || sheet.hidden) return;
+    sheet.hidden = true;
+    document.body.classList.remove('v3-sheet-open');
+  }
+
+  function submitReadingResponse(form) {
+    if (!form.reportValidity()) return false;
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    button.textContent = '正在提交…';
+    localStorage.setItem('ep-reading-submission', JSON.stringify({ status: 'reviewing', submittedAt: Date.now() }));
+    setTimeout(() => {
+      button.disabled = false;
+      button.removeAttribute('aria-busy');
+      button.textContent = '提交审核';
+      form.reset();
+      closePublishModal();
+      if (typeof window.v3Toast === 'function') window.v3Toast('读后感已提交，进入编辑审核（演示）');
+    }, 650);
+    return false;
+  }
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closePublishModal();
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,100,90,0.05)]" data-active-classes="text-primary font-body-medium"><div class="flex justify-around items-center h-14 max-w-[390px] mx-auto px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-11 transition-all text-primary font-body-medium" data-path="reading-club-hub" href="#"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-caption text-label-caption mt-space-2xs">书会</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="campus-activities" href="#"><span class="material-symbols-outlined text-[22px]">event_available</span><span class="font-label-caption text-label-caption mt-space-2xs">活动</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="academic-services" href="#"><span class="material-symbols-outlined text-[22px]">school</span><span class="font-label-caption text-label-caption mt-space-2xs">服务</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="member-profile" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-caption text-label-caption mt-space-2xs">我的</span></a></div></nav><script>window.EP_PAGE="R05";</script><script src="../v3-ui.js?v=20260922-product-audit-v1"></script><script src="../access-control.js?v=20260922-product-audit-v1"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../bottom-nav.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script></body></html>
