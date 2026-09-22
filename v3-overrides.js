@@ -2,7 +2,7 @@
   const inferred=(location.pathname.match(/\/([A-Z]\d{2})\.html$/i)||[])[1];
   const id=String(window.EP_PAGE||inferred||'').toUpperCase();
   const pageTitles={
-    R01:'做领读员',R02:'领读课程详情',R03:'名家谈阅读',R04:'名家文章详情',R05:'读后感精选',R06:'读后感详情',R07:'共读书库',R08:'书目详情',R12:'全省校园读书会',R13:'学校读书会主页',
+    R01:'来做领读员',R02:'领读课程详情',R03:'名家谈阅读',R04:'名家文章详情',R05:'读后感精选',R06:'读后感详情',R07:'共读书库',R08:'书目详情',R12:'全省校园读书会',R13:'学校读书会主页',
     S01:'少年派作品详情',S02:'少年派作品投稿',S03:'热门赛事详情',S04:'投稿进度',S05:'名师指导详情',S06:'成长作品档案',
     J01:'小记者作品详情',J02:'小记者采写投稿',J03:'小记者投稿进度',J04:'小记者作品档案',J05:'小记者风采',J06:'小记者风采荣誉',J07:'小记者入驻申请',J08:'小记者资格审核',
     Y01:'我的大学动态详情',Y02:'社团入驻申请',Y03:'贵州教育报主题活动',Y04:'创作发布',Y05:'我的发布',
@@ -72,6 +72,7 @@
   const hiddenPhrases=/^S/.test(id)?['评论区','全部评论','发表评论']:id==='G03'?['采风活动','科学港实践']:[];
   hiddenPhrases.forEach(phrase=>{
     document.querySelectorAll('body *').forEach(el=>{
+      if(el.closest('.ep-access-note,#ep-login-dialog,#ep-access-gate'))return;
       if(el.children.length===0&&(el.textContent||'').includes(phrase)){
         const block=el.closest('article,[class*="card"],a,button')||el;
         block.hidden=true;

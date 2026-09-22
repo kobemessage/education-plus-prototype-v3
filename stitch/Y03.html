@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>贵州教育报主题活动</title>
   <link rel="stylesheet" href="../youth.css">
-  <link rel="stylesheet" href="../v3.css?v=20260922-v3c17">
+  <link rel="stylesheet" href="../v3.css?v=20260922-v3c21">
 </head>
-<body>
+<body data-official-activity="true">
   <header class="topbar">
     <button class="back" aria-label="返回致青春" onclick="youthGo(5)">‹</button>
     <div class="heading"><h1>贵州教育报主题活动</h1><p>由贵州教育报组织的高校主题活动</p></div>
@@ -27,13 +27,13 @@
       <ul class="list"><li><b>内容方向：</b>校园生活、青春感悟、社会实践、原创作品</li><li><b>提交要求：</b>信息真实、内容完整，并确认原创及授权</li><li><b>审核方式：</b>由活动运营人员统一审核</li><li><b>展示方式：</b>优秀作品进入主题活动成果展示</li></ul>
     </section>
     <section class="card">
-      <h2>参与流程</h2>
-      <div class="feature-grid"><div class="feature"><b>1. 阅读规则</b><p>确认主题和作品要求</p></div><div class="feature"><b>2. 准备作品</b><p>选择图文或短视频</p></div><div class="feature"><b>3. 提交作品</b><p>通过创作入口关联活动</p></div><div class="feature"><b>4. 查看状态</b><p>在我的发布中跟踪</p></div></div>
+      <div class="section-head"><h2>官方活动展示</h2><span class="tag">仅展示</span></div>
+      <p class="desc">本活动由贵州教育报发起并统一组织，当前页面用于发布规则、时间与成果信息，不显示个人创作入口。</p>
     </section>
-    <button class="btn block" onclick="youthGo('Y04')">参与作品征集</button>
-    <p class="intro">当前仅演示线上作品征集与成果展示；如贵州教育报后续组织线下活动，将以正式活动页面公布的报名方式为准。</p>
+    <button class="btn block" data-non-official-entry hidden onclick="youthGo('Y04')">进入创作入口</button>
+    <p class="intro">非官方组织的开放征集可显示创作入口；官方组织活动按本页规则仅展示正式信息。具体安排以贵州教育报发布为准。</p>
   </main>
   <div class="toast"></div>
-  <script>window.EP_PAGE='Y03'</script><script src="../youth.js"></script><script src="../routes.js?v=20260922-v3c17"></script><script src="../bottom-nav.js?v=20260922-v3c17"></script><script src="../v3-overrides.js?v=20260922-v3c17"></script>
+  <script>window.EP_PAGE='Y03';document.querySelector('[data-non-official-entry]').hidden=document.body.dataset.officialActivity==='true';</script><script src="../youth.js"></script><script src="../access-control.js?v=20260922-v3c21"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../bottom-nav.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script>
 </body>
 </html>
