@@ -45,9 +45,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260922-v3c16"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260922-v3c17"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260922-v3c16"></script><script src="{prefix}routes.js?v=20260922-v3c16"></script></body></html>'''
+<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260922-v3c17"></script><script src="{prefix}routes.js?v=20260922-v3c17"></script></body></html>'''
 
 
 pages = {}
@@ -79,7 +79,7 @@ pages["02.html"] = page("2", "读书会", '''
 <small>阅读 · 思考 · 分享 · 成长</small><h2>在书中遇见<br>更好的自己</h2><p>聚焦领读、共读与名家阅读三条内容主线。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid three" aria-label="读书会二级导航">
 <button class="v3-card" onclick="v3Go('R12')">''' + icon("groups_3") + '''<strong>大家一起读</strong><p>校园共读与主题书单</p></button>
-<button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>访谈、讲座与阅读方法</p></button>
+<button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>名家观点与阅读方法</p></button>
 <button class="v3-card" onclick="v3Go('R01')">''' + icon("co_present", "blue") + '''<strong>做领读员</strong><p>培训课程与领读实践</p></button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>领读精选</h3><button class="v3-more" onclick="v3Go('R01')">更多</button></div>
 ''' + row("主题书单：在山水与文字之间认识贵州", "分龄阅读建议 · 编辑精选（演示）", "R07", image="assets/v3/campus-reading-v2.jpg", state="主题书单") + '''</section>
@@ -89,7 +89,7 @@ pages["02.html"] = page("2", "读书会", '''
 <button class="v3-row" onclick="v3Go('R06')">''' + icon("landscape","blue") + '''<span class="grow"><strong>《昆虫记》</strong><p>阅读进度 35% · 自然观察</p><div class="v3-progress"><i style="width:35%"></i></div></span><span class="material-symbols-outlined">chevron_right</span></button>
 </div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>名家阅读</h3><button class="v3-more" onclick="v3Go('R03')">更多</button></div>
-''' + row("阅读，让人生更辽阔", "名家分享 · 讲座回放（演示）", "R04", icon_name="record_voice_over", state="可回放") + '''</section>
+''' + row("阅读，让人生更辽阔", "名家观点 · 图文精选（演示）", "R04", icon_name="record_voice_over", state="读图文") + '''</section>
 <div class="v3-note info">校园读书会由平台后台统一配置，前台不提供自主创建、积分、排行或打卡入口。</div>
 ''', subtitle="阅读 · 思考 · 分享 · 成长")
 
@@ -232,7 +232,7 @@ pages["12.html"] = page("12", "活动", '''
 <article class="v3-activity-card" data-category="读书会" data-status="进行中"><div class="v3-activity-head"><span class="v3-state">读书会</span><span class="v3-state outline">进行中</span></div><strong>全省校园共读计划 [演示数据]</strong><dl><div><dt>主办方</dt><dd>贵州教育报 [演示数据]</dd></div><div><dt>时间</dt><dd>时间待确认</dd></div><div><dt>参与对象</dt><dd>全省中小学校</dd></div></dl><button class="v3-btn secondary" onclick="v3Go('R12')">查看详情</button></article>
 <article class="v3-activity-card" data-category="少年派" data-status="征集中"><div class="v3-activity-head"><span class="v3-state">少年派</span><span class="v3-state amber">征集中</span></div><strong>“筑梦黔山”青少年作品征集 [演示数据]</strong><dl><div><dt>主办方</dt><dd>贵州教育报 [演示数据]</dd></div><div><dt>时间</dt><dd>截止时间待确认</dd></div><div><dt>参与对象</dt><dd>中小学生</dd></div></dl><button class="v3-btn" onclick="v3Go('S03')">参与征集</button></article>
 <article class="v3-activity-card" data-category="致青春" data-status="征集中"><div class="v3-activity-head"><span class="v3-state">致青春</span><span class="v3-state amber">征集中</span></div><strong>“我和我的大学”图文与短视频征集 [演示数据]</strong><dl><div><dt>主办方</dt><dd>贵州教育报 [演示数据]</dd></div><div><dt>时间</dt><dd>截止时间待确认</dd></div><div><dt>参与对象</dt><dd>高校学生</dd></div></dl><button class="v3-btn" onclick="v3Go('Y03')">参与征集</button></article>
-<article class="v3-activity-card" data-category="读书会" data-status="已结束"><div class="v3-activity-head"><span class="v3-state">读书会</span><span class="v3-state outline">已结束</span></div><strong>名家阅读分享会 [演示数据]</strong><dl><div><dt>主办方</dt><dd>贵州教育报 [演示数据]</dd></div><div><dt>时间</dt><dd>日期待确认</dd></div><div><dt>参与对象</dt><dd>教师、学生与家长</dd></div></dl><button class="v3-btn secondary" onclick="v3Go('R04')">观看直播</button></article>
+<article class="v3-activity-card" data-category="读书会" data-status="已结束"><div class="v3-activity-head"><span class="v3-state">读书会</span><span class="v3-state outline">已结束</span></div><strong>名家阅读分享会 [演示数据]</strong><dl><div><dt>主办方</dt><dd>贵州教育报 [演示数据]</dd></div><div><dt>时间</dt><dd>日期待确认</dd></div><div><dt>参与对象</dt><dd>教师、学生与家长</dd></div></dl><button class="v3-btn secondary" onclick="v3Go('R04')">查看活动图文</button></article>
 </section>
 <div class="v3-search-empty" id="activityEmpty" hidden><span class="material-symbols-outlined">event_busy</span><strong>暂无符合条件的活动</strong><p>请选择其他板块或状态。</p></div>
 <div class="v3-note info">活动页面仅聚合读书会、少年派和致青春的线上内容。小记者不含线下活动；科学港不提供活动报名。</div>
