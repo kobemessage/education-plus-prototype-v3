@@ -203,26 +203,54 @@ pages["10.html"] = page("10", "我的", '''
 </div></section><div class="v3-note info">小记者资格审核与普通微信账号注册相互独立。</div>
 ''', active="我的", subtitle="投稿 · 活动 · 资格")
 
-services = [
-    ("2", "读书会", "共读与名家阅读", "menu_book"),
-    ("3", "少年派", "作品与赛事", "draw"),
-    ("4", "小记者", "采写成长", "photo_camera"),
-    ("5", "致青春", "高校内容", "school"),
-    ("7", "科学港", "科学成果", "science"),
-]
-service_cards = "".join(
-    f'<button class="v3-card" onclick="v3Go(\'{route}\')">{icon(symbol)}<strong>{name}</strong><p>{desc}</p></button>'
-    for route, name, desc, symbol in services
-)
-pages["11.html"] = page("11", "服务", f'''
-<section class="v3-hero"><small>教育Plus V3.0 · 服务大厅</small><h2>内容专区<br>与便民工具</h2><p>八个入口直达对应模块，功能边界清晰呈现。</p></section>
-<section class="v3-section"><div class="v3-section-head"><h3>内容专区</h3><span>5项</span></div><div class="v3-grid">{service_cards}</div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>便民工具</h3><span>3项</span></div><div class="v3-grid three">
-<button class="v3-card" onclick="v3Go('6')">{icon("co_present")}<strong>公益课</strong><p>直播回放</p></button>
-<button class="v3-card" onclick="v3Go('8')">{icon("explore","blue")}<strong>填志愿</strong><p>外部导引</p></button>
-<button class="v3-card" onclick="v3Go('9')">{icon("newspaper","amber")}<strong>订报刊</strong><p>数字展读</p></button></div></section>
-<div class="v3-note info">所有人物、数据与内容均为演示；外部服务为待接入占位，不采集真实交易信息。</div>
-''', active="服务", subtitle="内容专区 · 便民工具")
+pages["11.html"] = page("11", "服务", '''
+<section class="v3-service-hero">
+  <div class="v3-service-hero-copy"><small>教育Plus · 办事大厅</small><h2>你要办的事<br>从这里开始</h2><p>投稿、入驻、课程与便民查询，按任务一步直达。</p></div>
+  <div class="v3-service-legend" aria-label="服务权限说明"><span><i class="public"></i>公开查询</span><span><i class="login"></i>登录办理</span></div>
+</section>
+<section class="v3-service-search" aria-label="搜索服务">
+  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+  <input id="serviceSearch" type="search" placeholder="搜索投稿、入驻、课程、政策或报刊" aria-label="搜索办事服务" oninput="v3FilterServices(this)">
+  <button id="serviceSearchClear" class="v3-service-search-clear" type="button" aria-label="清空服务搜索" onclick="v3ClearServiceSearch()" hidden><span class="material-symbols-outlined">close</span></button>
+  <span id="serviceSearchCount" class="v3-service-search-count" aria-live="polite">共 7 项服务</span>
+</section>
+<section class="v3-service-group" data-service-group>
+  <div class="v3-service-group-head"><div><small>01</small><h3>常用办理</h3></div><span>4项</span></div>
+  <button class="v3-service-featured" type="button" data-service-item data-service-search="投稿 作品 读后感 共读笔记 少年派 小记者 致青春 科学发现" data-ep-browse-action="true" onclick="v3OpenServiceSheet(this)">
+    <span class="v3-service-featured-icon"><span class="material-symbols-outlined">edit_square</span></span><span class="grow"><small>内容创作入口</small><strong>我要投稿</strong><span>选择作品类型后，进入对应投稿页</span></span><span class="v3-service-badge login">需登录</span><span class="material-symbols-outlined arrow">arrow_forward</span>
+  </button>
+  <div class="v3-service-card-grid">
+    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="小记者 入驻 资格 申请 学校推荐" onclick="v3Go('J07')"><span class="v3-service-card-top">''' + icon("badge") + '''<span class="v3-service-badge login">需登录</span></span><strong>小记者入驻</strong><p>学生资料、学校推荐与审核</p><span class="v3-service-link">开始申请 <span class="material-symbols-outlined">arrow_forward</span></span></button>
+    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="社团 高校 入驻 认证 致青春" onclick="v3Go('Y02')"><span class="v3-service-card-top">''' + icon("diversity_3", "blue") + '''<span class="v3-service-badge login">需登录</span></span><strong>社团入驻</strong><p>高校社团资料登记与认证</p><span class="v3-service-link">去办理 <span class="material-symbols-outlined">arrow_forward</span></span></button>
+    <button class="v3-service-card" type="button" data-service-item data-service-search="课程 公益课 搜索 直播 回放 教师 学校" onclick="v3Go('6')"><span class="v3-service-card-top">''' + icon("play_lesson", "amber") + '''<span class="v3-service-badge public">免登录</span></span><strong>课程搜索与回放</strong><p>按课程、教师或学校查找</p><span class="v3-service-link">查看课程 <span class="material-symbols-outlined">arrow_forward</span></span></button>
+  </div>
+</section>
+<section class="v3-service-group" data-service-group>
+  <div class="v3-service-group-head"><div><small>02</small><h3>查询与便民</h3></div><span>3项</span></div>
+  <div class="v3-service-rows">
+    <button class="v3-service-row" type="button" data-service-item data-service-search="招考 政策 查询 高考 志愿 官方信息" onclick="v3Go('V01')">''' + icon("policy", "blue") + '''<span class="grow"><strong>招考政策查询</strong><small>查看来源、发布时间与适用范围</small></span><span class="v3-service-badge public">免登录</span><span class="material-symbols-outlined arrow">chevron_right</span></button>
+    <button class="v3-service-row" type="button" data-service-item data-service-search="数字报 报刊 版面 订阅 贵州教育报" onclick="v3Go('N01')">''' + icon("newspaper", "amber") + '''<span class="grow"><strong>数字报刊服务</strong><small>展读数字版面与查看订阅说明</small></span><span class="v3-service-badge public">免登录</span><span class="material-symbols-outlined arrow">chevron_right</span></button>
+    <button class="v3-service-row" type="button" data-service-item data-service-search="全站 搜索 文章 作品 课程 活动" onclick="v3Go('G01')">''' + icon("travel_explore") + '''<span class="grow"><strong>全站搜索</strong><small>一次查找文章、作品、课程与活动</small></span><span class="v3-service-badge public">免登录</span><span class="material-symbols-outlined arrow">chevron_right</span></button>
+  </div>
+</section>
+<aside class="v3-service-guide"><span class="material-symbols-outlined" aria-hidden="true">help_center</span><div class="grow"><strong>想在学校发起共读？</strong><p>先查看校园读书会申请说明与参与条件。</p></div><button type="button" onclick="v3Go('R12')">查看说明 <span class="material-symbols-outlined">arrow_forward</span></button></aside>
+<div class="v3-service-empty" id="serviceSearchEmpty" hidden><span class="material-symbols-outlined">search_off</span><strong>没有找到相关服务</strong><p>试试搜索“投稿”“入驻”“课程”或“政策”。</p><button type="button" onclick="v3ClearServiceSearch()">查看全部服务</button></div>
+<div class="v3-note info">办事大厅仅聚合入口与服务说明。活动报名请前往“活动”，办理进度、收藏和个人记录请前往“我的”。</div>
+<div class="v3-service-sheet" id="serviceSubmissionSheet" hidden>
+  <button class="v3-service-sheet-backdrop" type="button" data-service-sheet-close aria-label="关闭投稿类型选择"></button>
+  <section class="v3-service-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="serviceSubmissionTitle">
+    <div class="v3-service-sheet-head"><div><small>投稿办理</small><h3 id="serviceSubmissionTitle">选择作品类型</h3></div><button class="v3-service-sheet-close" type="button" data-service-sheet-close aria-label="关闭"><span class="material-symbols-outlined">close</span></button></div>
+    <p class="v3-service-sheet-intro">不同类型会进入对应投稿页；提交作品需先登录。</p>
+    <div class="v3-service-sheet-options">
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('R05')">''' + icon("auto_stories") + '''<span><strong>读后感 / 共读笔记</strong><small>读书会</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('S02')">''' + icon("draw", "amber") + '''<span><strong>少年派作品</strong><small>作文、绘画与创意表达</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('J02')">''' + icon("photo_camera", "blue") + '''<span><strong>小记者采写</strong><small>校园新闻与采访作品</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('Y04')">''' + icon("movie") + '''<span><strong>致青春图文 / 短视频</strong><small>高校校园内容</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('K02')">''' + icon("science", "amber") + '''<span><strong>科学发现作品</strong><small>科学观察与实验记录</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+    </div>
+  </section>
+</div>
+''', active="服务", subtitle="办事大厅 · 7项服务")
 
 pages["12.html"] = page("12", "活动", '''
 <section class="v3-hero"><small>教育报公益活动聚合</small><h2>发现正在发生的<br>校园内容与征集</h2><p>按板块和状态浏览线上征集、内容展播与直播信息。</p></section>

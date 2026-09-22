@@ -11,3 +11,53 @@ document.addEventListener('click',event=>{const category=event.target.closest('[
 document.addEventListener('invalid',event=>{const field=event.target;if(!field.matches('input,select,textarea'))return;field.setAttribute('aria-invalid','true');let error=field.parentElement.querySelector('.v3-field-error');if(!error){error=document.createElement('div');error.className='v3-field-error';error.setAttribute('role','alert');field.insertAdjacentElement('afterend',error)}error.textContent=field.validationMessage||'请完整填写此项'},true);
 document.addEventListener('input',event=>{const field=event.target;if(!field.matches('input,select,textarea'))return;if(field.checkValidity()){field.removeAttribute('aria-invalid');const error=field.parentElement.querySelector('.v3-field-error');if(error)error.remove()}});
 if(String(window.EP_PAGE||'')==='J08')window.v3LoadJournalistReview();
+
+let v3ServiceSheetOpener=null;
+window.v3OpenServiceSheet=function(opener){
+  const sheet=document.getElementById('serviceSubmissionSheet');
+  if(!sheet)return;
+  v3ServiceSheetOpener=opener||document.activeElement;
+  sheet.hidden=false;
+  document.body.classList.add('v3-sheet-open');
+  requestAnimationFrame(()=>sheet.querySelector('.v3-service-sheet-close')?.focus());
+};
+window.v3CloseServiceSheet=function(){
+  const sheet=document.getElementById('serviceSubmissionSheet');
+  if(!sheet||sheet.hidden)return;
+  sheet.hidden=true;
+  document.body.classList.remove('v3-sheet-open');
+  if(v3ServiceSheetOpener&&typeof v3ServiceSheetOpener.focus==='function')v3ServiceSheetOpener.focus();
+};
+window.v3FilterServices=function(input){
+  const query=(input?.value||'').trim().toLocaleLowerCase('zh-CN');
+  const items=[...document.querySelectorAll('[data-service-item]')];
+  let visible=0;
+  items.forEach(item=>{
+    const source=`${item.dataset.serviceSearch||''} ${item.textContent||''}`.toLocaleLowerCase('zh-CN');
+    const match=!query||source.includes(query);
+    item.hidden=!match;
+    if(match)visible++;
+  });
+  document.querySelectorAll('[data-service-group]').forEach(group=>{
+    group.hidden=![...group.querySelectorAll('[data-service-item]')].some(item=>!item.hidden);
+  });
+  const count=document.getElementById('serviceSearchCount');
+  if(count)count.textContent=query?`找到 ${visible} 项服务`:`共 ${items.length} 项服务`;
+  const empty=document.getElementById('serviceSearchEmpty');
+  if(empty)empty.hidden=visible!==0;
+  const clear=document.getElementById('serviceSearchClear');
+  if(clear)clear.hidden=!query;
+};
+window.v3ClearServiceSearch=function(){
+  const input=document.getElementById('serviceSearch');
+  if(!input)return;
+  input.value='';
+  v3FilterServices(input);
+  input.focus();
+};
+document.addEventListener('click',event=>{
+  if(event.target.closest('[data-service-sheet-close]'))v3CloseServiceSheet();
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&!document.getElementById('serviceSubmissionSheet')?.hidden)v3CloseServiceSheet();
+});
