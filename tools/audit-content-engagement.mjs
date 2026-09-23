@@ -107,6 +107,11 @@ await page.goto(`${baseUrl}/stitch/R01.html?auth=1`, { waitUntil: 'domcontentloa
 await page.waitForTimeout(80);
 const leaderBody = await page.locator('body').innerText();
 if (/2025年春季学期|1,420|纯公益乡村及城镇领读教研计划/.test(leaderBody)) failures.push('R01.html: 仍残留已要求删除的研训数据块');
+if (await page.locator('#leader-activity img').count() !== 1) failures.push('R01.html: 缺少领读活动首图');
+if (await page.locator('#leader-activity button[data-ep-route="12"]').count() !== 1) failures.push('R01.html: 领读活动缺少活动详情入口');
+if (await page.locator('.leader-path-grid > div').count() !== 3) failures.push('R01.html: 领读成长路径不是 3 步');
+if (await page.locator('[data-course-section]').count() !== 3) failures.push('R01.html: 课程未按推荐、图文、视频分区');
+if (await page.locator('[data-tool]').count() !== 4) failures.push('R01.html: 领读工具包不是 4 项');
 if (await page.locator('[data-course-id]').count() !== 6) failures.push('R01.html: 课程测试数据不是 6 门');
 if (await page.locator('[data-search*="图文"]').count() !== 3) failures.push('R01.html: 图文课程不是 3 门');
 if (await page.locator('[data-search*="视频"]').count() !== 3) failures.push('R01.html: 视频课程不是 3 门');
@@ -116,6 +121,8 @@ await page.locator('[data-course-id="t1"]').click();
 if (await page.locator('#course-sheet:not([hidden])').count() !== 1) failures.push('R01.html: 图文课程详情未打开');
 if (await page.locator('#course-sheet-points li').count() !== 3) failures.push('R01.html: 图文课程详情缺少测试内容');
 await page.locator('.course-sheet-close').click();
+await page.locator('[data-tool]').first().click();
+if (!(await page.locator('#leader-tool-status').innerText()).includes('演示')) failures.push('R01.html: 领读工具缺少操作反馈');
 
 await page.goto(`${baseUrl}/stitch/R07.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
