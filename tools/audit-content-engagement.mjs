@@ -103,6 +103,20 @@ if (await page.locator('.article-card:not([hidden])').count() !== 1) failures.pu
 await page.getByRole('button', { name: '待接入' }).click();
 if (!(await page.locator('#expert-tts-status').innerText()).includes('待接入')) failures.push('R03.html: TTS 预留反馈异常');
 
+await page.goto(`${baseUrl}/stitch/R01.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+const leaderBody = await page.locator('body').innerText();
+if (/2025年春季学期|1,420|纯公益乡村及城镇领读教研计划/.test(leaderBody)) failures.push('R01.html: 仍残留已要求删除的研训数据块');
+if (await page.locator('[data-course-id]').count() !== 6) failures.push('R01.html: 课程测试数据不是 6 门');
+if (await page.locator('[data-search*="图文"]').count() !== 3) failures.push('R01.html: 图文课程不是 3 门');
+if (await page.locator('[data-search*="视频"]').count() !== 3) failures.push('R01.html: 视频课程不是 3 门');
+await page.locator('#course-search-input').fill('图文');
+if (await page.locator('[data-course-id]:not([hidden])').count() !== 3) failures.push('R01.html: 图文课程搜索结果异常');
+await page.locator('[data-course-id="t1"]').click();
+if (await page.locator('#course-sheet:not([hidden])').count() !== 1) failures.push('R01.html: 图文课程详情未打开');
+if (await page.locator('#course-sheet-points li').count() !== 3) failures.push('R01.html: 图文课程详情缺少测试内容');
+await page.locator('.course-sheet-close').click();
+
 await page.goto(`${baseUrl}/stitch/R07.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
 if (await page.locator('.cat-chip').count()) failures.push('R07.html: 仍残留复杂分类标签');
@@ -229,6 +243,7 @@ console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底�
 console.log('PASS 作品/活动点赞、收藏、分享与登录边界');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
 console.log('PASS 读书会三入口、热门活动、内容搜索、图文与入驻规则');
+console.log('PASS 领读员页面无研训数据块，图文/视频课程与课程详情完整');
 console.log('PASS 读后感投稿、消息详情、页面加载与演示重置');
 console.log('PASS 图片 alt、交互控件可访问名称');
 console.log('PASS 390px 移动端无水平溢出');
