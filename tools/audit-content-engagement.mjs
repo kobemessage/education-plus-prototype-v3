@@ -35,7 +35,7 @@ for (const route of routes) {
   const errors = [];
   const onPageError = error => errors.push(error.message);
   page.on('pageerror', onPageError);
-  const response = await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+  const response = await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'load', timeout: 20000 });
   await page.waitForTimeout(80);
   if (!response?.ok()) failures.push(`${route}: HTTP ${response?.status() || 'no response'}`);
   const result = await page.evaluate(({ needsEngagement }) => {
