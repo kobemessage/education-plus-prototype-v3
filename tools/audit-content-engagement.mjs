@@ -38,25 +38,21 @@ for (const route of routes) {
   const response = await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'domcontentloaded', timeout: 20000 });
   await page.waitForTimeout(80);
   if (!response?.ok()) failures.push(`${route}: HTTP ${response?.status() || 'no response'}`);
-  if (id !== '11') {
-    await page.waitForFunction(() => {
-      const images = [...document.querySelectorAll('.ep-discovery-media')];
-      return images.length >= 2 && images.every(image => image.complete && image.naturalWidth >= 320);
-    }, null, { timeout: 15000 }).catch(() => {});
-  }
   const result = await page.evaluate(({ needsEngagement }) => {
     const buttons = [...document.querySelectorAll('button,a,[role="button"]')];
     const labels = buttons.map(control => [control.getAttribute('aria-label'), control.textContent].filter(Boolean).join(' '));
+    const bottomFloatingPanels = [...document.querySelectorAll('body *')].filter(element => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      const visible = style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0;
+      if (!visible || !['fixed', 'sticky'].includes(style.position)) return false;
+      if (element.matches('.toast,.v3-toast,.ep-access-toast,.article-toast') || element.closest('[role="dialog"]')) return false;
+      return rect.bottom >= innerHeight - 140 && rect.height >= 44 && rect.width >= 120;
+    }).map(element => `${element.tagName.toLowerCase()}.${String(element.className).replace(/\s+/g, '.')}`);
     return {
       discovery: document.querySelectorAll('.ep-discovery').length,
-      discoveryCards: document.querySelectorAll('.ep-discovery-card').length,
+      bottomFloatingPanels,
       serviceItems: document.querySelectorAll('[data-service-item]').length,
-      discoveryImages: [...document.querySelectorAll('.ep-discovery-media')].map(image => ({
-        alt: image.alt,
-        complete: image.complete,
-        width: image.naturalWidth
-      })),
-      orderedImages: document.querySelectorAll('.ep-discovery-copy + .ep-discovery-media').length,
       missingAlt: [...document.images].filter(image => !image.hasAttribute('alt')).length,
       unnamedControls: buttons.filter(control => {
         const name = [control.getAttribute('aria-label'), control.getAttribute('title'), control.textContent]
@@ -69,13 +65,9 @@ for (const route of routes) {
       overflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - window.innerWidth
     };
   }, { needsEngagement: engagementPages.has(id) });
-  if (id !== '11' && (result.discovery !== 1 || result.discoveryCards < 2)) {
-    failures.push(`${route}: 继续探索内容未完整 ${JSON.stringify(result)}`);
-  }
+  if (result.discovery !== 0) failures.push(`${route}: 仍残留校园自选单/延伸浏览框`);
+  if (result.bottomFloatingPanels.length) failures.push(`${route}: 仍残留可见底部悬浮框 ${result.bottomFloatingPanels.join(', ')}`);
   if (id === '11' && result.serviceItems !== 7) failures.push(`${route}: 办事大厅结构异常 ${JSON.stringify(result)}`);
-  if (id !== '11' && (result.discoveryImages.length !== result.discoveryCards || result.orderedImages !== result.discoveryCards || result.discoveryImages.some(image => !image.alt || !image.complete || image.width < 320))) {
-    failures.push(`${route}: 栏目图片未完整 ${JSON.stringify(result.discoveryImages)}`);
-  }
   if (!result.like || !result.favorite || !result.share) failures.push(`${route}: 互动不完整 ${JSON.stringify(result)}`);
   if (result.missingAlt) failures.push(`${route}: ${result.missingAlt} 张图片缺少 alt 属性`);
   if (result.unnamedControls) failures.push(`${route}: ${result.unnamedControls} 个控件缺少可访问名称`);
@@ -193,6 +185,7 @@ if (failures.length) {
 }
 
 console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
+console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底部悬浮菜单');
 console.log('PASS 作品/活动点赞、收藏、分享与登录边界');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
 console.log('PASS 读后感投稿、消息详情、页面加载与演示重置');
