@@ -30,9 +30,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260923-no-floating-panels-v3"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260923-reading-club-v4"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<script src="{prefix}v3-ui.js?v=20260922-v3c17"></script><script src="{prefix}routes.js?v=20260922-v3c17"></script></body></html>'''
+<script src="{prefix}v3-ui.js?v=20260922-v3c21"></script><script src="{prefix}access-control.js?v=20260923-reading-club-v4"></script><script src="{prefix}routes.js?v=20260923-reading-club-v4"></script></body></html>'''
 
 
 pages = {}
@@ -60,23 +60,31 @@ pages["01.html"] = page("1", "教育Plus", '''
 ''', home=True)
 
 pages["02.html"] = page("2", "读书会", '''
-<section class="v3-hero has-image"><img src="assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div>
-<small>阅读 · 思考 · 分享 · 成长</small><h2>在书中遇见<br>更好的自己</h2><p>聚焦领读、共读与名家阅读三条内容主线。</p></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>阅读与成长</h3><span>3项服务</span></div><div class="v3-grid three" aria-label="读书会二级导航">
-<button class="v3-card" onclick="v3Go('R12')">''' + icon("groups_3") + '''<strong>大家一起读</strong><p>校园共读与主题书单</p></button>
-<button class="v3-card" onclick="v3Go('R03')">''' + icon("record_voice_over", "amber") + '''<strong>名家谈阅读</strong><p>名家观点与阅读方法</p></button>
-<button class="v3-card" onclick="v3Go('R01')">''' + icon("co_present", "blue") + '''<strong>做领读员</strong><p>培训课程与领读实践</p></button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>领读精选</h3><button class="v3-more" onclick="v3Go('R01')">更多</button></div>
-''' + row("主题书单：在山水与文字之间认识贵州", "分龄阅读建议 · 编辑精选（演示）", "R07", image="assets/v3/campus-reading-v2.jpg", state="主题书单") + '''</section>
-<section class="v3-panel"><div class="v3-section-head"><h3>共读书目</h3><button class="v3-more" onclick="v3Go('R12')">更多</button></div>
-<div class="v3-list">
-<button class="v3-row" onclick="v3Go('R06')">''' + icon("auto_stories") + '''<span class="grow"><strong>《平凡的世界》</strong><p>阅读进度 62% · 内容展示</p><div class="v3-progress"><i style="width:62%"></i></div></span><span class="material-symbols-outlined">chevron_right</span></button>
-<button class="v3-row" onclick="v3Go('R06')">''' + icon("landscape","blue") + '''<span class="grow"><strong>《昆虫记》</strong><p>阅读进度 35% · 自然观察</p><div class="v3-progress"><i style="width:35%"></i></div></span><span class="material-symbols-outlined">chevron_right</span></button>
+
+<section class="v3-hero has-image"><img src="assets/v3/campus-reading-v2.jpg" alt="读书会热门活动中的校园共读场景"><div><small>热门活动 · 全省校园共读季</small><h2>一起读一本<br>真正喜欢的书</h2><p>主题书单、校园动态和读后感征集正在进行。</p><button class="v3-cta" onclick="v3Go('R12')">查看热门活动</button></div></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>读书会服务</h3><span>3个入口</span></div><div class="v3-grid three" aria-label="读书会二级导航">
+<button class="v3-card" onclick="v3Go('R01')"><span class="v3-icon blue"><span class="material-symbols-outlined">co_present</span></span><strong>来做领读员</strong><p>培训课程与领读实践</p></button>
+<button class="v3-card" onclick="v3Go('R12')"><span class="v3-icon"><span class="material-symbols-outlined">groups_3</span></span><strong>大家一起读</strong><p>校园动态、读后感与书单</p></button>
+<button class="v3-card" onclick="v3Go('R03')"><span class="v3-icon amber"><span class="material-symbols-outlined">record_voice_over</span></span><strong>名家谈阅读</strong><p>名家图文与阅读方法</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>搜索读书会内容</h3><span>名师 · 内容 · 书目</span></div>
+<div class="v3-course-search" role="search"><label class="v3-search-box"><span class="material-symbols-outlined" aria-hidden="true">search</span><input id="reading-global-search" type="search" autocomplete="off" placeholder="搜索名师、文章、读后感或书目" aria-label="搜索读书会内容"><button id="reading-search-clear" class="v3-search-clear" type="button" aria-label="清空搜索" hidden><span class="material-symbols-outlined">close</span></button></label><p class="v3-search-hint" id="reading-search-hint">输入关键词，快速前往相关内容。</p></div>
+<div class="v3-list" id="reading-search-results" hidden>
+<button class="v3-row" data-search="领读员 领读课程 张远明 老师 培训" onclick="v3Go('R01')"><span class="v3-icon blue"><span class="material-symbols-outlined">co_present</span></span><span class="grow"><strong>来做领读员</strong><p>领读课程、教师与实践方法</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" data-search="校园 新闻 动态 共读 读书会" onclick="v3Go('R12')"><span class="v3-icon"><span class="material-symbols-outlined">newspaper</span></span><span class="grow"><strong>校园共读动态</strong><p>活动新闻与校园读书会</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" data-search="读后感 作品 平凡的世界 学生" onclick="v3Go('R05')"><span class="v3-icon amber"><span class="material-symbols-outlined">edit_note</span></span><span class="grow"><strong>读后感精选</strong><p>学生阅读表达与编辑精选</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" data-search="书单 推荐书目 经典 昆虫记 平凡的世界" onclick="v3Go('R07')"><span class="v3-icon"><span class="material-symbols-outlined">auto_stories</span></span><span class="grow"><strong>推荐书单</strong><p>分龄书目与阅读建议</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" data-search="名家 林清华 陈明礼 文章 阅读方法" onclick="v3Go('R03')"><span class="v3-icon amber"><span class="material-symbols-outlined">article</span></span><span class="grow"><strong>名家图文</strong><p>名家观点与阅读方法</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+</div><div class="v3-search-empty" id="reading-search-empty" hidden>暂未找到相关内容，请更换关键词。</div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>热门内容</h3><button class="v3-more" onclick="v3Go('R12')">查看全部</button></div><div class="v3-list">
+<button class="v3-row" onclick="v3Go('R13')"><img class="v3-thumb" src="assets/v3/campus-reading-v2.jpg" alt="校园共读活动演示图"><span class="grow"><strong>全省校园共读计划启动</strong><p>新闻动态 · 学校参与说明 [演示数据]</p></span><span class="v3-state">动态</span></button>
+<button class="v3-row" onclick="v3Go('R06')"><img class="v3-thumb" src="assets/v3/reading-campus.jpg" alt="学生读后感演示配图"><span class="grow"><strong>读《平凡的世界》：在普通生活里看见坚持</strong><p>读后感 · 编辑精选 [演示数据]</p></span><span class="v3-state">读后感</span></button>
+<button class="v3-row" onclick="v3Go('R07')"><img class="v3-thumb" src="assets/v3/campus-view.jpg" alt="校园推荐书单演示配图"><span class="grow"><strong>山水与文字：贵州青少年推荐书单</strong><p>分龄书目 · 阅读建议 [演示数据]</p></span><span class="v3-state">书单</span></button>
 </div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>名家阅读</h3><button class="v3-more" onclick="v3Go('R03')">更多</button></div>
-''' + row("阅读，让人生更辽阔", "名家观点 · 图文精选（演示）", "R04", icon_name="record_voice_over", state="读图文") + '''</section>
-<div class="v3-note info">校园读书会由平台后台统一配置，前台不提供自主创建、积分、排行或打卡入口。</div>
-''', subtitle="阅读 · 思考 · 分享 · 成长")
+<section class="v3-section"><div class="v3-section-head"><h3>名家图文</h3><button class="v3-more" onclick="v3Go('R03')">更多</button></div><button class="v3-row" onclick="v3Go('R04')"><img class="v3-thumb" src="assets/v3/campus-reading-v2.jpg" alt="名家阅读图文演示配图"><span class="grow"><strong>阅读，让人生更辽阔</strong><p>名家观点 · 图文精选 · 可预留 AI 朗读</p></span><span class="v3-state">图文</span></button></section>
+<div class="v3-note info">一期读书会由平台后台配置；后续开放学校自助入驻申请，提交资料后进入审核。</div>
+
+<script>(()=>{const input=document.getElementById('reading-global-search');const clear=document.getElementById('reading-search-clear');const list=document.getElementById('reading-search-results');const rows=[...list.querySelectorAll('[data-search]')];const hint=document.getElementById('reading-search-hint');const empty=document.getElementById('reading-search-empty');const update=()=>{const q=input.value.trim().toLowerCase();let count=0;rows.forEach(row=>{const show=q&&(row.dataset.search||'').toLowerCase().includes(q);row.hidden=!show;if(show)count++});list.hidden=!q||count===0;empty.hidden=!q||count>0;clear.hidden=!q;hint.textContent=q?`找到 ${count} 项相关内容`:'输入关键词，快速前往相关内容。'};input.addEventListener('input',update);input.addEventListener('keydown',event=>{if(event.key==='Enter'){const first=rows.find(row=>!row.hidden);if(first)first.click()}if(event.key==='Escape'){input.value='';update()}});clear.addEventListener('click',()=>{input.value='';update();input.focus()})})();</script>
+''', subtitle="领读 · 共读 · 名家阅读")
 
 pages["03.html"] = page("3", "少年派", '''
 <section class="v3-hero has-image"><img src="assets/v3/youth-creation-v2.jpg" alt="学生进行书画创作的演示图"><div>
@@ -289,17 +297,21 @@ pages["stitch/J08.html"] = page("J08", "小记者资格审核", '''
 <div class="v3-note info">资格审核由后台人工完成；原型不采集真实身份信息，也不代表正式审核结果。</div>
 ''', subtitle="材料核验 · 审核进度 · 结果查询", back_route="4", back_label="返回小记者")
 
-pages["stitch/R12.html"] = page("R12", "全省校园读书会", '''
-<section class="v3-hero has-image"><img src="../assets/v3/campus-reading-v2.jpg" alt="学生在校园图书馆共同阅读的演示图"><div><small>大家一起读 · 共读书会</small><h2>一起读一本好书</h2><p>发现校园读书会、共读书目、活动动态与加入说明。</p></div></section>
-<section class="v3-metric-row" aria-label="共读书会演示数据"><div class="v3-metric"><strong>286</strong><span>学校 [演示]</span></div><div class="v3-metric"><strong>12.8万</strong><span>学生 [演示]</span></div><div class="v3-metric"><strong>9,420</strong><span>作品 [演示]</span></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>本期共读书目</h3><button class="v3-more" onclick="v3Go('R07')">全部书目</button></div>
-''' + row("《人类群星闪耀时》", "分龄导读 · 进度与人数均为演示数据", "R08", image="../assets/v3/campus-reading-v2.jpg", state="共读中") + '''</section>
-<section class="v3-section"><div class="v3-section-head"><h3>校园读书会</h3><span>后台统一配置</span></div><div class="v3-list">
-''' + row("某中学“黔青悦读”读书会", "学校资料 · 共读书目 · 活动动态 [演示数据]", "R13", icon_name="school", state="共读中") + '''
-''' + row("某小学“童声共读”读书会", "学校资料 · 分龄阅读 · 作品展示 [演示数据]", "R13", icon_name="local_library", state="展示中") + '''</div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>加入说明</h3><span>一期规则</span></div><ol class="v3-steps"><li>学校向平台提交读书会基础资料。</li><li>平台核对学校与指导教师信息。</li><li>审核通过后由后台建立学校读书会主页。</li></ol><button class="v3-btn secondary" onclick="v3Toast('申请方式待甲方确认')">查看申请说明</button></section>
-<div class="v3-note info">校园读书会由平台后台统一创建，前台不提供自主建会、积分、排行或商业权益。</div>
-''', subtitle="学校资料 · 共读书目 · 活动动态", back_route="2", back_label="返回读书会")
+pages["stitch/R12.html"] = page("R12", "大家一起读", '''
+
+<section class="v3-hero has-image"><img src="../assets/v3/campus-reading-v2.jpg" alt="校园读书会热门共读活动演示图"><div><small>热门活动 · 全省校园共读季</small><h2>一起读一本好书</h2><p>浏览校园动态、真实阅读表达和编辑推荐书单。</p></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>搜索共读内容</h3><span>动态 · 读后感 · 书单</span></div><div class="v3-course-search" role="search"><label class="v3-search-box"><span class="material-symbols-outlined" aria-hidden="true">search</span><input id="community-search" type="search" autocomplete="off" placeholder="搜索学校、文章或书目" aria-label="搜索大家一起读内容"><button id="community-search-clear" class="v3-search-clear" type="button" aria-label="清空搜索" hidden><span class="material-symbols-outlined">close</span></button></label><p class="v3-search-hint" id="community-search-hint">像浏览校园阅读杂志一样发现内容。</p></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>共读内容</h3><span id="community-count">3篇精选</span></div><div class="v3-list" id="community-feed">
+<button class="v3-row" data-community-item data-search="新闻 动态 全省 校园 共读 计划 学校" onclick="v3Go('R13')"><img class="v3-thumb" src="../assets/v3/campus-reading-v2.jpg" alt="全省校园共读计划新闻演示图"><span class="grow"><strong>全省校园共读计划走进校园</strong><p>新闻动态 · 学校共读现场 [演示数据]</p></span><span class="v3-state">动态</span></button>
+<button class="v3-row" data-community-item data-search="读后感 平凡的世界 坚持 学生 作品" onclick="v3Go('R06')"><img class="v3-thumb" src="../assets/v3/reading-campus.jpg" alt="学生读后感内容演示图"><span class="grow"><strong>在普通生活里看见坚持</strong><p>《平凡的世界》读后感 · 编辑精选</p></span><span class="v3-state">读后感</span></button>
+<button class="v3-row" data-community-item data-search="推荐 书单 贵州 山水 文字 分龄" onclick="v3Go('R07')"><img class="v3-thumb" src="../assets/v3/campus-view.jpg" alt="贵州青少年推荐书单演示图"><span class="grow"><strong>在山水与文字之间认识贵州</strong><p>推荐书单 · 分龄阅读建议 [演示数据]</p></span><span class="v3-state">书单</span></button>
+</div><div class="v3-search-empty" id="community-empty" hidden>没有找到相关内容，请更换关键词。</div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>校园读书会</h3><span>一期后台配置</span></div><button class="v3-row" onclick="v3Go('R13')"><span class="v3-icon"><span class="material-symbols-outlined">school</span></span><span class="grow"><strong>“黔青悦读”校园读书会</strong><p>学校主页 · 共读动态 · 优秀作品 [演示数据]</p></span><span class="material-symbols-outlined">chevron_right</span></button></section>
+<section class="v3-panel"><div class="v3-section-head"><h3>读书会入驻</h3><span>分阶段开放</span></div><ol class="v3-steps"><li>一期由平台后台配置学校读书会。</li><li>后续开放学校自助提交入驻资料。</li><li>核验学校与指导教师信息，审核通过后创建主页。</li></ol><button class="v3-btn secondary" onclick="v3Toast('自助入驻入口将在后续版本开放（演示）')">查看入驻说明</button></section>
+<div class="v3-note info">新闻、作品、学校和书目信息均为演示数据，正式发布前需完成编辑审核与授权确认。</div>
+
+<script>(()=>{const input=document.getElementById('community-search');const clear=document.getElementById('community-search-clear');const items=[...document.querySelectorAll('[data-community-item]')];const count=document.getElementById('community-count');const hint=document.getElementById('community-search-hint');const empty=document.getElementById('community-empty');const update=()=>{const q=input.value.trim().toLowerCase();let visible=0;items.forEach(item=>{const show=!q||(item.dataset.search||'').toLowerCase().includes(q);item.hidden=!show;if(show)visible++});count.textContent=q?`找到${visible}篇`:`${items.length}篇精选`;hint.textContent=q?'正在显示搜索结果':'像浏览校园阅读杂志一样发现内容。';empty.hidden=visible!==0;clear.hidden=!q};input.addEventListener('input',update);input.addEventListener('keydown',event=>{if(event.key==='Escape'){input.value='';update()}});clear.addEventListener('click',()=>{input.value='';update();input.focus()})})();</script>
+''', subtitle="动态 · 读后感 · 推荐书单", back_route="2", back_label="返回读书会")
 
 pages["stitch/R13.html"] = page("R13", "学校读书会主页", '''
 <section class="v3-hero has-image"><img src="../assets/v3/campus-reading-v2.jpg" alt="学校读书会共同阅读的演示图"><div><small>某中学 · [演示数据]</small><h2>“黔青悦读”读书会</h2><p>共读经典、分享思考，让阅读成为校园里的共同成长。</p></div></section>

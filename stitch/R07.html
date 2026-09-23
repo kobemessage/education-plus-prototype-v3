@@ -6,7 +6,7 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-  <link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head><body class="bg-surface text-on-surface font-body-default text-body-default min-h-screen flex flex-col items-center"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,100,90,0.04)]"><div class="h-11 flex items-center justify-between px-margin-page"><div class="flex items-center gap-space-xs"><button aria-label="返回上一级" class="w-11 h-11 -ml-space-sm flex items-center justify-center text-on-surface hover:text-primary active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-section text-headline-section text-on-surface tracking-tight truncate max-w-[170px]">共读书库</h1></div><div class="flex items-center justify-end gap-space-sm w-capsule-safe-right"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(0,100,90,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div aria-hidden="true" class="w-12 h-8 rounded-full bg-surface-container-high/60 flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">more_horiz</span></div></div></div></header><main class="flex flex-col w-full max-w-[390px] pt-11 px-margin-page pb-safe bg-surface mt-11 min-h-[calc(100vh-44px)]"><div class="flex flex-col w-full pb-space-2xl gap-space-lg">
+  <link rel="stylesheet" href="../v3.css?v=20260923-reading-club-v4"></head><body class="bg-surface text-on-surface font-body-default text-body-default min-h-screen flex flex-col items-center"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,100,90,0.04)]"><div class="h-11 flex items-center justify-between px-margin-page"><div class="flex items-center gap-space-xs"><button aria-label="返回上一级" class="w-11 h-11 -ml-space-sm flex items-center justify-center text-on-surface hover:text-primary active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-section text-headline-section text-on-surface tracking-tight truncate max-w-[170px]">共读书库</h1></div><div class="flex items-center justify-end gap-space-sm w-capsule-safe-right"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(0,100,90,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div aria-hidden="true" class="w-12 h-8 rounded-full bg-surface-container-high/60 flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">more_horiz</span></div></div></div></header><main class="flex flex-col w-full max-w-[390px] pt-11 px-margin-page pb-safe bg-surface mt-11 min-h-[calc(100vh-44px)]"><div class="flex flex-col w-full pb-space-2xl gap-space-lg">
 <!-- Search & Discovery Bar -->
 <section class="flex flex-col gap-space-md">
 <div class="flex items-center gap-space-xs bg-surface-container-lowest rounded-xl p-space-xs shadow-sm">
@@ -17,24 +17,6 @@
 <button class="bg-primary text-on-primary font-body-medium text-label-caption px-space-md py-space-xs rounded-lg active:scale-95 transition-transform flex items-center gap-space-2xs" id="search-btn" type="button">
 <span>检索</span>
 </button>
-</div>
-<!-- Category Pills Filter -->
-<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-space-2xs -mx-margin-page px-margin-page">
-<button class="cat-chip whitespace-nowrap px-space-md py-space-xs rounded-full font-body-medium text-label-caption bg-primary text-on-primary shadow-sm transition-all" data-category="all" type="button">
-        全部书目(18)
-      </button>
-<button class="cat-chip whitespace-nowrap px-space-md py-space-xs rounded-full font-body-medium text-label-caption bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-category="literature" type="button">
-        经典文学(6)
-      </button>
-<button class="cat-chip whitespace-nowrap px-space-md py-space-xs rounded-full font-body-medium text-label-caption bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-category="science" type="button">
-        科普探索(4)
-      </button>
-<button class="cat-chip whitespace-nowrap px-space-md py-space-xs rounded-full font-body-medium text-label-caption bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-category="mindset" type="button">
-        思想励志(4)
-      </button>
-<button class="cat-chip whitespace-nowrap px-space-md py-space-xs rounded-full font-body-medium text-label-caption bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-category="history" type="button">
-        历史传统(4)
-      </button>
 </div>
 </section>
 <!-- Featured Spotlight Book -->
@@ -276,10 +258,10 @@
 </div>
 <p class="font-title-card text-title-card text-on-surface">未找到匹配书目</p>
 <p class="font-body-default text-label-caption text-outline mt-space-xs">
-      换个关键词试试，或点击上方分类浏览全部推荐书籍
+      换个关键词试试，可搜索书名、作者或内容关键词
     </p>
 <button class="mt-space-md px-space-lg py-space-xs bg-surface-container text-primary font-body-medium text-label-caption rounded-full" onclick="resetFilter()" type="button">
-      重置筛选
+      清空搜索
     </button>
 </div>
 <!-- Non-commercial Public Service Note -->
@@ -322,80 +304,38 @@
     }, 2200);
   }
 
-  const chips = document.querySelectorAll('.cat-chip');
   const cards = document.querySelectorAll('.book-card');
   const emptyState = document.getElementById('empty-state');
   const searchInput = document.getElementById('book-search-input');
   const searchBtn = document.getElementById('search-btn');
 
-  let activeCategory = 'all';
-
   function applyFilter() {
     const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
     let visibleCount = 0;
-
     cards.forEach(card => {
-      const cardCategory = card.getAttribute('data-category') || '';
       const textContent = card.innerText.toLowerCase();
-
-      const matchesCat = activeCategory === 'all' || cardCategory.includes(activeCategory);
       const matchesQuery = !query || textContent.includes(query);
-
-      if (matchesCat && matchesQuery) {
-        card.classList.remove('hidden');
-        card.classList.add('flex');
-        visibleCount++;
-      } else {
-        card.classList.add('hidden');
-        card.classList.remove('flex');
-      }
+      card.classList.toggle('hidden', !matchesQuery);
+      card.classList.toggle('flex', matchesQuery);
+      if (matchesQuery) visibleCount++;
     });
-
     if (emptyState) {
-      if (visibleCount === 0) {
-        emptyState.classList.remove('hidden');
-        emptyState.classList.add('flex');
-      } else {
-        emptyState.classList.add('hidden');
-        emptyState.classList.remove('flex');
-      }
+      emptyState.classList.toggle('hidden', visibleCount !== 0);
+      emptyState.classList.toggle('flex', visibleCount === 0);
     }
   }
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => {
-        c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
-        c.classList.add('bg-surface-container-low', 'text-on-surface-variant');
-      });
-      chip.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
-      chip.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
-
-      activeCategory = chip.getAttribute('data-category') || 'all';
-      applyFilter();
-    });
-  });
-
   if (searchInput) {
     searchInput.addEventListener('input', applyFilter);
-  }
-
-  if (searchBtn) {
-    searchBtn.addEventListener('click', applyFilter);
-  }
-
-  function resetFilter() {
-    if (searchInput) searchInput.value = '';
-    activeCategory = 'all';
-    chips.forEach((c, index) => {
-      if (index === 0) {
-        c.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
-        c.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
-      } else {
-        c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
-        c.classList.add('bg-surface-container-low', 'text-on-surface-variant');
-      }
+    searchInput.addEventListener('keydown', event => {
+      if (event.key === 'Escape') resetFilter();
     });
+  }
+  if (searchBtn) searchBtn.addEventListener('click', applyFilter);
+  function resetFilter() {
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.focus();
+    }
     applyFilter();
   }
-</script></main><script>window.EP_PAGE="R07";</script><script src="../access-control.js?v=20260923-no-floating-panels-v3"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script></body></html>
+</script></main><script>window.EP_PAGE="R07";</script><script src="../access-control.js?v=20260923-reading-club-v4"></script><script src="../routes.js?v=20260923-reading-club-v4"></script><script src="../v3-overrides.js?v=20260923-reading-club-v4"></script></body></html>

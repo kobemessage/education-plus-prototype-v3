@@ -76,6 +76,46 @@ for (const route of routes) {
   page.off('pageerror', onPageError);
 }
 
+await page.goto(`${baseUrl}/02.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+const readingNav = await page.locator('.v3-module-nav .v3-card strong').allTextContents();
+if (JSON.stringify(readingNav) !== JSON.stringify(['来做领读员', '大家一起读', '名家谈阅读'])) {
+  failures.push(`02.html: 三个同级入口顺序异常 ${JSON.stringify(readingNav)}`);
+}
+if (!(await page.locator('.v3-hero').innerText()).includes('热门活动')) failures.push('02.html: 头图未展示读书会热门活动');
+await page.locator('#reading-global-search').fill('林清华');
+if (await page.locator('#reading-search-results [data-search]:not([hidden])').count() !== 1) failures.push('02.html: 全局搜索“林清华”结果异常');
+
+await page.goto(`${baseUrl}/stitch/R12.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+const communityText = await page.locator('#community-feed').innerText();
+for (const contentType of ['新闻动态', '读后感', '推荐书单']) {
+  if (!communityText.includes(contentType)) failures.push(`R12.html: 缺少${contentType}内容`);
+}
+if (!(await page.locator('body').innerText()).includes('后续开放学校自助提交入驻资料')) failures.push('R12.html: 缺少分阶段入驻与审核说明');
+await page.locator('#community-search').fill('平凡的世界');
+if (await page.locator('[data-community-item]:not([hidden])').count() !== 1) failures.push('R12.html: 共读内容搜索结果异常');
+
+await page.goto(`${baseUrl}/stitch/R03.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+await page.locator('#expert-search-input').fill('陈明礼');
+if (await page.locator('.article-card:not([hidden])').count() !== 1) failures.push('R03.html: 名家图文搜索结果异常');
+await page.getByRole('button', { name: '待接入' }).click();
+if (!(await page.locator('#expert-tts-status').innerText()).includes('待接入')) failures.push('R03.html: TTS 预留反馈异常');
+
+await page.goto(`${baseUrl}/stitch/R07.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+if (await page.locator('.cat-chip').count()) failures.push('R07.html: 仍残留复杂分类标签');
+await page.locator('#book-search-input').fill('平凡的世界');
+if (await page.locator('.book-card:not(.hidden)').count() !== 1) failures.push('R07.html: 书目搜索结果异常');
+
+for (const route of ['02.html', 'stitch/R01.html', 'stitch/R03.html', 'stitch/R07.html', 'stitch/R12.html', 'stitch/R13.html']) {
+  await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(40);
+  const bodyText = await page.locator('body').innerText();
+  if (/积分|打卡|排行榜|校园排名/.test(bodyText)) failures.push(`${route}: 仍出现积分、打卡或排行表达`);
+}
+
 await page.goto(`${baseUrl}/12.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
 const inlineCards = await page.locator('[data-category][data-status] .ep-inline-engagement').count();
@@ -188,6 +228,7 @@ console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
 console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底部悬浮菜单');
 console.log('PASS 作品/活动点赞、收藏、分享与登录边界');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
+console.log('PASS 读书会三入口、热门活动、内容搜索、图文与入驻规则');
 console.log('PASS 读后感投稿、消息详情、页面加载与演示重置');
 console.log('PASS 图片 alt、交互控件可访问名称');
 console.log('PASS 390px 移动端无水平溢出');
