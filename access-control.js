@@ -6,6 +6,25 @@
   const forceGuest = params.get('guest') === '1';
   const forceAuth = params.get('auth') === '1';
   const isLoggedIn = forceAuth || (!forceGuest && localStorage.getItem(AUTH_KEY) === '1');
+  const iconLabels = {
+    arrow_back: '返回', arrow_back_ios: '返回', arrow_back_ios_new: '返回', close: '关闭',
+    more_horiz: '更多', person: '个人中心', account_circle: '个人中心', notifications: '消息通知',
+    share: '分享', favorite: '点赞', favorite_border: '点赞', bookmark: '收藏', bookmark_border: '收藏',
+    search: '搜索', tune: '筛选', fullscreen: '全屏', volume_up: '音量', play_arrow: '播放',
+    chevron_right: '查看详情', expand_more: '展开详情', download: '保存', delete: '删除'
+  };
+
+  document.querySelectorAll('img').forEach(image => {
+    if (!image.hasAttribute('alt')) image.alt = image.dataset.alt || '';
+  });
+  document.querySelectorAll('button,a,[role="button"]').forEach(control => {
+    if (control.getAttribute('aria-label') || control.getAttribute('title')) return;
+    const text = (control.textContent || '').replace(/\s+/g, ' ').trim();
+    const icon = control.querySelector('.material-symbols-outlined');
+    const iconName = (icon?.textContent || '').trim();
+    if (text && text !== iconName) return;
+    control.setAttribute('aria-label', iconLabels[iconName] || '操作');
+  });
 
   const privatePages = new Set([
     '10', 'G02', 'G03', 'G04', 'G05', 'G06',
@@ -205,12 +224,40 @@
     #ep-access-gate .ep-gate-hint{margin:0 0 18px;padding:10px 12px;border-radius:12px;background:#f3f8f6;color:#527067;font-size:12px;line-height:1.55}
     #ep-access-gate button{width:100%;min-height:48px;margin-top:9px;border:1px solid #cfe2dc;border-radius:14px;background:#fff;color:#376158;font:700 14px/1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;cursor:pointer}
     #ep-access-gate button[data-primary="true"]{border-color:#087f73;background:#087f73;color:#fff}
-    .ep-access-toast{position:fixed;left:50%;bottom:96px;z-index:13060;max-width:calc(100vw - 40px);padding:10px 16px;border-radius:999px;background:#183e34;color:#fff;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:0 8px 22px rgba(8,36,30,.2);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s}
+    .ep-demo-strip{box-sizing:border-box;margin:8px 16px 12px;padding:9px 12px;display:flex;align-items:center;gap:8px;min-height:38px;border:1px solid #dcebe5;border-radius:12px;background:#f2faf7;color:#526a63;font:500 12px/1.45 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:none}
+    .ep-demo-strip strong{flex:none;padding:2px 6px;border-radius:5px;background:#dff3ec;color:#087f73;font-weight:700}
+    .ep-demo-strip span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ep-access-toast{position:fixed;left:50%;bottom:20px;z-index:13060;max-width:calc(100vw - 40px);padding:10px 16px;border-radius:999px;background:#183e34;color:#fff;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:0 8px 22px rgba(8,36,30,.2);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s}
     .ep-access-toast.show{transform:translate(-50%,0);opacity:1}
     @media(max-width:360px){.ep-access-note{font-size:11px}.ep-published-actions button,.ep-action-added{font-size:12px;padding:0 7px}.ep-discovery{padding:14px}.ep-discovery-card{padding:11px}.ep-inline-engagement .ep-inline-label{display:none}}
     @media(prefers-reduced-motion:reduce){.ep-discovery-card{transition:none}.ep-discovery-card:hover{transform:none}}
   `;
   document.head.append(style);
+
+  function addDemoStrip() {
+    if (!document.querySelector('script[src*="v3-overrides.js"]')) return;
+    const main = document.querySelector('main');
+    if (!main || main.querySelector('.ep-demo-strip')) return;
+    const detail = (() => {
+      if (page === '1') return '8个服务入口 · 2项内容更新';
+      if (page === '2' || page.startsWith('R')) return '3条内容主线 · 8个阅读页面';
+      if (page === '3' || page.startsWith('S')) return '6篇成长作品 · 2篇编辑精选';
+      if (page === '4' || page.startsWith('J')) return '资格审核中 · 2条投稿记录';
+      if (page === '5' || page.startsWith('Y')) return '3条校园内容 · 1条审核中';
+      if (page === '6' || page.startsWith('C')) return '4节公益课 · 直播与回放演示';
+      if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
+      if (page === '8' || page.startsWith('V')) return '公开信息 · 第三方服务待接入';
+      if (page === '9' || page.startsWith('N')) return '数字报预览 · 外部订阅待接入';
+      if (page === '10' || page.startsWith('G')) return '个人中心 · 2项进行中 · 5条成长记录';
+      if (page === '12') return '全省活动 · 5项演示 · 2项进行中';
+      return '服务中心 · 8类服务 · 3条新消息';
+    })();
+    const strip = document.createElement('aside');
+    strip.className = 'ep-demo-strip';
+    strip.setAttribute('aria-label', '原型演示数据');
+    strip.innerHTML = `<strong>[演示数据]</strong><span>${detail}</span>`;
+    main.prepend(strip);
+  }
 
   function toast(message) {
     let element = document.querySelector('.ep-access-toast');
@@ -529,6 +576,7 @@
     showPrivateGate();
     return;
   }
+  addDemoStrip();
   addAccessNote();
   ensurePublishedInteractions();
   enhanceActivityCards();

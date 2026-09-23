@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>少年派作品投稿｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260922-v3c21"></head>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>少年派作品投稿｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260923-no-bottom-nav-v1"></head>
 <body><script>window.EP_PAGE='S02'</script><header class="v3-top"><button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>少年派作品投稿</h1><p>写作营 · 才艺坊</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
 <section class="v3-panel"><div class="v3-kicker"><span class="material-symbols-outlined">edit_note</span>填写投稿信息</div>
 <form class="v3-form" id="youthForm">
@@ -20,5 +20,5 @@ file.addEventListener('change',()=>label.textContent=file.files[0]?.name||'上�
 form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('workTitle').value,type:document.getElementById('workType').value,status:'待审核',time:Date.now()}));v3Toast('作品已提交，正在进入审核（演示）');setTimeout(()=>v3Go('S04'),700)});
 </script>
 </main>
-<footer class="v3-footer"><button onclick="v3Go('1')" aria-label="首页"><span class="material-symbols-outlined">home</span><span>首页</span></button><button class="active" onclick="v3Go('11')" aria-label="服务"><span class="material-symbols-outlined">apps</span><span>服务</span></button><button onclick="v3Go('12')" aria-label="活动"><span class="material-symbols-outlined">event</span><span>活动</span></button><button onclick="v3Go('10')" aria-label="我的"><span class="material-symbols-outlined">person</span><span>我的</span></button></footer>
-<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260922-content-media-v1"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
+
+<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260923-no-bottom-nav-v1"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>

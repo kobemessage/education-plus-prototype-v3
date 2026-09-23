@@ -2,14 +2,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-NAV_ITEMS = [
-    ("首页", "1", "home"),
-    ("服务", "11", "apps"),
-    ("活动", "12", "event"),
-    ("我的", "10", "person"),
-]
-
-
 def icon(name, tone=""):
     return f'<span class="v3-icon {tone}"><span class="material-symbols-outlined">{name}</span></span>'
 
@@ -22,13 +14,6 @@ def row(title, desc, route, icon_name="", image="", state=""):
 
 def page(page_id, title, body, active="", subtitle="", home=False, back_route="1", back_label="返回首页"):
     prefix = "../" if page_id[0].isalpha() else ""
-    if not active:
-        active = "首页" if page_id == "1" else "活动" if page_id == "12" else "我的" if page_id == "10" or page_id.startswith("G") else "服务"
-    nav = "".join(
-        f'<button class="{"active" if name == active else ""}" onclick="v3Go(\'{route}\')" aria-label="{name}">'
-        f'<span class="material-symbols-outlined">{symbol}</span><span>{name}</span></button>'
-        for name, route, symbol in NAV_ITEMS
-    )
     if home:
         header = (
             f'<header class="v3-top v3-brand-top"><img class="v3-header-leaves" src="{prefix}assets/v3/header-leaves.jpg" alt=""><div class="v3-top-copy">'
@@ -45,9 +30,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260922-v3c17"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260923-no-bottom-nav-v1"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<footer class="v3-footer">{nav}</footer><script src="{prefix}v3-ui.js?v=20260922-v3c17"></script><script src="{prefix}routes.js?v=20260922-v3c17"></script></body></html>'''
+<script src="{prefix}v3-ui.js?v=20260922-v3c17"></script><script src="{prefix}routes.js?v=20260922-v3c17"></script></body></html>'''
 
 
 pages = {}
