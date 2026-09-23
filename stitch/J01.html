@@ -7,7 +7,7 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-<link rel="stylesheet" href="../v3.css?v=20260923-no-bottom-nav-v1"></head><body class="bg-surface-container-low font-body-default text-body-default text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary/20"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] pt-safe"><div class="h-14 flex items-center justify-between px-margin-page relative"><button aria-label="返回" class="w-11 h-11 -ml-space-xs flex items-center justify-center text-on-surface rounded-full active:scale-95 transition-transform" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><div class="absolute left-1/2 -translate-x-1/2 pointer-events-none text-center max-w-[200px] flex items-center justify-center gap-1.5"><h1 class="font-headline-section text-headline-section text-on-surface truncate">作品详情</h1><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline text-[10px] font-normal">[演示数据]</span></div><div class="flex items-center gap-space-sm pl-capsule-safe-right"><button aria-label="分享海报" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface active:scale-95 transition-transform" onclick="showToast('正在生成见报纪念分享海报...')" type="button"><span class="material-symbols-outlined text-[18px]">share</span></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 bg-surface-container-low pb-safe"><div class="flex flex-col w-full pb-36">
+<link rel="stylesheet" href="../v3.css?v=20260923-no-floating-ui-v2"></head><body class="bg-surface-container-low font-body-default text-body-default text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary/20"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] pt-safe"><div class="h-14 flex items-center justify-between px-margin-page relative"><button aria-label="返回" class="w-11 h-11 -ml-space-xs flex items-center justify-center text-on-surface rounded-full active:scale-95 transition-transform" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><div class="absolute left-1/2 -translate-x-1/2 pointer-events-none text-center max-w-[200px] flex items-center justify-center gap-1.5"><h1 class="font-headline-section text-headline-section text-on-surface truncate">作品详情</h1><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline text-[10px] font-normal">[演示数据]</span></div><div class="flex items-center gap-space-sm pl-capsule-safe-right"><button aria-label="分享海报" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface active:scale-95 transition-transform" onclick="showToast('正在生成见报纪念分享海报...')" type="button"><span class="material-symbols-outlined text-[18px]">share</span></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 bg-surface-container-low pb-safe"><div class="flex flex-col w-full pb-8">
 <!-- 顶部文章标题区与刊发信息卡片 -->
 <div class="px-margin-page pt-space-md">
 <div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/60">
@@ -222,8 +222,8 @@
 </div>
 </div>
 </div>
-<!-- 底部固定交互操作栏 -->
-<aside class="fixed bottom-0 inset-x-0 bg-surface-container-lowest/95 backdrop-blur-md pb-safe shadow-[0_-4px_16px_rgba(0,0,0,0.06)] z-40 border-t border-surface-container/50">
+<!-- 正文互动操作区 -->
+<aside class="mx-margin-page mt-space-md mb-space-lg bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container/50">
 <div class="h-16 px-margin-page flex items-center justify-between gap-2">
 <!-- 点赞 -->
 <button class="flex flex-col items-center justify-center flex-1 h-12 text-on-surface-variant active:scale-90 transition-transform" id="like-btn" onclick="toggleLike()" type="button">
@@ -299,4 +299,4 @@
       count.innerText = '142';
     }
   }
-</script><script>window.EP_PAGE="J01";</script><script src="../access-control.js?v=20260923-no-bottom-nav-v1"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script></body></html>
+</script><script>window.EP_PAGE="J01";</script><script src="../access-control.js?v=20260923-no-floating-ui-v2"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script></body></html>
