@@ -117,12 +117,28 @@ if (await page.locator('[data-search*="图文"]').count() !== 3) failures.push('
 if (await page.locator('[data-search*="视频"]').count() !== 3) failures.push('R01.html: 视频课程不是 3 门');
 await page.locator('#course-search-input').fill('图文');
 if (await page.locator('[data-course-id]:not([hidden])').count() !== 3) failures.push('R01.html: 图文课程搜索结果异常');
-await page.locator('[data-course-id="t1"]').click();
-if (await page.locator('#course-sheet:not([hidden])').count() !== 1) failures.push('R01.html: 图文课程详情未打开');
-if (await page.locator('#course-sheet-points li').count() !== 3) failures.push('R01.html: 图文课程详情缺少测试内容');
-await page.locator('.course-sheet-close').click();
 await page.locator('[data-tool]').first().click();
 if (!(await page.locator('#leader-tool-status').innerText()).includes('演示')) failures.push('R01.html: 领读工具缺少操作反馈');
+await page.locator('[data-course-id="t1"]').click();
+await page.waitForURL(/index\.html#R02$/);
+if (!page.url().endsWith('index.html#R02')) failures.push('R01.html: 图文课程未进入完整阅读页');
+
+await page.goto(`${baseUrl}/stitch/R02.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+if (!(await page.locator('#article-title').innerText()).includes('整本书导读课')) failures.push('R02.html: 未保留选中的图文课程');
+if (await page.locator('.article-goal').count() !== 3) failures.push('R02.html: 图文课程收获不是 3 项');
+if (await page.locator('[data-article-step]').count() !== 3) failures.push('R02.html: 图文课程正文不是 3 个步骤');
+if (await page.locator('.article-check').count() !== 4) failures.push('R02.html: 课前任务单不是 4 项');
+await page.locator('.article-check').first().click();
+if (!(await page.locator('#article-sheet-status').innerText()).includes('1/4')) failures.push('R02.html: 课前任务单缺少操作反馈');
+await page.locator('[data-course-target]').first().click();
+if (!(await page.locator('#article-title').innerText()).includes('共读讨论怎么问')) failures.push('R02.html: 图文课程间无法继续学习');
+
+await page.goto(`${baseUrl}/stitch/R01.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.locator('[data-course-id="v1"]').click();
+if (await page.locator('#course-sheet:not([hidden])').count() !== 1) failures.push('R01.html: 视频课程详情未打开');
+if (await page.locator('#course-sheet-points li').count() !== 3) failures.push('R01.html: 视频课程详情缺少测试内容');
+await page.locator('.course-sheet-close').click();
 
 await page.goto(`${baseUrl}/stitch/R07.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
