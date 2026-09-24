@@ -1,24 +1,27 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>少年派作品投稿｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head>
-<body><script>window.EP_PAGE='S02'</script><header class="v3-top"><button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>少年派作品投稿</h1><p>写作 · 硬笔 · 国画</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
-<section class="v3-panel"><div class="v3-kicker"><span class="material-symbols-outlined">edit_note</span>填写投稿信息</div>
-<form class="v3-form" id="youthForm">
-<div class="v3-field"><label for="workType">作品类型</label><select id="workType" required><option value="">请选择</option><option>写作｜作文 / 诗歌 / 评论</option><option>硬笔｜硬笔书法</option><option>国画｜国画作品</option><option>活动专区｜赛事专项作品</option></select></div>
-<div class="v3-field"><label for="eventName">参与活动</label><select id="eventName" required><option>第四届贵州省青少年新时代征文大赛</option><option>少年派日常作品展示</option></select></div>
-<div class="v3-field"><label for="workTitle">作品标题</label><input id="workTitle" required maxlength="40" placeholder="请输入作品标题"></div>
-<div class="v3-field"><label for="workBody">正文或作品说明</label><textarea id="workBody" required placeholder="写作作品填写正文；硬笔、国画填写创作说明"></textarea></div>
-<label class="v3-upload" for="workFile"><span class="material-symbols-outlined">upload_file</span><strong id="fileLabel">上传文稿或清晰作品图片</strong><br><small>支持 DOC、PDF、JPG、PNG（原型演示）</small></label><input id="workFile" type="file" hidden required accept=".doc,.docx,.pdf,.jpg,.jpeg,.png">
-<div class="v3-grid">
-<div class="v3-field"><label for="studentName">学生姓名</label><input id="studentName" required placeholder="真实姓名"></div>
-<div class="v3-field"><label for="studentGrade">年级班级</label><input id="studentGrade" required placeholder="如：初二（3）班"></div></div>
-<div class="v3-field"><label for="studentSchool">学校</label><input id="studentSchool" required placeholder="请输入学校全称"></div>
-<label class="v3-check"><input id="originalCheck" type="checkbox" required><span>本人确认作品为原创，并同意提交后由编辑审核展示。</span></label>
-<button class="v3-btn" type="submit">提交审核</button></form></section>
-<div class="v3-note info">本页面演示投稿流程，不会上传文件或产生费用。</div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>才艺坊｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head>
+<body><script>window.EP_PAGE='S02'</script><header class="v3-top"><button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>才艺坊</h1><p>硬笔 · 国画 · 上传与展示</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
+<section class="v3-hero has-image"><img src="../assets/v3/youth-creation-v2.jpg" alt="学生创作书画作品的演示图"><div><small>少年派 · 才艺坊</small><h2>展示笔墨才艺<br>记录创作成长</h2><p>支持硬笔、国画等才艺作品上传与展示。</p><button class="v3-cta" onclick="showTalentForm()">投稿才艺作品</button></div></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>作品分类</h3><span>2类作品</span></div><div class="v3-grid">
+<button class="v3-card" onclick="filterTalent('硬笔',this)"><span class="v3-icon blue"><span class="material-symbols-outlined">draw</span></span><strong>硬笔作品</strong><p>硬笔书法上传与展示</p></button>
+<button class="v3-card" onclick="filterTalent('国画',this)"><span class="v3-icon amber"><span class="material-symbols-outlined">palette</span></span><strong>国画作品</strong><p>国画作品上传与展示</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>才艺作品展示</h3><span id="talentCount">全部作品</span></div><div class="v3-list" id="talentList">
+<button class="v3-row" data-talent="硬笔" onclick="v3Toast('硬笔作品详情为演示内容')"><span class="v3-icon blue"><span class="material-symbols-outlined">history_edu</span></span><span class="grow"><strong>《黔山古韵硬笔行草条幅》</strong><p>张子墨 · 硬笔 · 作品展示</p></span><span class="v3-state">精选作品</span></button>
+<button class="v3-row" data-talent="国画" onclick="v3Toast('国画作品详情为演示内容')"><img class="v3-thumb" src="../assets/v3/youth-creation-v2.jpg" alt="国画作品演示图"><span class="grow"><strong>《赤水丹霞秋意图》</strong><p>周雨桐 · 国画 · 作品展示</p></span><span class="v3-state">作品展示</span></button>
+</div></section>
+<section class="v3-panel" id="talentForm" hidden><div class="v3-section-head"><h3>上传才艺作品</h3><button class="v3-more" type="button" onclick="document.getElementById('talentForm').hidden=true">收起</button></div><form class="v3-form" id="talentSubmission">
+<div class="v3-field"><label for="talentType">才艺类型</label><select id="talentType" required><option value="">请选择</option><option>硬笔</option><option>国画</option></select></div>
+<div class="v3-field"><label for="talentTitle">作品标题</label><input id="talentTitle" required maxlength="40" placeholder="请输入作品标题"></div>
+<div class="v3-field"><label for="talentNote">创作说明</label><textarea id="talentNote" required placeholder="请填写创作主题与作品说明"></textarea></div>
+<label class="v3-upload" for="talentFile"><span class="material-symbols-outlined">upload_file</span><strong id="talentFileLabel">上传清晰作品图片</strong><br><small>支持 JPG、PNG（原型演示）</small></label><input id="talentFile" type="file" hidden required accept=".jpg,.jpeg,.png">
+<div class="v3-field"><label for="talentStudent">学生姓名与学校</label><input id="talentStudent" required placeholder="真实姓名 · 学校 · 年级班级"></div>
+<label class="v3-check"><input type="checkbox" required><span>确认作品为本人原创，并同意提交编辑审核。</span></label>
+<button class="v3-btn" type="submit">提交才艺投稿</button></form></section>
+<div class="v3-note info">才艺坊展示硬笔、国画等才艺作品。作品、作者、学校与展示状态均为原型演示。</div>
 <script>
-const form=document.getElementById('youthForm'),file=document.getElementById('workFile'),label=document.getElementById('fileLabel');
-file.addEventListener('change',()=>label.textContent=file.files[0]?.name||'上传文稿或清晰作品图片');
-form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('workTitle').value,type:document.getElementById('workType').value,status:'待审核',time:Date.now()}));v3Toast('作品已提交，正在进入审核（演示）');setTimeout(()=>v3Go('S04'),700)});
+function showTalentForm(){const panel=document.getElementById('talentForm');panel.hidden=false;panel.scrollIntoView({behavior:'smooth'})}
+function filterTalent(type,button){document.querySelectorAll('[data-talent]').forEach(item=>item.hidden=item.dataset.talent!==type);document.getElementById('talentCount').textContent=type+'作品';v3Toast('已筛选'+type+'作品')}
+const talentFile=document.getElementById('talentFile');talentFile.addEventListener('change',()=>document.getElementById('talentFileLabel').textContent=talentFile.files[0]?.name||'上传清晰作品图片');
+document.getElementById('talentSubmission').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('talentTitle').value,type:'才艺坊｜'+document.getElementById('talentType').value,status:'待审核',time:Date.now()}));v3Toast('才艺作品已提交审核（演示）');setTimeout(()=>v3Go('S04'),700)});
 </script>
 </main>
-
 <script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v1"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
