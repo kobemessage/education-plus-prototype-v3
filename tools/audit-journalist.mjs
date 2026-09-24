@@ -13,7 +13,7 @@ const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 
 async function open(path) {
-  const response = await page.goto(`${baseUrl}/${path}`, { waitUntil: 'load', timeout: 20000 });
+  const response = await page.goto(`${baseUrl}/${path}`, { waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.waitForTimeout(80);
   if (!response?.ok()) failures.push(`${path}: HTTP ${response?.status() || 'no response'}`);
   const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - innerWidth);
@@ -25,8 +25,10 @@ const homeText = await page.locator('body').innerText();
 for (const label of ['注册小记者', '在线投稿', '作品档案', '优秀小记者', '投稿进度', '电子证书', '投稿指南与温馨提醒']) {
   if (!homeText.includes(label)) failures.push(`04.html: missing ${label}`);
 }
-await page.getByRole('button', { name: '载入测试数据并体验全部功能' }).click();
-await page.waitForTimeout(650);
+await Promise.all([
+  page.waitForURL(/index\.html#J02$/, { timeout: 10000 }),
+  page.getByRole('button', { name: '载入测试数据并体验全部功能' }).click()
+]);
 const demoState = await page.evaluate(() => ({
   auth: localStorage.getItem('ep-v3-authenticated'),
   reporter: localStorage.getItem('ep-v3-reporter-status'),
