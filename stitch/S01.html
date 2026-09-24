@@ -16,7 +16,7 @@
 <div class="v3-note info">作品、作者、学校与点评均为原型演示。优秀内容统一使用“精选作品”或“作品展示”称谓。</div>
 <script>
 function showWritingForm(){const panel=document.getElementById('writingForm');panel.hidden=false;panel.scrollIntoView({behavior:'smooth'})}
-function openWritingDetail(id){sessionStorage.setItem('ep-selected-writing',id);v3Go('S05')}
+function openWritingDetail(id){sessionStorage.setItem('ep-selected-writing',id);if(parent!==window)parent.document.getElementById('fS05')?.remove();v3Go('S05')}
 document.getElementById('writingSubmission').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('writingTitle').value,type:'写作营｜'+document.getElementById('writingType').value,status:'待审核',time:Date.now()}));v3Toast('写作作品已提交审核（演示）');setTimeout(()=>v3Go('S04'),700)});
 </script>
 </main>
