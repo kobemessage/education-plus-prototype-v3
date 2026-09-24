@@ -2,12 +2,10 @@
 <body><script>window.EP_PAGE='S01'</script><header class="v3-top"><button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>写作营</h1><p>写作投稿 · 作品展示 · 老师点评</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
 <section class="v3-hero has-image"><img src="../assets/v3/youth-creation-v2.jpg" alt="学生写作与阅读的演示图"><div><small>少年派 · 写作营</small><h2>写下真实观察<br>分享成长表达</h2><p>展示中小学生作文、诗歌和评论作品。</p><button class="v3-cta" onclick="showWritingForm()">投稿写作作品</button></div></section>
 <section class="v3-section"><div class="v3-section-head"><h3>作品展示</h3><span>精选作品</span></div><div class="v3-list">
-<button class="v3-row" onclick="document.getElementById('featuredWriting').scrollIntoView({behavior:'smooth'})"><img class="v3-thumb" src="../assets/v3/youth-creation-v2.jpg" alt="梯田主题写作作品演示图"><span class="grow"><strong>《苗岭春晓与梯田梦》</strong><p>李思远 · 贵阳市第一中学 · 散文</p></span><span class="v3-state">精选作品</span></button>
-<button class="v3-row" onclick="v3Toast('作品详情为演示内容')"><span class="v3-icon blue"><span class="material-symbols-outlined">history_edu</span></span><span class="grow"><strong>《观山湖春行散文诗》</strong><p>周雨桐 · 六盘水市某中学 · 诗歌</p></span><span class="material-symbols-outlined">chevron_right</span></button>
-<button class="v3-row" onclick="v3Toast('作品详情为演示内容')"><span class="v3-icon amber"><span class="material-symbols-outlined">menu_book</span></span><span class="grow"><strong>《外婆的木楼》</strong><p>王子墨 · 黔东南州某小学 · 作文</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" onclick="openWritingDetail('terrace')"><img class="v3-thumb" src="../assets/v3/youth-creation-v2.jpg" alt="梯田主题写作作品演示图"><span class="grow"><strong>《苗岭春晓与梯田梦》</strong><p>李思远 · 贵阳市第一中学 · 散文</p></span><span class="v3-state">精选作品</span></button>
+<button class="v3-row" onclick="openWritingDetail('spring')"><span class="v3-icon blue"><span class="material-symbols-outlined">history_edu</span></span><span class="grow"><strong>《观山湖春行散文诗》</strong><p>周雨桐 · 六盘水市某中学 · 诗歌</p></span><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="v3-row" onclick="openWritingDetail('woodhouse')"><span class="v3-icon amber"><span class="material-symbols-outlined">menu_book</span></span><span class="grow"><strong>《外婆的木楼》</strong><p>王子墨 · 黔东南州某小学 · 作文</p></span><span class="material-symbols-outlined">chevron_right</span></button>
 </div></section>
-<section class="v3-panel" id="featuredWriting" data-content-actions-anchor><div class="v3-inline between"><span class="v3-state">精选作品</span><span class="v3-state outline">842字</span></div><div class="v3-article"><h3>《苗岭春晓与梯田梦》</h3><p>清晨的雾沿着山腰缓缓散开，一层层梯田像被晨光擦亮的镜子。苗寨的木楼还带着露水，远处的鸟鸣已经穿过稻田。</p><p>我跟随外婆走上田埂。她告诉我，每一道田埂都藏着祖辈顺着山势生活的智慧。</p><blockquote>作品从家乡景物出发，把劳动记忆与少年成长连接起来。</blockquote></div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>指导老师点评</h3><span>张远明老师</span></div><p class="v3-body-copy">选材具有贵州地域特色，画面感清晰。建议补充一次具体劳动动作，让结尾的成长感悟更自然。</p><button class="v3-btn secondary" style="width:100%;margin-top:12px" onclick="v3Go('S05')">查看完整点评</button></section>
 <section class="v3-panel" id="writingForm" hidden><div class="v3-section-head"><h3>投稿写作作品</h3><button class="v3-more" type="button" onclick="document.getElementById('writingForm').hidden=true">收起</button></div><form class="v3-form" id="writingSubmission">
 <div class="v3-field"><label for="writingType">作品类型</label><select id="writingType" required><option value="">请选择</option><option>作文</option><option>诗歌</option><option>评论</option></select></div>
 <div class="v3-field"><label for="writingTitle">作品标题</label><input id="writingTitle" required maxlength="40" placeholder="请输入作品标题"></div>
@@ -18,7 +16,8 @@
 <div class="v3-note info">作品、作者、学校与点评均为原型演示。优秀内容统一使用“精选作品”或“作品展示”称谓。</div>
 <script>
 function showWritingForm(){const panel=document.getElementById('writingForm');panel.hidden=false;panel.scrollIntoView({behavior:'smooth'})}
+function openWritingDetail(id){sessionStorage.setItem('ep-selected-writing',id);v3Go('S05')}
 document.getElementById('writingSubmission').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('writingTitle').value,type:'写作营｜'+document.getElementById('writingType').value,status:'待审核',time:Date.now()}));v3Toast('写作作品已提交审核（演示）');setTimeout(()=>v3Go('S04'),700)});
 </script>
 </main>
-<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
+<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v4"></script><script src="../routes.js?v=20260924-youth-writing-v1"></script></body></html>

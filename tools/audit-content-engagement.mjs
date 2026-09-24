@@ -14,7 +14,7 @@ const routes = [
 ].sort();
 const contentPageTypes = new Map([
   ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
-  ['S01', 'article'], ['S05', 'article'],
+  ['S05', 'article'],
   ['J01', 'article'], ['J05', 'article'],
   ['Y01', 'article'], ['Y03', 'article'],
   ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
@@ -241,14 +241,14 @@ if (await page.locator('#serviceSearchEmpty:not([hidden])').count() !== 1) failu
 await page.getByRole('button', { name: '查看全部服务' }).click();
 await page.screenshot({ path: path.join(root, 'qa', 'service-hall-v3-redesign.png'), fullPage: true });
 
-await page.goto(`${baseUrl}/stitch/S01.html?guest=1`, { waitUntil: 'domcontentloaded' });
+await page.goto(`${baseUrl}/stitch/S05.html?guest=1`, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
 const guestLike = page.getByRole('button', { name: /点赞/ }).first();
 await guestLike.click();
-if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('S01.html: 游客点赞未触发登录提示');
+if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('S05.html: 游客点赞未触发登录提示');
 await page.locator('#ep-login-dialog [data-close="true"]').click();
 await page.getByRole('button', { name: /分享/ }).first().click();
-if (await page.locator('.ep-access-toast.show').count() !== 1) failures.push('S01.html: 游客分享未给出成功反馈');
+if (await page.locator('.ep-access-toast.show').count() !== 1) failures.push('S05.html: 游客分享未给出成功反馈');
 
 await page.goto(`${baseUrl}/stitch/G03.html?guest=1`, { waitUntil: 'domcontentloaded' });
 if (await page.locator('#ep-access-gate').count() !== 1) failures.push('G03.html: 私有页面未拦截游客');
