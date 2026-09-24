@@ -19,7 +19,7 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
     elif page_id in {"4", "10", "11", "J08"}:
         cache_version = "20260924-journalist-v1"
     elif page_id == "5":
-        cache_version = "20260924-colorful-university-v2"
+        cache_version = "20260924-youth-platform-v1"
     else:
         cache_version = "20260923-reading-club-v4"
     if home:
@@ -129,15 +129,17 @@ pages["04.html"] = page("4", "小记者", '''
 pages["05.html"] = page("5", "致青春", '''
 <section class="v3-hero has-image"><img src="assets/v3/university-life-v2.jpg" alt="大学生在校园交流学习的演示图"><div>
 <small>高校青年内容共创</small><h2>看见大学里的<br>青春与创造</h2><p>展示校园生活、社团风采和教育报主题活动。</p></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>青春内容</h3><span>4项服务</span></div><div class="v3-grid" aria-label="致青春二级导航">
-<button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>多彩大学</strong><p>校园生活与青春故事</p></button>
-<button class="v3-card" onclick="v3Go('Y02')">''' + icon("groups", "blue") + '''<strong>多彩社团</strong><p>社团入驻与风采展示</p></button>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>青春内容</h3><span>3项服务</span></div><div class="v3-grid three" aria-label="致青春二级导航">
+<button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>多彩大学</strong><p>按学校发现校园创作</p></button>
+<button class="v3-card" onclick="v3Go('Y02')">''' + icon("groups", "blue") + '''<strong>缤纷社团</strong><p>搜索、关注与社团动态</p></button>
 <button class="v3-card" onclick="v3Go('Y03')">''' + icon("campaign", "amber") + '''<strong>主题活动</strong><p>教育报组织的线上征集</p></button>
-<button class="v3-card" onclick="v3Go('Y04')">''' + icon("edit_square") + '''<strong>创作入口</strong><p>发布图文或短视频</p></button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>多彩大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
-''' + row("晚风穿过图书馆：我的大学普通一天", "某高校 · 林*同学 · 图文 [演示数据]", "Y01", image="assets/v3/university-life-v2.jpg") + '''</section>
-<div class="v3-note info">社团入驻与个人创作使用不同入口；主题活动由教育报组织发布，所有内容和状态均为演示数据。</div>
-''', subtitle="多彩大学 · 多彩社团 · 主题活动")
+</div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>多彩大学</h3><button class="v3-more" onclick="v3Go('Y04')">创作入口</button></div>
+''' + row("晚风穿过图书馆：我的大学普通一天", "贵州大学 · 林*同学 · 图文 [演示数据]", "Y06", image="assets/v3/university-life-v2.jpg") + '''<div class="v3-actions"><button class="v3-btn secondary" onclick="v3Go('Y01')">浏览全部校园创作</button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>缤纷社团</h3><button class="v3-more" onclick="v3Go('Y11')">关注动态</button></div>
+''' + row("黔青创意社", "贵州大学 · 设计与影像创作 · 招新进行中 [演示数据]", "Y08", icon_name="auto_awesome") + '''<div class="v3-actions"><button class="v3-btn secondary" onclick="v3Go('Y02')">搜索更多社团</button><button class="v3-btn" onclick="v3Go('Y07')">申请社团入驻</button></div></section>
+<div class="v3-note info">“多彩大学”聚合学生创作；“缤纷社团”提供搜索、关注、招新与活动动态；官方主题活动由贵州教育报统一发布。所有内容和状态均为演示数据。</div>
+''', subtitle="多彩大学 · 缤纷社团 · 主题活动")
 
 pages["06.html"] = page("6", "公益课", '''
 <section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>
@@ -226,7 +228,7 @@ pages["11.html"] = page("11", "服务", '''
   </button>
   <div class="v3-service-card-grid">
     <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="小记者 注册 申请 学生 监护人" onclick="v3Go('J07')"><span class="v3-service-card-top">''' + icon("badge") + '''<span class="v3-service-badge login">需登录</span></span><strong>注册小记者</strong><p>填写学生与监护人信息</p><span class="v3-service-link">开始注册 <span class="material-symbols-outlined">arrow_forward</span></span></button>
-    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="社团 高校 入驻 认证 致青春" onclick="v3Go('Y02')"><span class="v3-service-card-top">''' + icon("diversity_3", "blue") + '''<span class="v3-service-badge login">需登录</span></span><strong>社团入驻</strong><p>高校社团资料登记与认证</p><span class="v3-service-link">去办理 <span class="material-symbols-outlined">arrow_forward</span></span></button>
+    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="社团 高校 入驻 认证 致青春" onclick="v3Go('Y07')"><span class="v3-service-card-top">''' + icon("diversity_3", "blue") + '''<span class="v3-service-badge login">需登录</span></span><strong>社团入驻</strong><p>高校社团资料登记与认证</p><span class="v3-service-link">去办理 <span class="material-symbols-outlined">arrow_forward</span></span></button>
     <button class="v3-service-card" type="button" data-service-item data-service-search="课程 公益课 搜索 直播 回放 教师 学校" onclick="v3Go('6')"><span class="v3-service-card-top">''' + icon("play_lesson", "amber") + '''<span class="v3-service-badge public">免登录</span></span><strong>课程搜索与回放</strong><p>按课程、教师或学校查找</p><span class="v3-service-link">查看课程 <span class="material-symbols-outlined">arrow_forward</span></span></button>
   </div>
 </section>

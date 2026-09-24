@@ -1,45 +1,11 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>社团入驻申请</title>
-  <link rel="stylesheet" href="../youth.css?v=20260923-no-floating-panels-v3">
-  <link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3">
-</head>
-<body>
-  <header class="topbar">
-    <button class="back" aria-label="返回致青春" onclick="youthGo(5)">‹</button>
-    <div class="heading"><h1>社团入驻申请</h1><p>缤纷社团 · 高校社团入驻功能</p></div>
-    <span class="more">•••</span>
-  </header>
-  <main class="page">
-    <div class="notice"><b>入驻说明</b><br>社团负责人提交基础资料后，由平台进行资质审核。审核通过后可完善社团主页、发布动态和招新信息。</div>
-    <section class="card process-card">
-      <div class="section-head"><h2>申请进度</h2><span class="tag" id="clubStatusTag">未提交</span></div>
-      <div class="feature-grid">
-        <div class="feature"><b>1. 填写资料</b><p>学校、社团和联系人信息</p></div>
-        <div class="feature"><b>2. 提交证明</b><p>校内登记或指导教师信息</p></div>
-        <div class="feature"><b>3. 平台审核</b><p>核验资料并反馈结果</p></div>
-        <div class="feature"><b>4. 完善主页</b><p>审核通过后发布社团内容</p></div>
-      </div>
-    </section>
-    <form class="card" id="clubOnboardingForm" onsubmit="submitClubOnboarding(event)">
-      <div class="section-head"><h2>社团资料</h2><small>带 * 为必填项</small></div>
-      <div class="form-group"><label for="clubSchool">学校名称 <span class="required">*</span></label><input id="clubSchool" required placeholder="请输入学校全称"></div>
-      <div class="form-group"><label for="clubName">社团名称 <span class="required">*</span></label><input id="clubName" required placeholder="请输入社团正式名称"></div>
-      <div class="form-group"><label for="clubCategory">社团类别 <span class="required">*</span></label><select id="clubCategory" required><option value="">请选择类别</option><option>文化艺术</option><option>学术科技</option><option>体育运动</option><option>志愿公益</option><option>创新创业</option><option>其他</option></select></div>
-      <div class="form-group"><label for="clubLead">负责人姓名 <span class="required">*</span></label><input id="clubLead" required placeholder="请输入负责人姓名"></div>
-      <div class="form-group"><label for="clubRole">负责人身份 <span class="required">*</span></label><select id="clubRole" required><option value="">请选择身份</option><option>社团学生负责人</option><option>指导教师</option><option>学校管理人员</option></select></div>
-      <div class="form-group"><label for="clubContact">联系电话 <span class="required">*</span></label><input id="clubContact" required inputmode="tel" pattern="1[3-9][0-9]{9}" placeholder="请输入11位手机号"></div>
-      <div class="form-group"><label for="clubIntro">社团简介 <span class="required">*</span></label><textarea id="clubIntro" required maxlength="300" placeholder="请介绍社团定位、主要活动和特色，300字以内"></textarea></div>
-      <div class="form-group"><label>证明材料 <span class="required">*</span></label><div class="upload" id="clubUpload" role="button" tabindex="0" onclick="simulateClubUpload()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();simulateClubUpload()}"><b id="clubUploadText">上传校内登记或指导教师证明</b><div class="meta">支持图片或 PDF；原型仅演示选择状态</div></div><input id="clubUploadState" type="hidden" value=""></div>
-      <label class="check"><input type="checkbox" required aria-label="确认信息真实并获得学校或指导教师同意"><span>我确认所填信息真实，并已获得学校或指导教师同意。<span class="required">*</span></span></label>
-      <button class="btn block" id="clubSubmitButton" type="submit" style="margin-top:18px">提交入驻申请</button>
-    </form>
-    <p class="intro">当前为交互原型，提交结果保存在本机浏览器，不会上传真实资料。正式审核时效与材料清单待平台确认。</p>
-  </main>
-  <div class="toast"></div>
-  <script>window.EP_PAGE='Y02'</script><script src="../youth.js"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260922-v3c21"></script><script src="../v3-overrides.js?v=20260922-v3c21"></script>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>缤纷社团｜教育Plus V3.0</title><link rel="stylesheet" href="../youth.css?v=20260924-youth-platform-v1"><link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head><body><header class="topbar"><button class="back" aria-label="返回致青春" onclick="youthGo(5)">‹</button><div class="heading"><h1>缤纷社团</h1><p>高校社团展示与信息聚合</p></div><span class="more">•••</span></header><main class="page">
+<section class="toolbar club-toolbar"><div><strong>发现感兴趣的校园社团</strong><small>按名称、学校或类别查找社团。</small></div><button class="btn secondary" onclick="youthGo('Y11')">关注动态</button></section>
+<section class="search-panel" aria-label="社团搜索"><label for="clubSearch">搜索社团</label><div class="search-row"><input id="clubSearch" type="search" placeholder="输入社团名称或学校" oninput="filterClubs()"><button class="btn" type="button" onclick="filterClubs()">搜索</button></div><div class="filter-grid"><select id="clubSchoolFilter" aria-label="按学校筛选社团" onchange="filterClubs()"><option value="all">全部学校</option><option value="贵州大学">贵州大学</option><option value="贵州师范大学">贵州师范大学</option><option value="贵州财经大学">贵州财经大学</option></select><select id="clubCategoryFilter" aria-label="按类别筛选社团" onchange="filterClubs()"><option value="all">全部类别</option><option value="文化艺术">文化艺术</option><option value="学术科技">学术科技</option><option value="志愿公益">志愿公益</option></select></div><span id="clubResultCount" class="result-count" role="status" aria-live="polite">3个已认证社团</span></section>
+<section id="clubDirectory" class="feed-list" aria-label="社团列表">
+<article class="card clickable club-card" data-club-id="creative" data-school="贵州大学" data-category="文化艺术" data-search="黔青创意社 设计 影像 招新 贵州大学" onclick="youthGo('Y08')"><div class="row"><div class="club-logo">黔</div><div class="min0 club-summary"><div><b>黔青创意社</b><span class="verified-mark">已认证</span></div><div class="meta">贵州大学 · 文化艺术</div></div><button class="follow-btn" type="button" data-follow-club="creative" onclick="event.stopPropagation();toggleClubFollow('creative',this)">关注</button></div><p class="desc">以视觉设计、摄影和校园文化创作为主，长期组织作品共创与公开展览。</p><div class="content-meta"><span class="tag yellow">招新进行中</span><span>1,268人关注</span></div></article>
+<article class="card clickable club-card" data-club-id="science" data-school="贵州师范大学" data-category="学术科技" data-search="山野科学社 科普 调研 贵州师范大学" onclick="youthGo('Y08')"><div class="row"><div class="club-logo blue-avatar">山</div><div class="min0 club-summary"><div><b>山野科学社</b><span class="verified-mark">已认证</span></div><div class="meta">贵州师范大学 · 学术科技</div></div><button class="follow-btn" type="button" data-follow-club="science" onclick="event.stopPropagation();toggleClubFollow('science',this)">关注</button></div><p class="desc">关注自然观察、城市生态和青年科普，定期发布探访活动与志愿者招募。</p><div class="content-meta"><span class="tag blue">本周有活动</span><span>846人关注</span></div></article>
+<article class="card clickable club-card" data-club-id="volunteer" data-school="贵州财经大学" data-category="志愿公益" data-search="微光志愿服务队 公益 支教 贵州财经大学" onclick="youthGo('Y08')"><div class="row"><div class="club-logo amber-avatar">光</div><div class="min0 club-summary"><div><b>微光志愿服务队</b><span class="verified-mark">已认证</span></div><div class="meta">贵州财经大学 · 志愿公益</div></div><button class="follow-btn" type="button" data-follow-club="volunteer" onclick="event.stopPropagation();toggleClubFollow('volunteer',this)">关注</button></div><p class="desc">开展社区阅读、公益支教和校园无障碍倡导，欢迎长期志愿者加入。</p><div class="content-meta"><span class="tag">发布新动态</span><span>629人关注</span></div></article>
+</section>
+<section id="clubEmpty" class="empty-state" hidden><b>没有找到相关社团</b><p>换个关键词或清除筛选条件再试试。</p><button class="btn secondary" type="button" onclick="resetClubFilters()">清除筛选</button></section>
+<div class="section-head"><h2>没有找到你的社团？</h2><small>负责人办理</small></div><section class="notice action-notice"><div>社团负责人完成线下身份核验后，可维护社团主页并发布招新、活动和日常动态。</div><button class="btn" onclick="youthGo('Y07')">申请社团入驻</button></section>
+</main><div class="toast" role="status" aria-live="polite"></div><script>window.EP_PAGE='Y02'</script><script src="../youth.js?v=20260924-youth-platform-v1"></script><script src="../access-control.js?v=20260924-youth-platform-v1"></script><script src="../routes.js?v=20260924-youth-platform-v1"></script><script src="../v3-overrides.js?v=20260924-youth-platform-v1"></script></body></html>

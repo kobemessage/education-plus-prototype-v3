@@ -33,7 +33,7 @@
     '10', 'G02', 'G03', 'G04', 'G05', 'G06',
     'S04', 'S06',
     'J02', 'J03', 'J04', 'J06', 'J07', 'J08',
-    'Y02', 'Y04', 'Y05',
+    'Y04', 'Y05', 'Y07', 'Y09', 'Y10', 'Y11',
     'K02', 'K03', 'K04'
   ]);
   const reporterPages = new Set(['J02', 'J03', 'J04', 'J06']);
@@ -42,7 +42,7 @@
     ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
     ['S05', 'article'],
     ['J01', 'article'], ['J05', 'article'],
-    ['Y01', 'article'], ['Y03', 'article'],
+    ['Y03', 'article'], ['Y06', 'article'],
     ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
     ['K01', 'article'], ['K05', 'article'],
     ['N01', 'visual'], ['G07', 'article']
@@ -111,7 +111,7 @@
       if (page === '2' || page.startsWith('R')) return '3条内容主线 · 8个阅读页面';
       if (page === '3' || page.startsWith('S')) return '6篇成长作品 · 2篇编辑精选';
       if (page === '4' || page.startsWith('J')) return '注册状态 · 投稿与作品档案';
-      if (page === '5' || page.startsWith('Y')) return '3条校园内容 · 1条审核中';
+      if (page === '5' || page.startsWith('Y')) return '3条校园创作 · 3个认证社团';
       if (page === '6' || page.startsWith('C')) return '4节公益课 · 直播与回放演示';
       if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
       if (page === '8' || page.startsWith('V')) return '公开信息 · 第三方服务待接入';
