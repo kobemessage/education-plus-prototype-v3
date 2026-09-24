@@ -34,11 +34,19 @@
     'K02', 'K03', 'K04'
   ]);
 
-  const publishedContentPages = new Set([
-    '12', 'R04', 'R06', 'R13', 'S01', 'S03', 'S05',
-    'J01', 'J05', 'Y01', 'Y03', 'C01', 'C03', 'K01', 'K05',
-    'N01', 'G07'
+  const contentPageTypes = new Map([
+    ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
+    ['S01', 'article'], ['S03', 'article'], ['S05', 'article'],
+    ['J01', 'article'], ['J05', 'article'],
+    ['Y01', 'article'], ['Y03', 'article'],
+    ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
+    ['K01', 'article'], ['K05', 'article'],
+    ['N01', 'visual'], ['G07', 'article']
   ]);
+  const publishedContentPages = new Set(contentPageTypes.keys());
+  const readableContentPages = new Set(
+    [...contentPageTypes].filter(([, type]) => type === 'article').map(([id]) => id)
+  );
 
   const style = document.createElement('style');
   style.id = 'ep-access-style';
@@ -47,18 +55,22 @@
     .ep-access-note strong{flex:none;padding:3px 7px;border-radius:6px;background:#dff3ec;color:#087f73;font-weight:700}
     .ep-access-note[data-private="true"]{border-color:#eadfb8;background:#fffaf0;color:#756848}
     .ep-access-note[data-private="true"] strong{background:#f7e9b9;color:#735d13}
-    .ep-published-actions{box-sizing:border-box;margin:16px 0 8px;padding:14px;border:1px solid #dce9e4;border-radius:18px;background:#fff;box-shadow:0 4px 14px rgba(24,62,52,.045)}
-    .ep-published-actions>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-    .ep-published-actions button,.ep-action-added{appearance:none;box-sizing:border-box;min-width:0;min-height:44px;border:1px solid #d5e7e1;border-radius:13px;background:#f5faf8;color:#315b51;font:600 13px/1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:0 10px;cursor:pointer}
-    .ep-published-actions button:active,.ep-action-added:active{transform:scale(.97);background:#eaf5f1}
-    .ep-published-actions button.active,.ep-action-added.active,.ep-inline-action.active{border-color:#8bcabb;background:#e5f5ef;color:#087f73}
-    .ep-published-actions small{display:block;margin-top:9px;color:#71877f;font:500 11px/1.45 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;text-align:center}
+    .ep-content-actions{box-sizing:border-box;width:100%;margin:22px 0 10px;padding:10px;border:1px solid #d4e6df;border-radius:20px;background:#fff;box-shadow:0 5px 16px rgba(24,62,52,.05)}
+    .ep-content-actions-grid{display:grid;grid-template-columns:repeat(var(--ep-action-count,4),minmax(0,1fr));gap:8px}
+    .ep-content-action{appearance:none;box-sizing:border-box;min-width:0;min-height:48px;border:1px solid #d4e5df;border-radius:14px;background:#fff;color:#526d65;font:600 12px/1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:3px;padding:0 3px;white-space:nowrap;cursor:pointer}
+    .ep-content-action .material-symbols-outlined{font-size:20px!important;color:#527168}
+    .ep-content-action:active{transform:scale(.97);background:#eef7f3}
+    .ep-content-action.active{border-color:#8bcabb;background:#e5f5ef;color:#087f73}
+    .ep-content-action.active .material-symbols-outlined{color:#087f73;font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
+    .ep-content-action[data-ep-action="read"][aria-pressed="true"]{border-color:#d8bd62;background:#fff8df;color:#765c09}
+    .ep-content-action[data-ep-action="read"][aria-pressed="true"] .material-symbols-outlined{color:#9b7400}
+    .ep-legacy-action-hidden,.ep-empty-action-cluster{display:none!important}
     .ep-action-count{font-variant-numeric:tabular-nums;color:#6d827b;font-weight:600}
     .ep-inline-engagement{box-sizing:border-box;margin-top:12px;padding-top:10px;border-top:1px dashed #dbe8e3;display:flex;align-items:center;gap:7px}
     .ep-inline-engagement .ep-inline-label{margin-right:auto;color:#71877f;font:600 11px/1.3 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif}
     .ep-inline-action{appearance:none;min-height:36px;padding:0 10px;border:1px solid #d9e8e3;border-radius:999px;background:#f7fbf9;color:#41675e;display:inline-flex;align-items:center;justify-content:center;gap:4px;font:600 12px/1 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;cursor:pointer}
     .ep-inline-action:active{transform:scale(.96)}
-    .ep-inline-action:focus-visible,.ep-published-actions button:focus-visible{outline:3px solid #efbd23;outline-offset:2px}
+    .ep-inline-action:focus-visible,.ep-content-action:focus-visible{outline:3px solid #efbd23;outline-offset:2px}
     #ep-login-dialog{position:fixed;inset:0;z-index:13050;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(9,35,29,.48);backdrop-filter:blur(3px)}
     #ep-login-dialog[hidden]{display:none!important}
     #ep-login-dialog .ep-login-sheet{box-sizing:border-box;width:min(100%,390px);padding:22px 18px calc(18px + env(safe-area-inset-bottom,0px));border-radius:24px 24px 18px 18px;background:#fff;color:#173f36;box-shadow:0 18px 44px rgba(8,36,30,.22);font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif}
@@ -82,7 +94,7 @@
     .ep-demo-strip span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .ep-access-toast{position:fixed;left:50%;bottom:20px;z-index:13060;max-width:calc(100vw - 40px);padding:10px 16px;border-radius:999px;background:#183e34;color:#fff;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;box-shadow:0 8px 22px rgba(8,36,30,.2);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:.2s}
     .ep-access-toast.show{transform:translate(-50%,0);opacity:1}
-    @media(max-width:360px){.ep-access-note{font-size:11px}.ep-published-actions button,.ep-action-added{font-size:12px;padding:0 7px}.ep-inline-engagement .ep-inline-label{display:none}}
+    @media(max-width:360px){.ep-access-note{font-size:11px}.ep-content-actions{padding:8px}.ep-content-actions-grid{gap:6px}.ep-content-action{min-height:52px;flex-direction:column;font-size:10px;padding:4px 2px;gap:2px}.ep-content-action .material-symbols-outlined{font-size:18px!important}.ep-inline-engagement .ep-inline-label{display:none}}
   `;
   document.head.append(style);
 
@@ -169,7 +181,9 @@
       note.dataset.private = 'true';
       note.innerHTML = '<strong>登录后内容</strong><span>投稿、进度、收藏和个人档案仅本人登录后查看</span>';
     } else if (publishedContentPages.has(page)) {
-      note.innerHTML = '<strong>游客可读</strong><span>正文免登录 · 分享免登录 · 点赞、收藏与发表评论需登录</span>';
+      note.innerHTML = readableContentPages.has(page)
+        ? '<strong>游客可读</strong><span>图文支持 AI 朗读 · 分享免登录 · 点赞与收藏需登录</span>'
+        : '<strong>游客可看</strong><span>视频或版面可直接浏览 · 分享免登录 · 点赞与收藏需登录</span>';
     } else {
       note.innerHTML = '<strong>公开浏览</strong><span>核心资讯、作品、课程、活动和服务说明无需登录</span>';
     }
@@ -192,9 +206,10 @@
   }
 
   function actionType(label) {
-    if (/分享|海报|转发/.test(label)) return 'share';
-    if (/点赞|赞同/.test(label)) return 'like';
-    if (/收藏|书架/.test(label)) return 'favorite';
+    const normalized = String(label || '').replace(/\s+/g, ' ').trim();
+    if (/^(?:分享海报|生成海报|分享|转发)(?:$|[\s，：]|\d)/.test(normalized)) return 'share';
+    if (/^(?:点赞|赞同)(?:$|[\s，：]|\d)/.test(normalized)) return 'like';
+    if (/^(?:收藏本书|收藏作品|收藏|书架)(?:$|[\s，：]|\d)/.test(normalized)) return 'favorite';
     return '';
   }
 
@@ -209,11 +224,13 @@
     ].filter(Boolean).join(' ');
     if (/已点赞|toggleLike|juniorToggle\([^)]*点赞|like-btn|btn-like|article-like|thumb_up/.test(source)) return 'like';
     if (/已收藏|toggleStar|juniorToggle\([^)]*收藏|star-btn|btn-fav|article-save|bookmark/.test(source)) return 'favorite';
-    if (/分享|海报|转发|share/.test(source)) return 'share';
+    if (/share-btn|article-share|\bshare\b/.test(source)) return 'share';
     return actionType(label);
   }
 
   const ENGAGEMENT_KEY = 'ep-v3-engagement';
+  let activeReadingControl = null;
+  let activeUtterance = null;
 
   function readEngagement() {
     try { return JSON.parse(localStorage.getItem(ENGAGEMENT_KEY) || '{}'); }
@@ -239,6 +256,14 @@
   function renderManagedAction(control) {
     const type = control.dataset.epAction;
     const scope = control.dataset.epScope || page;
+    if (type === 'read') {
+      const reading = activeReadingControl === control;
+      control.classList.toggle('active', reading);
+      control.setAttribute('aria-pressed', String(reading));
+      control.setAttribute('aria-label', reading ? '停止 AI 朗读' : '开始 AI 朗读');
+      control.innerHTML = `<span class="material-symbols-outlined" aria-hidden="true">${reading ? 'stop_circle' : 'graphic_eq'}</span><span>${reading ? '停止朗读' : 'AI朗读'}</span>`;
+      return;
+    }
     const { record } = engagementRecord(scope);
     const labels = {
       like: ['♡', '♥', '点赞'],
@@ -251,7 +276,13 @@
     control.classList.toggle('active', selected);
     if (type !== 'share') control.setAttribute('aria-pressed', String(selected));
     control.setAttribute('aria-label', `${selected && type !== 'share' ? `取消${label}` : label}，当前 ${count}`);
-    control.innerHTML = `<span aria-hidden="true">${selected ? activeIcon : idleIcon}</span><span>${label}</span><span class="ep-action-count">${count}</span>`;
+    if (control.classList.contains('ep-content-action')) {
+      const materialIcon = type === 'like' ? (selected ? 'favorite' : 'favorite_border')
+        : type === 'favorite' ? (selected ? 'bookmark' : 'bookmark_border') : 'ios_share';
+      control.innerHTML = `<span class="material-symbols-outlined" aria-hidden="true">${materialIcon}</span><span>${label}</span>`;
+    } else {
+      control.innerHTML = `<span aria-hidden="true">${selected ? activeIcon : idleIcon}</span><span>${label}</span><span class="ep-action-count">${count}</span>`;
+    }
   }
 
   function createManagedAction(type, scope, className) {
@@ -265,8 +296,69 @@
     return button;
   }
 
+  function readablePageText() {
+    const main = document.querySelector('main');
+    if (!main) return '';
+    const copy = main.cloneNode(true);
+    copy.querySelectorAll([
+      'script', 'style', 'button', 'a', 'input', 'textarea', 'select', 'form',
+      '.ep-content-actions', '.ep-access-note', '.ep-demo-strip', '.article-related',
+      '[aria-label*="相关推荐"]', '[aria-label*="互动"]', '[aria-label*="评论"]'
+    ].join(',')).forEach(element => element.remove());
+    return (copy.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 6000);
+  }
+
+  function finishReading(control, message) {
+    if (activeReadingControl !== control) return;
+    activeReadingControl = null;
+    activeUtterance = null;
+    renderManagedAction(control);
+    if (message) toast(message);
+  }
+
+  function toggleReading(control) {
+    if (activeReadingControl === control) {
+      activeReadingControl = null;
+      activeUtterance = null;
+      window.speechSynthesis?.cancel();
+      renderManagedAction(control);
+      toast('已停止朗读');
+      return;
+    }
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      toast('当前浏览器暂不支持 AI 朗读');
+      return;
+    }
+    const text = readablePageText();
+    if (!text) {
+      toast('当前页面没有可朗读的图文内容');
+      return;
+    }
+    if (activeReadingControl) finishReading(activeReadingControl);
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN';
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    const voice = window.speechSynthesis.getVoices().find(item => /^zh(?:-|_)/i.test(item.lang));
+    if (voice) utterance.voice = voice;
+    activeReadingControl = control;
+    activeUtterance = utterance;
+    renderManagedAction(control);
+    utterance.onend = () => finishReading(control, '朗读已结束');
+    utterance.onerror = event => {
+      if (event.error !== 'canceled' && event.error !== 'interrupted') finishReading(control, '朗读未能启动，请重试');
+    };
+    window.speechSynthesis.speak(utterance);
+    toast('AI 朗读已开始，再次点击可停止');
+  }
+
   function runManagedAction(control) {
     const type = control.dataset.epAction;
+    if (type === 'read') {
+      toggleReading(control);
+      return;
+    }
     const scope = control.dataset.epScope || page;
     const { data, record } = engagementRecord(scope);
     if (type === 'like') record.liked = !record.liked;
@@ -280,42 +372,46 @@
     else toast(record.favorited ? '已收藏' : '已取消收藏');
   }
 
-  function ensurePublishedInteractions() {
+  function retireLegacyContentActions() {
+    const touchedParents = new Set();
+    document.querySelectorAll('.ep-published-actions').forEach(element => element.remove());
+    document.querySelectorAll('button,a,[role="button"]').forEach(control => {
+      if (control.closest('.ep-content-actions,.ep-inline-engagement,#ep-login-dialog,#ep-access-gate')) return;
+      const label = controlLabel(control);
+      const type = controlActionType(control);
+      const isReading = /AI\s*朗读|开始朗读|停止朗读|\bTTS\b/i.test(label);
+      if (!type && !isReading) return;
+      control.classList.add('ep-legacy-action-hidden');
+      control.setAttribute('aria-hidden', 'true');
+      control.tabIndex = -1;
+      if (control.parentElement) touchedParents.add(control.parentElement);
+    });
+    touchedParents.forEach(parent => {
+      const children = [...parent.children];
+      if (children.length && children.every(child => child.classList.contains('ep-legacy-action-hidden') || child.hidden)) {
+        parent.classList.add('ep-empty-action-cluster');
+      }
+    });
+  }
+
+  function ensureContentActions() {
     if (!publishedContentPages.has(page)) return;
     const main = document.querySelector('main');
     if (!main) return;
-    const existing = new Set();
-    const existingControls = [];
-    main.querySelectorAll('button,a,[role="button"]').forEach(control => {
-      const type = controlActionType(control);
-      if (type) {
-        const actionNames = { like: '点赞', favorite: '收藏', share: '分享' };
-        const currentName = control.getAttribute('aria-label') || '';
-        if (!actionType(currentName)) control.setAttribute('aria-label', actionNames[type]);
-        existing.add(type);
-        existingControls.push(control);
-      }
-    });
-    const missing = ['like', 'favorite', 'share'].filter(type => !existing.has(type));
-    if (!missing.length) return;
+    retireLegacyContentActions();
+    main.querySelector('.ep-content-actions')?.remove();
 
-    const candidates = [...main.querySelectorAll('.actions,.v3-actions,.article-actions,[aria-label*="文章操作"],[aria-label*="互动"]')];
-    const target = candidates.find(container => container.querySelector('button,a')) || existingControls[0]?.parentElement;
-    if (target) {
-      missing.forEach(type => {
-        target.append(createManagedAction(type, page, 'ep-action-added'));
-      });
-      return;
-    }
-
+    const actions = ['like', 'favorite', 'share'];
+    if (readableContentPages.has(page)) actions.push('read');
     const section = document.createElement('section');
-    section.className = 'ep-published-actions';
-    section.setAttribute('aria-label', '内容互动');
+    section.className = 'ep-content-actions';
+    section.dataset.contentType = contentPageTypes.get(page);
+    section.setAttribute('aria-label', '页面末端内容互动');
+    section.style.setProperty('--ep-action-count', String(actions.length));
     const controls = document.createElement('div');
-    ['like', 'favorite', 'share'].forEach(type => controls.append(createManagedAction(type, page, 'ep-action-added')));
-    const hint = document.createElement('small');
-    hint.textContent = '正文和活动信息可免登录阅读；分享无需登录，点赞与收藏登录后记录';
-    section.append(controls, hint);
+    controls.className = 'ep-content-actions-grid';
+    actions.forEach(type => controls.append(createManagedAction(type, page, 'ep-content-action')));
+    section.append(controls);
     main.append(section);
   }
 
@@ -378,7 +474,8 @@
   }
   addDemoStrip();
   addAccessNote();
-  ensurePublishedInteractions();
   enhanceActivityCards();
-  window.epAccess = { page, isLoggedIn, privatePages, publishedContentPages, openLoginDialog };
+  ensureContentActions();
+  window.addEventListener('pagehide', () => window.speechSynthesis?.cancel(), { once: true });
+  window.epAccess = { page, isLoggedIn, privatePages, publishedContentPages, readableContentPages, openLoginDialog };
 })();

@@ -28,6 +28,6 @@
 </main>
 <div class="article-toast" id="article-toast" role="status" aria-live="polite"></div>
 <script>(()=>{const toast=document.getElementById('article-toast');let timer;const show=message=>{toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)};[['article-like','已点赞'],['article-save','已收藏']].forEach(([id,message])=>document.getElementById(id).addEventListener('click',event=>{event.currentTarget.classList.toggle('active');show(event.currentTarget.classList.contains('active')?message:`已取消${message.slice(1)}`)}));document.getElementById('article-share').addEventListener('click',()=>show('图文分享海报生成中（演示）'));document.getElementById('article-tts').addEventListener('click',()=>show('AI 朗读（TTS）为后续接入能力（演示）'))})();</script>
-<script>window.EP_PAGE="R04";</script><script src="../access-control.js?v=20260923-reading-club-v4"></script><script src="../routes.js?v=20260923-reading-club-v4"></script><script src="../v3-overrides.js?v=20260923-reading-club-v4"></script>
+<script>window.EP_PAGE="R04";</script><script src="../access-control.js?v=20260924-content-actions-v1"></script><script src="../routes.js?v=20260923-reading-club-v4"></script><script src="../v3-overrides.js?v=20260923-reading-club-v4"></script>
 </body>
 </html>

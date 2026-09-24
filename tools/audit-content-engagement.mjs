@@ -12,9 +12,14 @@ const routes = [
   ...fs.readdirSync(root).filter(name => /^\d{2}\.html$/.test(name)),
   ...fs.readdirSync(path.join(root, 'stitch')).filter(name => /^[A-Z]\d{2}\.html$/.test(name)).map(name => `stitch/${name}`)
 ].sort();
-const engagementPages = new Set([
-  '12', 'R04', 'R06', 'R13', 'S01', 'S03', 'S05',
-  'J01', 'J05', 'Y01', 'Y03', 'C01', 'C03', 'K01', 'K05', 'N01', 'G07'
+const contentPageTypes = new Map([
+  ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
+  ['S01', 'article'], ['S03', 'article'], ['S05', 'article'],
+  ['J01', 'article'], ['J05', 'article'],
+  ['Y01', 'article'], ['Y03', 'article'],
+  ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
+  ['K01', 'article'], ['K05', 'article'],
+  ['N01', 'visual'], ['G07', 'article']
 ]);
 
 const failures = [];
@@ -38,9 +43,14 @@ for (const route of routes) {
   const response = await page.goto(`${baseUrl}/${route}?auth=1`, { waitUntil: 'load', timeout: 20000 });
   await page.waitForTimeout(80);
   if (!response?.ok()) failures.push(`${route}: HTTP ${response?.status() || 'no response'}`);
-  const result = await page.evaluate(({ needsEngagement }) => {
+  const contentType = contentPageTypes.get(id) || '';
+  const result = await page.evaluate(({ contentType }) => {
     const buttons = [...document.querySelectorAll('button,a,[role="button"]')];
-    const labels = buttons.map(control => [control.getAttribute('aria-label'), control.textContent].filter(Boolean).join(' '));
+    const visible = element => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0;
+    };
     const bottomFloatingPanels = [...document.querySelectorAll('body *')].filter(element => {
       const style = getComputedStyle(element);
       const rect = element.getBoundingClientRect();
@@ -59,16 +69,34 @@ for (const route of routes) {
           .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
         return !name;
       }).length,
-      like: !needsEngagement || labels.some(label => /点赞|赞同/.test(label)),
-      favorite: !needsEngagement || labels.some(label => /收藏|关注/.test(label)),
-      share: !needsEngagement || labels.some(label => /分享|转发|海报/.test(label)),
+      actionBars: document.querySelectorAll('.ep-content-actions').length,
+      actionTypes: [...document.querySelectorAll('.ep-content-actions [data-ep-action]')].map(control => control.dataset.epAction),
+      actionBarIsLast: !contentType || document.querySelector('main')?.lastElementChild?.classList.contains('ep-content-actions'),
+      actionBarPosition: document.querySelector('.ep-content-actions') ? getComputedStyle(document.querySelector('.ep-content-actions')).position : '',
+      visibleLegacyActions: buttons.filter(control => {
+        if (control.closest('.ep-content-actions,.ep-inline-engagement') || !visible(control)) return false;
+        const label = [control.getAttribute('aria-label'), control.getAttribute('title'), control.textContent]
+          .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+        return /^(?:点赞|赞同|收藏本书|收藏作品|收藏|书架|分享海报|生成海报|分享|转发|AI\s*朗读)/.test(label);
+      }).length,
       overflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - window.innerWidth
     };
-  }, { needsEngagement: engagementPages.has(id) });
+  }, { contentType });
   if (result.discovery !== 0) failures.push(`${route}: 仍残留校园自选单/延伸浏览框`);
   if (result.bottomFloatingPanels.length) failures.push(`${route}: 仍残留可见底部悬浮框 ${result.bottomFloatingPanels.join(', ')}`);
   if (id === '11' && result.serviceItems !== 7) failures.push(`${route}: 办事大厅结构异常 ${JSON.stringify(result)}`);
-  if (!result.like || !result.favorite || !result.share) failures.push(`${route}: 互动不完整 ${JSON.stringify(result)}`);
+  if (contentType) {
+    const expected = contentType === 'article' ? ['like', 'favorite', 'share', 'read'] : ['like', 'favorite', 'share'];
+    if (result.actionBars !== 1 || JSON.stringify(result.actionTypes) !== JSON.stringify(expected)) {
+      failures.push(`${route}: 页末互动项异常 ${JSON.stringify(result)}`);
+    }
+    if (!result.actionBarIsLast || ['fixed', 'sticky'].includes(result.actionBarPosition)) {
+      failures.push(`${route}: 互动区未位于页面末端 ${JSON.stringify(result)}`);
+    }
+    if (result.visibleLegacyActions) failures.push(`${route}: 仍有 ${result.visibleLegacyActions} 个中段旧互动按钮`);
+  } else if (result.actionBars !== 0) {
+    failures.push(`${route}: 非内容页不应出现页末互动区`);
+  }
   if (result.missingAlt) failures.push(`${route}: ${result.missingAlt} 张图片缺少 alt 属性`);
   if (result.unnamedControls) failures.push(`${route}: ${result.unnamedControls} 个控件缺少可访问名称`);
   if (result.overflow > 5) failures.push(`${route}: 水平溢出 ${result.overflow}px`);
@@ -164,6 +192,23 @@ await page.reload({ waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(80);
 if (await page.locator('[data-ep-scope="12:activity:0"][data-ep-action="like"]').getAttribute('aria-pressed') !== 'true') {
   failures.push('12.html: 点赞状态刷新后未保留');
+}
+
+await page.goto(`${baseUrl}/stitch/R04.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+const readAction = page.locator('.ep-content-actions [data-ep-action="read"]');
+await readAction.click();
+if (!/朗读/.test(await page.locator('.ep-access-toast').innerText())) failures.push('R04.html: AI 朗读未给出状态反馈');
+if (await readAction.getAttribute('aria-pressed') === 'true') await readAction.click();
+
+for (const [route, file] of [
+  ['stitch/R04.html?auth=1', 'content-actions-article-end.png'],
+  ['stitch/C03.html?auth=1', 'content-actions-video-end.png']
+]) {
+  await page.goto(`${baseUrl}/${route}`, { waitUntil: 'domcontentloaded' });
+  await page.locator('.ep-content-actions').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(80);
+  await page.screenshot({ path: path.join(root, 'qa', file), fullPage: false });
 }
 
 await context.clearCookies();
@@ -263,7 +308,8 @@ if (failures.length) {
 
 console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
 console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底部悬浮菜单');
-console.log('PASS 作品/活动点赞、收藏、分享与登录边界');
+console.log('PASS 19 个内容页的页末点赞、收藏、分享与登录边界');
+console.log('PASS 16 个图文页含 AI 朗读，视频与纯版面页不含 AI 朗读');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
 console.log('PASS 读书会三入口、热门活动、内容搜索、图文与入驻规则');
 console.log('PASS 领读员页面无研训数据块，图文/视频课程与课程详情完整');
