@@ -17,7 +17,7 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
     if page_id in {"4", "10", "11", "J07", "J08"}:
         cache_version = "20260924-journalist-v1"
     elif page_id == "5":
-        cache_version = "20260924-colorful-university-v1"
+        cache_version = "20260924-colorful-university-v2"
     else:
         cache_version = "20260923-reading-club-v4"
     if home:
