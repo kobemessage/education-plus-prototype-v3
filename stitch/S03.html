@@ -1,11 +1,77 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>教育报官方活动｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head>
-<body><script>window.EP_PAGE='S03'</script><header class="v3-top"><button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>活动专区</h1><p>《贵州教育报》官方发布</p></div><span class="v3-badge">官方活动</span></header><main class="v3-shell">
-<section class="v3-hero"><div><small>《贵州教育报》官方发布</small><h2>第四届贵州省青少年<br>新时代征文大赛</h2><p>主题：多彩贵州 · 少年筑梦</p><button class="v3-cta" onclick="v3Toast('请按官方活动通知提交作品（演示）')">查看参与方式</button></div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>活动信息</h3><span>征集中</span></div><div class="v3-list"><div class="v3-row"><span class="v3-icon"><span class="material-symbols-outlined">groups</span></span><span class="grow"><strong>征集对象</strong><p>贵州省中小学生</p></span></div><div class="v3-row"><span class="v3-icon amber"><span class="material-symbols-outlined">calendar_month</span></span><span class="grow"><strong>征集时间</strong><p>2025年4月1日—5月31日 [演示数据]</p></span></div><div class="v3-row"><span class="v3-icon blue"><span class="material-symbols-outlined">category</span></span><span class="grow"><strong>作品类别</strong><p>写作、硬笔、国画</p></span></div></div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>参与流程</h3><span>4步完成</span></div><div class="v3-process"><div class="v3-process-step active"><span class="material-symbols-outlined">description</span><strong>阅读规则</strong><small>确认主题</small></div><div class="v3-process-step"><span class="material-symbols-outlined">upload</span><strong>提交作品</strong><small>填写资料</small></div><div class="v3-process-step"><span class="material-symbols-outlined">fact_check</span><strong>编辑审核</strong><small>可退回修改</small></div><div class="v3-process-step"><span class="material-symbols-outlined">gallery_thumbnail</span><strong>专题展示</strong><small>审核通过</small></div></div></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>作品要求</h3><span>投稿须知</span></div><ol class="v3-steps"><li>内容健康、主题明确，体现贵州地域与青少年成长。</li><li>写作作品建议 600—1500 字；硬笔、国画作品上传清晰图片。</li><li>必须为学生原创，并填写真实姓名、学校与班级。</li><li>具体投稿入口、截止时间和审核结果以正式活动通知为准。</li></ol><button class="v3-btn" style="width:100%" onclick="v3Toast('请按教育报正式活动通知参与（演示）')">查看参与方式</button></section>
-<div class="v3-note info">活动专区仅展示《贵州教育报》官方发布的活动。后续可与小记者活动整合，或明确少年派侧重作品征集、小记者侧重实践活动，具体方案待确认。</div>
-<div class="v3-note info">活动名称、时间、学校与参与数据均为演示，实际参与以《贵州教育报》正式活动通知为准。</div>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>活动专区｜教育Plus V3.0</title>
+  <link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3">
+  <style>
+    .youth-activity-list{display:grid;gap:10px}
+    .youth-activity-list .v3-row{align-items:flex-start}
+    .youth-activity-date{display:grid;place-content:center;width:58px;min-height:58px;border-radius:15px;background:var(--v3-mint);color:var(--v3-deep);text-align:center;flex:0 0 auto}
+    .youth-activity-date strong{font-size:17px;line-height:1.1}
+    .youth-activity-date small{margin-top:4px;font-size:10px;color:var(--v3-muted)}
+    .youth-activity-list .v3-row:first-child{border-color:#9ed4c6;background:#fbfffd}
+    .youth-activity-list .v3-state{margin-top:1px}
+    .youth-latest-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+    .youth-latest-meta div{padding:10px;border-radius:14px;background:var(--v3-bg)}
+    .youth-latest-meta small{display:block;color:var(--v3-muted);font-size:10px}
+    .youth-latest-meta strong{display:block;margin-top:3px;font-size:12px;line-height:1.45}
+  </style>
+</head>
+<body>
+<script>window.EP_PAGE='S03'</script>
+<header class="v3-top">
+  <button class="v3-back" aria-label="返回少年派" onclick="v3Go('3')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button>
+  <div class="v3-top-copy"><h1>活动专区</h1><p>最新活动与往期活动</p></div>
+  <span class="v3-badge">官方活动</span>
+</header>
+<main class="v3-shell">
+  <section class="v3-section">
+    <div class="v3-section-head"><h3>最新活动</h3><span>2026.09.24 更新</span></div>
+    <div class="v3-hero has-image">
+      <img src="../assets/v3/youth-creation-v2.jpg" alt="青少年书画创作活动演示图">
+      <div><small>《贵州教育报》官方发布 · 征集中</small><h2>第五届贵州省青少年<br>新时代征文大赛</h2><p>主题：多彩贵州 · 少年筑梦</p><button class="v3-cta" onclick="document.getElementById('latestActivity').scrollIntoView({behavior:'smooth'})">查看活动详情</button></div>
+    </div>
+  </section>
+
+  <section class="v3-panel" id="latestActivity" data-content-actions-anchor>
+    <div class="v3-section-head"><h3>活动概要</h3><span class="v3-state amber">征集中</span></div>
+    <p class="v3-body-copy">面向全省中小学生征集写作、硬笔与国画作品，鼓励青少年记录家乡变化与成长感悟。</p>
+    <div class="youth-latest-meta">
+      <div><small>报名时间</small><strong>09月20日—11月30日</strong></div>
+      <div><small>征集对象</small><strong>贵州省中小学生</strong></div>
+      <div><small>作品类别</small><strong>写作、硬笔、国画</strong></div>
+      <div><small>发布时间</small><strong>2026年09月20日</strong></div>
+    </div>
+    <button class="v3-btn" style="width:100%;margin-top:12px" onclick="v3Toast('请按《贵州教育报》正式活动通知参与（演示）')">查看参与方式</button>
+  </section>
+
+  <section class="v3-section" aria-labelledby="activityListTitle">
+    <div class="v3-section-head"><h3 id="activityListTitle">活动列表</h3><span>按发布时间 · 最新在前</span></div>
+    <div class="youth-activity-list">
+      <button class="v3-row" onclick="document.getElementById('latestActivity').scrollIntoView({behavior:'smooth'})">
+        <time class="youth-activity-date" datetime="2026-09-20"><strong>09.20</strong><small>2026</small></time>
+        <span class="grow"><strong>第五届贵州省青少年新时代征文大赛</strong><p>09月20日—11月30日 · 写作／硬笔／国画</p></span><span class="v3-state amber">征集中</span>
+      </button>
+      <button class="v3-row" onclick="v3Toast('“我眼中的贵州”校园影像征集活动详情（演示）')">
+        <time class="youth-activity-date" datetime="2026-08-01"><strong>08.01</strong><small>2026</small></time>
+        <span class="grow"><strong>“我眼中的贵州”校园影像征集</strong><p>08月01日—09月15日 · 摄影／短视频</p></span><span class="v3-state">公示中</span>
+      </button>
+      <button class="v3-row" onclick="v3Toast('“筑梦黔山”校园艺术作品展活动详情（演示）')">
+        <time class="youth-activity-date" datetime="2026-05-10"><strong>05.10</strong><small>2026</small></time>
+        <span class="grow"><strong>“筑梦黔山”校园艺术作品展</strong><p>05月10日—06月30日 · 硬笔／国画／手工</p></span><span class="v3-state outline">已结束</span>
+      </button>
+      <button class="v3-row" onclick="v3Toast('“书香校园·阅读成长”征文活动详情（演示）')">
+        <time class="youth-activity-date" datetime="2026-03-01"><strong>03.01</strong><small>2026</small></time>
+        <span class="grow"><strong>“书香校园 · 阅读成长”主题征文</strong><p>03月01日—04月20日 · 小学组／初中组</p></span><span class="v3-state outline">已结束</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="v3-note info">活动名称、时间与参与数据均为原型演示，正式发布时以《贵州教育报》活动通知为准。</div>
 </main>
 
-<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
+<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260924-youth-activities-v1"></script>
+</body>
+</html>
