@@ -14,7 +14,12 @@ def row(title, desc, route, icon_name="", image="", state=""):
 
 def page(page_id, title, body, active="", subtitle="", home=False, back_route="1", back_label="返回首页"):
     prefix = "../" if page_id[0].isalpha() else ""
-    cache_version = "20260924-journalist-v1" if page_id in {"4", "10", "11", "J07", "J08"} else "20260923-reading-club-v4"
+    if page_id in {"4", "10", "11", "J07", "J08"}:
+        cache_version = "20260924-journalist-v1"
+    elif page_id == "5":
+        cache_version = "20260924-colorful-university-v1"
+    else:
+        cache_version = "20260923-reading-club-v4"
     if home:
         header = (
             f'<header class="v3-top v3-brand-top"><img class="v3-header-leaves" src="{prefix}assets/v3/header-leaves.jpg" alt=""><div class="v3-top-copy">'
@@ -123,14 +128,14 @@ pages["05.html"] = page("5", "致青春", '''
 <section class="v3-hero has-image"><img src="assets/v3/university-life-v2.jpg" alt="大学生在校园交流学习的演示图"><div>
 <small>高校青年内容共创</small><h2>看见大学里的<br>青春与创造</h2><p>展示校园生活、社团风采和教育报主题活动。</p></div></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>青春内容</h3><span>4项服务</span></div><div class="v3-grid" aria-label="致青春二级导航">
-<button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>我的大学</strong><p>校园生活与青春故事</p></button>
+<button class="v3-card" onclick="v3Go('Y01')">''' + icon("school") + '''<strong>多彩大学</strong><p>校园生活与青春故事</p></button>
 <button class="v3-card" onclick="v3Go('Y02')">''' + icon("groups", "blue") + '''<strong>多彩社团</strong><p>社团入驻与风采展示</p></button>
 <button class="v3-card" onclick="v3Go('Y03')">''' + icon("campaign", "amber") + '''<strong>主题活动</strong><p>教育报组织的线上征集</p></button>
 <button class="v3-card" onclick="v3Go('Y04')">''' + icon("edit_square") + '''<strong>创作入口</strong><p>发布图文或短视频</p></button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>我的大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
+<section class="v3-section"><div class="v3-section-head"><h3>多彩大学</h3><button class="v3-more" onclick="v3Go('Y05')">我的发布</button></div>
 ''' + row("晚风穿过图书馆：我的大学普通一天", "某高校 · 林*同学 · 图文 [演示数据]", "Y01", image="assets/v3/university-life-v2.jpg") + '''</section>
 <div class="v3-note info">社团入驻与个人创作使用不同入口；主题活动由教育报组织发布，所有内容和状态均为演示数据。</div>
-''', subtitle="我的大学 · 多彩社团 · 主题活动")
+''', subtitle="多彩大学 · 多彩社团 · 主题活动")
 
 pages["06.html"] = page("6", "公益课", '''
 <section class="v3-hero has-image"><img src="assets/v3/public-class.jpg" alt="公益课教学演示图"><div>

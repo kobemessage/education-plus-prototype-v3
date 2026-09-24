@@ -14,7 +14,7 @@
     <span class="more">•••</span>
   </header>
   <main class="page">
-    <div class="notice"><b>提交说明</b><br>用于发布“我的大学”内容，或提交贵州教育报主题活动作品。社团入驻请从“多彩社团”进入。</div>
+    <div class="notice"><b>提交说明</b><br>用于发布“多彩大学”内容，或提交贵州教育报主题活动作品。社团入驻请从“多彩社团”进入。</div>
     <form class="card" onsubmit="submitYouthForm(event)">
       <div class="form-group"><label for="youthSchool">学校 <span class="required">*</span></label><select id="youthSchool" required><option>贵州大学</option><option>贵州师范大学</option><option>贵州财经大学</option><option>其他高校</option></select></div>
       <div class="form-group"><label for="youthAuthor">作者姓名 <span class="required">*</span></label><input id="youthAuthor" required value="林溪" placeholder="请输入真实姓名"></div>
@@ -22,7 +22,7 @@
       <div class="form-group"><label>内容形式 <span class="required">*</span></label><input id="contentType" type="hidden" value="图文"><div class="seg"><button type="button" class="active" onclick="chooseContentType(this,'图文')">图文</button><button type="button" onclick="chooseContentType(this,'短视频')">短视频</button></div></div>
       <div class="form-group"><label for="youthBody">正文或内容简介 <span class="required">*</span></label><textarea id="youthBody" required placeholder="图文请输入正文；短视频请输入内容简介">记录图书馆、食堂和社团排练里真实而温暖的大学日常。</textarea></div>
       <div class="form-group"><label>作品素材 <span class="required">*</span></label><div class="upload" onclick="simulateUpload()"><b id="uploadText">选择图片（最多9张，演示）</b><div class="meta">原型只演示选择状态，不上传真实文件</div></div></div>
-      <div class="form-group"><label for="youthDestination">发布到</label><select id="youthDestination"><option>我的大学</option><option>贵州教育报主题活动：我和我的大学</option></select></div>
+      <div class="form-group"><label for="youthDestination">发布到</label><select id="youthDestination"><option>多彩大学</option><option>贵州教育报主题活动：我和我的大学</option></select></div>
       <label class="check"><input type="checkbox" required checked aria-label="确认原创授权并同意发布规则"><span>我确认作品为原创或已取得合法授权，并同意按发布规则进行内容展示。<span class="required">*</span></span></label>
       <button class="btn block" type="submit" style="margin-top:18px">确认提交</button>
     </form>
