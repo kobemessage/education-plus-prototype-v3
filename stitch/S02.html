@@ -24,4 +24,4 @@ const talentFile=document.getElementById('talentFile');talentFile.addEventListen
 document.getElementById('talentSubmission').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;localStorage.setItem('ep-youth-submission',JSON.stringify({title:document.getElementById('talentTitle').value,type:'才艺坊｜'+document.getElementById('talentType').value,status:'待审核',time:Date.now()}));v3Toast('才艺作品已提交审核（演示）');setTimeout(()=>v3Go('S04'),700)});
 </script>
 </main>
-<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v1"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
+<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>

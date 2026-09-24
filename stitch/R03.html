@@ -57,6 +57,6 @@
 <script>
   (()=>{const input=document.getElementById('expert-search-input');const clear=document.getElementById('expert-search-clear');const cards=[...document.querySelectorAll('.article-card')];const count=document.getElementById('expert-result-count');const empty=document.getElementById('expert-empty');const search=()=>{const keyword=input.value.trim().toLowerCase();let visible=0;cards.forEach(card=>{const match=!keyword||(card.dataset.search||'').toLowerCase().includes(keyword);card.hidden=!match;if(match)visible+=1});count.textContent=keyword?`找到 ${visible} 篇`:`共 ${cards.length} 篇`;clear.hidden=!keyword;empty.classList.toggle('show',visible===0)};input.addEventListener('input',search);input.addEventListener('keydown',event=>{if(event.key==='Escape'){input.value='';search()}});clear.addEventListener('click',()=>{input.value='';search();input.focus()})})();
 </script>
-<script>window.EP_PAGE="R03";</script><script src="../access-control.js?v=20260924-content-actions-v1"></script><script src="../routes.js?v=20260923-reading-club-v4"></script><script src="../v3-overrides.js?v=20260923-reading-club-v4"></script>
+<script>window.EP_PAGE="R03";</script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260923-reading-club-v4"></script><script src="../v3-overrides.js?v=20260923-reading-club-v4"></script>
 </body>
 </html>
