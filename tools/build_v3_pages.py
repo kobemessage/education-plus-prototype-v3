@@ -14,6 +14,7 @@ def row(title, desc, route, icon_name="", image="", state=""):
 
 def page(page_id, title, body, active="", subtitle="", home=False, back_route="1", back_label="返回首页"):
     prefix = "../" if page_id[0].isalpha() else ""
+    cache_version = "20260924-journalist-v1" if page_id in {"4", "10", "11", "J07", "J08"} else "20260923-reading-club-v4"
     if home:
         header = (
             f'<header class="v3-top v3-brand-top"><img class="v3-header-leaves" src="{prefix}assets/v3/header-leaves.jpg" alt=""><div class="v3-top-copy">'
@@ -30,9 +31,9 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         )
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v=20260923-reading-club-v4"></head>
+<title>{title}｜教育Plus V3.0</title><link rel="stylesheet" href="{prefix}v3.css?v={cache_version}"></head>
 <body><script>window.EP_PAGE={page_id!r}</script>{header}<main class="v3-shell{' v3-home' if home else ''}">{body}</main>
-<script src="{prefix}v3-ui.js?v=20260922-v3c21"></script><script src="{prefix}access-control.js?v=20260923-reading-club-v4"></script><script src="{prefix}routes.js?v=20260923-reading-club-v4"></script></body></html>'''
+<script src="{prefix}v3-ui.js?v={cache_version}"></script><script src="{prefix}access-control.js?v={cache_version}"></script><script src="{prefix}routes.js?v={cache_version}"></script></body></html>'''
 
 
 pages = {}
@@ -102,17 +103,20 @@ pages["03.html"] = page("3", "少年派", '''
 
 pages["04.html"] = page("4", "小记者", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-reporter-v2.jpg" alt="校园小记者采访教师的演示图"><div>
-<small>入驻 · 采写 · 作品 · 荣誉</small><h2>记录校园现场<br>写下真实成长</h2><p>从资格申请到采写投稿，形成线上作品成长档案。</p></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>采写与成长</h3><span>4项服务</span></div><div class="v3-grid" aria-label="小记者二级导航">
-<button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>入驻资格</strong><p>提交资料与学校推荐</p></button>
-<button class="v3-card" onclick="v3Go('J02')">''' + icon("edit_note") + '''<strong>采写投稿</strong><p>提交校园新闻与专访</p></button>
+<small>注册 · 投稿 · 档案 · 风采</small><h2>记录校园现场<br>分享真实成长</h2><p>浏览优秀作品，注册后投稿并建立个人作品档案。</p></div></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>小记者服务</h3><span>4项入口</span></div><div class="v3-grid" aria-label="小记者二级导航">
+<button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>注册小记者</strong><p>填写学生与监护人信息</p></button>
+<button class="v3-card" onclick="v3Go('J02')">''' + icon("edit_note") + '''<strong>在线投稿</strong><p>上传校园采写图文</p></button>
 <button class="v3-card" onclick="v3Go('J04')">''' + icon("folder_copy","blue") + '''<strong>作品档案</strong><p>查看录用与刊发记录</p></button>
-<button class="v3-card" onclick="v3Go('J05')">''' + icon("workspace_premium","amber") + '''<strong>风采荣誉</strong><p>优秀小记者与作品荣誉</p></button></div></section>
-<section class="v3-section"><div class="v3-section-head"><h3>资格与荣誉状态</h3><span>在线查询</span></div><div class="v3-list">
-''' + row("资格审核", "查看学校推荐材料核验进度", "J08", icon_name="fact_check", state="审核中") + '''
-''' + row("荣誉证书", "查看见报与优秀作品入选证明", "J06", icon_name="workspace_premium") + '''</div></section>
-<div class="v3-note info">小记者一期仅提供线上资格审核、校园采写、投稿与作品展示，不包含线下研学、活动报名、签到、核销或实践学时。</div>
-''', subtitle="入驻资格 · 采写投稿 · 作品档案")
+<button class="v3-card" onclick="v3Go('J05')">''' + icon("groups","amber") + '''<strong>优秀小记者</strong><p>查看人物与代表作品</p></button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>我的服务</h3><span>登录后查看</span></div><div class="v3-list">
+''' + row("注册状态", "查看小记者注册申请处理结果", "J08", icon_name="fact_check", state="待审核") + '''
+''' + row("投稿进度", "查看待审核、录用与刊发状态", "J03", icon_name="manage_search") + '''
+''' + row("电子证书", "查看见报证明与荣誉证书", "J06", icon_name="workspace_premium") + '''</div></section>
+<section class="v3-panel"><div class="v3-section-head"><h3>投稿指南与温馨提醒</h3><span>公开浏览</span></div><ol class="v3-steps"><li>提交本人原创、内容真实的校园图文作品。</li><li>涉及人物照片时，应事先取得监护人与被拍摄者同意。</li><li>不要公开电话、住址、身份证号等个人敏感信息。</li><li>稿件由编辑部审核，未录用不提供逐稿详细说明。</li></ol></section>
+<div class="v3-note info">未注册用户可浏览刊发作品和优秀小记者；注册后可在线投稿并查看个人作品档案。活动优惠以具体活动公告为准。</div>
+<div class="v3-note">一期不包含线下研学、活动报名、签到、核销或实践学时。</div>
+''', subtitle="注册 · 投稿 · 档案 · 风采")
 
 pages["05.html"] = page("5", "致青春", '''
 <section class="v3-hero has-image"><img src="assets/v3/university-life-v2.jpg" alt="大学生在校园交流学习的演示图"><div>
@@ -188,12 +192,12 @@ pages["10.html"] = page("10", "我的", '''
 <section class="v3-hero"><small>个人中心 · 演示账号</small><h2>同学，你好</h2><p>个人资料和所有记录均为演示数据，不对应真实用户。</p></section>
 <div class="v3-metric-row"><div class="v3-metric"><strong>6</strong><span>投稿记录</span></div><div class="v3-metric"><strong>3</strong><span>参与活动</span></div><div class="v3-metric"><strong>8</strong><span>内容收藏</span></div></div>
 <section class="v3-section"><div class="v3-section-head"><h3>我的记录</h3><span>统一查看</span></div><div class="v3-list">
-''' + row("小记者资格与电子证", "查看入驻申请与资格审核进度", "J08", icon_name="badge", state="审核中") + '''
+''' + row("小记者注册状态", "查看注册申请与处理结果", "J08", icon_name="badge", state="待审核") + '''
 ''' + row("我的投稿", "少年派、小记者、致青春与科学港", "G05", icon_name="edit_document") + '''
 ''' + row("参与活动", "查看已经确认的活动记录", "G04", icon_name="event_available") + '''
 ''' + row("我的收藏", "收藏的文章、课程与作品", "G03", icon_name="favorite") + '''
 ''' + row("个人资料", "维护演示账号基础信息", "G06", icon_name="manage_accounts") + '''
-</div></section><div class="v3-note info">小记者资格审核与普通微信账号注册相互独立。</div>
+</div></section><div class="v3-note info">微信账号登录与小记者注册相互独立；完成注册后才能使用小记者投稿、档案和电子证书。</div>
 ''', active="我的", subtitle="投稿 · 活动 · 资格")
 
 pages["11.html"] = page("11", "服务", '''
@@ -213,7 +217,7 @@ pages["11.html"] = page("11", "服务", '''
     <span class="v3-service-featured-icon"><span class="material-symbols-outlined">edit_square</span></span><span class="grow"><small>内容创作入口</small><strong>我要投稿</strong><span>选择作品类型后，进入对应投稿页</span></span><span class="v3-service-badge login">需登录</span><span class="material-symbols-outlined arrow">arrow_forward</span>
   </button>
   <div class="v3-service-card-grid">
-    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="小记者 入驻 资格 申请 学校推荐" onclick="v3Go('J07')"><span class="v3-service-card-top">''' + icon("badge") + '''<span class="v3-service-badge login">需登录</span></span><strong>小记者入驻</strong><p>学生资料、学校推荐与审核</p><span class="v3-service-link">开始申请 <span class="material-symbols-outlined">arrow_forward</span></span></button>
+    <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="小记者 注册 申请 学生 监护人" onclick="v3Go('J07')"><span class="v3-service-card-top">''' + icon("badge") + '''<span class="v3-service-badge login">需登录</span></span><strong>注册小记者</strong><p>填写学生与监护人信息</p><span class="v3-service-link">开始注册 <span class="material-symbols-outlined">arrow_forward</span></span></button>
     <button class="v3-service-card" type="button" data-service-item data-ep-requires-login="true" data-service-search="社团 高校 入驻 认证 致青春" onclick="v3Go('Y02')"><span class="v3-service-card-top">''' + icon("diversity_3", "blue") + '''<span class="v3-service-badge login">需登录</span></span><strong>社团入驻</strong><p>高校社团资料登记与认证</p><span class="v3-service-link">去办理 <span class="material-symbols-outlined">arrow_forward</span></span></button>
     <button class="v3-service-card" type="button" data-service-item data-service-search="课程 公益课 搜索 直播 回放 教师 学校" onclick="v3Go('6')"><span class="v3-service-card-top">''' + icon("play_lesson", "amber") + '''<span class="v3-service-badge public">免登录</span></span><strong>课程搜索与回放</strong><p>按课程、教师或学校查找</p><span class="v3-service-link">查看课程 <span class="material-symbols-outlined">arrow_forward</span></span></button>
   </div>
@@ -259,43 +263,42 @@ pages["12.html"] = page("12", "活动", '''
 <div class="v3-note info">活动页面仅聚合读书会、少年派和致青春的线上内容。小记者不含线下活动；科学港不提供活动报名。</div>
 ''', active="活动", subtitle="征集 · 展播 · 直播")
 
-pages["stitch/J07.html"] = page("J07", "小记者入驻申请", '''
-<section class="v3-hero"><small>小记者入驻流程</small><h2>申请成为<br>校园小记者</h2><p>完成学生资料、学校推荐与监护人确认后，由后台进行资格审核。</p></section>
-<section class="v3-process" aria-label="小记者入驻流程">
-<div class="v3-process-step active"><span class="material-symbols-outlined">person_edit</span><strong>填写资料</strong><small>学生基础信息</small></div>
-<div class="v3-process-step"><span class="material-symbols-outlined">approval</span><strong>学校推荐</strong><small>盖章材料</small></div>
-<div class="v3-process-step"><span class="material-symbols-outlined">family_restroom</span><strong>监护确认</strong><small>联系人信息</small></div>
-<div class="v3-process-step pending"><span class="material-symbols-outlined">fact_check</span><strong>资格审核</strong><small>后台核验</small></div>
+pages["stitch/J07.html"] = page("J07", "注册小记者", '''
+<section class="v3-hero"><small>小记者注册</small><h2>记录校园<br>分享真实成长</h2><p>填写学生和监护人基础信息，提交后查看注册处理状态。</p></section>
+<section class="v3-process" aria-label="小记者注册流程">
+<div class="v3-process-step active"><span class="material-symbols-outlined">person_edit</span><strong>填写资料</strong><small>学生信息</small></div>
+<div class="v3-process-step"><span class="material-symbols-outlined">family_restroom</span><strong>监护确认</strong><small>联系方式</small></div>
+<div class="v3-process-step pending"><span class="material-symbols-outlined">fact_check</span><strong>后台审核</strong><small>结果通知</small></div>
 </section>
+<section class="v3-panel"><div class="v3-section-head"><h3>注册后可使用</h3><span>小记者权益</span></div><div class="v3-grid"><div class="v3-card"><span class="v3-icon"><span class="material-symbols-outlined">edit_note</span></span><strong>在线投稿</strong><p>提交校园图文作品</p></div><div class="v3-card"><span class="v3-icon blue"><span class="material-symbols-outlined">folder_copy</span></span><strong>个人档案</strong><p>查看作品与刊发记录</p></div></div><p class="v3-body-copy">活动优惠以教育报具体活动公告为准，一期不提供活动核销功能。</p></section>
 <form class="v3-card v3-form" onsubmit="return v3SubmitJournalist(event)">
 <div class="v3-field"><label for="journalistStudentName">学生姓名</label><input id="journalistStudentName" required autocomplete="off" placeholder="请输入学生姓名"></div>
 <div class="v3-field"><label for="journalistSchool">学校</label><input id="journalistSchool" required autocomplete="off" placeholder="请输入学校名称"></div>
 <div class="v3-field"><label for="journalistGrade">所在年级</label><select id="journalistGrade" required><option value="">请选择</option><option>小学四年级</option><option>小学五年级</option><option>小学六年级</option><option>初中一年级</option></select></div>
 <div class="v3-field"><label for="journalistGuardian">监护人姓名</label><input id="journalistGuardian" required autocomplete="off" placeholder="请输入监护人姓名"></div>
 <div class="v3-field"><label for="journalistPhone">监护人联系方式</label><input id="journalistPhone" required inputmode="tel" pattern="1[3-9][0-9]{9}" autocomplete="off" placeholder="11位手机号"></div>
-<input id="journalistProof" type="hidden" value="">
-<button class="v3-upload" type="button" onclick="v3SelectJournalistProof()"><span class="material-symbols-outlined">upload_file</span><span id="journalistProofLabel"><strong>选择学校盖章推荐材料</strong><br><small>支持照片或 PDF（演示，不会实际上传）</small></span></button>
-<label style="font-size:11px;line-height:1.6"><input type="checkbox" required aria-label="确认已阅读资格审核与隐私说明并由监护人知情提交"> 已阅读资格审核与隐私说明，并确认由监护人知情提交</label>
-<button class="v3-btn" type="submit">提交入驻申请</button></form>
-<div class="v3-note info">本页仅演示入驻流程，不会上传或留存填写的个人资料。提交后可进入“资格审核”查看演示进度。</div>
-<div class="v3-note">小记者资格仅用于校园采写身份审核，不承诺升学加分、实践学时或商业权益。</div>
-''', subtitle="资料提交 · 学校推荐 · 资格审核", back_route="4", back_label="返回小记者")
+<input id="journalistProof" type="hidden" value="optional">
+<button class="v3-upload" type="button" onclick="v3SelectJournalistProof()"><span class="material-symbols-outlined">upload_file</span><span id="journalistProofLabel"><strong>学校推荐材料（选填）</strong><br><small>支持照片或 PDF（演示，不会实际上传）</small></span></button>
+<label style="font-size:11px;line-height:1.6"><input type="checkbox" required aria-label="确认已阅读隐私说明并由监护人知情提交"> 已阅读隐私说明，并确认由监护人知情提交</label>
+<button class="v3-btn" type="submit">提交注册申请</button></form>
+<div class="v3-note info">本页为原型演示，不会上传或留存填写的真实个人资料。提交后可进入“注册状态”查看处理进度。</div>
+<div class="v3-note">小记者注册不承诺升学加分、实践学时、纸质证件或固定活动优惠。</div>
+''', subtitle="学生资料 · 监护确认 · 注册审核", back_route="4", back_label="返回小记者")
 
-pages["stitch/J08.html"] = page("J08", "小记者资格审核", '''
-<section class="v3-hero"><small>资格审核进度</small><h2 id="journalistReviewStatus">待提交申请</h2><p>查看学校推荐材料、身份资料与电子记者证的审核状态。</p></section>
-<section id="journalistReviewEmpty" class="v3-card v3-review-empty"><span class="material-symbols-outlined">assignment_add</span><strong>尚未提交入驻申请</strong><p>请先填写学生资料、上传学校推荐材料并完成监护人确认。</p><button class="v3-btn" type="button" onclick="v3Go('J07')">前往申请入驻</button></section>
+pages["stitch/J08.html"] = page("J08", "小记者注册状态", '''
+<section class="v3-hero"><small>注册处理进度</small><h2 id="journalistReviewStatus">待提交申请</h2><p>查看注册资料的处理状态；审核通过后可使用投稿和个人档案。</p></section>
+<section id="journalistReviewEmpty" class="v3-card v3-review-empty"><span class="material-symbols-outlined">assignment_add</span><strong>尚未提交注册申请</strong><p>请先填写学生资料、学校和监护人联系方式。</p><button class="v3-btn" type="button" onclick="v3Go('J07')">前往注册小记者</button></section>
 <section id="journalistReviewing" class="v3-card v3-review-card" hidden>
-<div class="v3-review-summary"><span class="v3-icon"><span class="material-symbols-outlined">hourglass_top</span></span><span class="grow"><strong>资料审核中</strong><p>申请已进入后台核验流程，请留意审核状态变化。</p></span><span class="v3-state amber">审核中</span></div>
-<div class="v3-review-list" aria-label="资格审核步骤">
-<div class="v3-review-item done"><span class="material-symbols-outlined">check_circle</span><span><strong>入驻申请已提交</strong><small>学生与监护人资料已登记（演示）</small></span><span class="v3-state">已完成</span></div>
-<div class="v3-review-item active"><span class="material-symbols-outlined">manage_search</span><span><strong>学校推荐材料核验</strong><small>正在核对盖章推荐材料（演示）</small></span><span class="v3-state amber">进行中</span></div>
-<div class="v3-review-item"><span class="material-symbols-outlined">fact_check</span><span><strong>小记者资格审核</strong><small>材料核验完成后进入资格确认</small></span><span class="v3-state outline">待开始</span></div>
-<div class="v3-review-item"><span class="material-symbols-outlined">badge</span><span><strong>生成电子记者证</strong><small>审核通过后展示电子证件</small></span><span class="v3-state outline">待开始</span></div>
+<div class="v3-review-summary"><span class="v3-icon"><span class="material-symbols-outlined">hourglass_top</span></span><span class="grow"><strong id="journalistReviewTitle">资料待审核</strong><p id="journalistReviewCopy">申请已提交，请留意处理状态变化。</p></span><span id="journalistReviewBadge" class="v3-state amber">待审核</span></div>
+<div class="v3-review-list" aria-label="注册审核步骤">
+<div class="v3-review-item done"><span class="material-symbols-outlined">check_circle</span><span><strong>注册申请已提交</strong><small>学生与监护人资料已登记（演示）</small></span><span class="v3-state">已完成</span></div>
+<div class="v3-review-item active"><span class="material-symbols-outlined">manage_search</span><span><strong>后台资料审核</strong><small>核对注册信息与监护人确认</small></span><span class="v3-state amber">处理中</span></div>
+<div class="v3-review-item"><span class="material-symbols-outlined">fact_check</span><span><strong>注册结果</strong><small>通过后开放投稿与个人档案</small></span><span class="v3-state outline">待完成</span></div>
 </div>
-<div class="v3-actions"><button class="v3-btn secondary" type="button" onclick="v3Toast('补充材料入口为原型演示')">补充材料</button><button class="v3-btn" type="button" onclick="v3Toast('审核进度已刷新（演示）')">刷新进度</button></div>
+<div class="v3-actions"><button class="v3-btn secondary" type="button" onclick="v3Go('J07')">修改注册资料</button><button id="journalistApproveDemo" class="v3-btn" type="button" onclick="v3ApproveJournalistDemo()">演示审核通过</button><button id="journalistSubmitButton" class="v3-btn" type="button" onclick="v3Go('J02')" hidden>去在线投稿</button></div>
 </section>
-<div class="v3-note info">资格审核由后台人工完成；原型不采集真实身份信息，也不代表正式审核结果。</div>
-''', subtitle="材料核验 · 审核进度 · 结果查询", back_route="4", back_label="返回小记者")
+<div class="v3-note info">注册审核由后台人工完成；原型不采集真实身份信息，也不代表正式审核结果。</div>
+''', subtitle="注册申请 · 处理状态 · 结果查询", back_route="4", back_label="返回小记者")
 
 pages["stitch/R12.html"] = page("R12", "大家一起读", '''
 

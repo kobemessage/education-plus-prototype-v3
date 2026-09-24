@@ -231,8 +231,8 @@ await page.locator('#serviceSubmissionSheet [data-ep-requires-login="true"]').fi
 if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('11.html: 游客进入投稿未触发登录提示');
 await page.locator('#ep-login-dialog [data-close="true"]').click();
 await page.locator('[data-service-sheet-close]').last().click();
-await page.getByRole('button', { name: /小记者入驻/ }).click();
-if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('11.html: 游客办理入驻未触发登录提示');
+await page.getByRole('button', { name: /注册小记者/ }).click();
+if (await page.locator('#ep-login-dialog:not([hidden])').count() !== 1) failures.push('11.html: 游客注册小记者未触发登录提示');
 await page.locator('#ep-login-dialog [data-close="true"]').click();
 await page.locator('#serviceSearch').fill('政策');
 if (await page.locator('[data-service-item]:not([hidden])').count() !== 1) failures.push('11.html: 服务搜索“政策”结果不准确');

@@ -1,19 +1,18 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>小记者资格审核｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260923-no-floating-panels-v3"></head>
-<body><script>window.EP_PAGE='J08'</script><header class="v3-top"><button class="v3-back" aria-label="返回小记者" onclick="v3Go('4')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>小记者资格审核</h1><p>材料核验 · 审核进度 · 结果查询</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
-<section class="v3-hero"><small>资格审核进度</small><h2 id="journalistReviewStatus">待提交申请</h2><p>查看学校推荐材料、身份资料与电子记者证的审核状态。</p></section>
-<section id="journalistReviewEmpty" class="v3-card v3-review-empty"><span class="material-symbols-outlined">assignment_add</span><strong>尚未提交入驻申请</strong><p>请先填写学生资料、上传学校推荐材料并完成监护人确认。</p><button class="v3-btn" type="button" onclick="v3Go('J07')">前往申请入驻</button></section>
+<title>小记者注册状态｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260924-journalist-v1"></head>
+<body><script>window.EP_PAGE='J08'</script><header class="v3-top"><button class="v3-back" aria-label="返回小记者" onclick="v3Go('4')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>小记者注册状态</h1><p>注册申请 · 处理状态 · 结果查询</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
+<section class="v3-hero"><small>注册处理进度</small><h2 id="journalistReviewStatus">待提交申请</h2><p>查看注册资料的处理状态；审核通过后可使用投稿和个人档案。</p></section>
+<section id="journalistReviewEmpty" class="v3-card v3-review-empty"><span class="material-symbols-outlined">assignment_add</span><strong>尚未提交注册申请</strong><p>请先填写学生资料、学校和监护人联系方式。</p><button class="v3-btn" type="button" onclick="v3Go('J07')">前往注册小记者</button></section>
 <section id="journalistReviewing" class="v3-card v3-review-card" hidden>
-<div class="v3-review-summary"><span class="v3-icon"><span class="material-symbols-outlined">hourglass_top</span></span><span class="grow"><strong>资料审核中</strong><p>申请已进入后台核验流程，请留意审核状态变化。</p></span><span class="v3-state amber">审核中</span></div>
-<div class="v3-review-list" aria-label="资格审核步骤">
-<div class="v3-review-item done"><span class="material-symbols-outlined">check_circle</span><span><strong>入驻申请已提交</strong><small>学生与监护人资料已登记（演示）</small></span><span class="v3-state">已完成</span></div>
-<div class="v3-review-item active"><span class="material-symbols-outlined">manage_search</span><span><strong>学校推荐材料核验</strong><small>正在核对盖章推荐材料（演示）</small></span><span class="v3-state amber">进行中</span></div>
-<div class="v3-review-item"><span class="material-symbols-outlined">fact_check</span><span><strong>小记者资格审核</strong><small>材料核验完成后进入资格确认</small></span><span class="v3-state outline">待开始</span></div>
-<div class="v3-review-item"><span class="material-symbols-outlined">badge</span><span><strong>生成电子记者证</strong><small>审核通过后展示电子证件</small></span><span class="v3-state outline">待开始</span></div>
+<div class="v3-review-summary"><span class="v3-icon"><span class="material-symbols-outlined">hourglass_top</span></span><span class="grow"><strong id="journalistReviewTitle">资料待审核</strong><p id="journalistReviewCopy">申请已提交，请留意处理状态变化。</p></span><span id="journalistReviewBadge" class="v3-state amber">待审核</span></div>
+<div class="v3-review-list" aria-label="注册审核步骤">
+<div class="v3-review-item done"><span class="material-symbols-outlined">check_circle</span><span><strong>注册申请已提交</strong><small>学生与监护人资料已登记（演示）</small></span><span class="v3-state">已完成</span></div>
+<div class="v3-review-item active"><span class="material-symbols-outlined">manage_search</span><span><strong>后台资料审核</strong><small>核对注册信息与监护人确认</small></span><span class="v3-state amber">处理中</span></div>
+<div class="v3-review-item"><span class="material-symbols-outlined">fact_check</span><span><strong>注册结果</strong><small>通过后开放投稿与个人档案</small></span><span class="v3-state outline">待完成</span></div>
 </div>
-<div class="v3-actions"><button class="v3-btn secondary" type="button" onclick="v3Toast('补充材料入口为原型演示')">补充材料</button><button class="v3-btn" type="button" onclick="v3Toast('审核进度已刷新（演示）')">刷新进度</button></div>
+<div class="v3-actions"><button class="v3-btn secondary" type="button" onclick="v3Go('J07')">修改注册资料</button><button id="journalistApproveDemo" class="v3-btn" type="button" onclick="v3ApproveJournalistDemo()">演示审核通过</button><button id="journalistSubmitButton" class="v3-btn" type="button" onclick="v3Go('J02')" hidden>去在线投稿</button></div>
 </section>
-<div class="v3-note info">资格审核由后台人工完成；原型不采集真实身份信息，也不代表正式审核结果。</div>
+<div class="v3-note info">注册审核由后台人工完成；原型不采集真实身份信息，也不代表正式审核结果。</div>
 </main>
-<script src="../v3-ui.js?v=20260922-v3c21"></script><script src="../access-control.js?v=20260924-content-actions-v2"></script><script src="../routes.js?v=20260922-v3c21"></script></body></html>
+<script src="../v3-ui.js?v=20260924-journalist-v1"></script><script src="../access-control.js?v=20260924-journalist-v1"></script><script src="../routes.js?v=20260924-journalist-v1"></script></body></html>

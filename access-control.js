@@ -1,11 +1,14 @@
 (() => {
   const AUTH_KEY = 'ep-v3-authenticated';
+  const REPORTER_KEY = 'ep-v3-reporter-status';
   const params = new URLSearchParams(location.search);
   const inferred = (location.pathname.match(/\/([A-Z]\d{2}|\d{2})\.html$/i) || [])[1] || '';
   const page = String(window.EP_PAGE || inferred).replace(/^0+(?=\d)/, '').toUpperCase();
   const forceGuest = params.get('guest') === '1';
   const forceAuth = params.get('auth') === '1';
   const isLoggedIn = forceAuth || (!forceGuest && localStorage.getItem(AUTH_KEY) === '1');
+  const reporterStatus = params.get('reporter') || (forceAuth ? 'approved' : localStorage.getItem(REPORTER_KEY) || 'unregistered');
+  const isApprovedReporter = reporterStatus === 'approved';
   const iconLabels = {
     arrow_back: '返回', arrow_back_ios: '返回', arrow_back_ios_new: '返回', close: '关闭',
     more_horiz: '更多', person: '个人中心', account_circle: '个人中心', notifications: '消息通知',
@@ -33,6 +36,7 @@
     'Y02', 'Y04', 'Y05',
     'K02', 'K03', 'K04'
   ]);
+  const reporterPages = new Set(['J02', 'J03', 'J04', 'J06']);
 
   const contentPageTypes = new Map([
     ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
@@ -106,7 +110,7 @@
       if (page === '1') return '8个服务入口 · 2项内容更新';
       if (page === '2' || page.startsWith('R')) return '3条内容主线 · 8个阅读页面';
       if (page === '3' || page.startsWith('S')) return '6篇成长作品 · 2篇编辑精选';
-      if (page === '4' || page.startsWith('J')) return '资格审核中 · 2条投稿记录';
+      if (page === '4' || page.startsWith('J')) return '注册状态 · 投稿与作品档案';
       if (page === '5' || page.startsWith('Y')) return '3条校园内容 · 1条审核中';
       if (page === '6' || page.startsWith('C')) return '4节公益课 · 直播与回放演示';
       if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
@@ -177,6 +181,12 @@
     note.className = 'ep-access-note';
     if (page === '11') {
       note.innerHTML = '<strong>公开查询</strong><span>课程、政策、报刊与服务说明可直接查看 · 投稿与入驻需登录</span>';
+    } else if (reporterPages.has(page)) {
+      note.dataset.private = 'true';
+      note.innerHTML = '<strong>注册后使用</strong><span>在线投稿、投稿进度、作品档案和电子证书仅向已注册小记者开放</span>';
+    } else if (page === 'J07' || page === 'J08') {
+      note.dataset.private = 'true';
+      note.innerHTML = '<strong>登录后办理</strong><span>微信登录后可提交小记者注册资料并查看处理状态</span>';
     } else if (privatePages.has(page)) {
       note.dataset.private = 'true';
       note.innerHTML = '<strong>登录后内容</strong><span>投稿、进度、收藏和个人档案仅本人登录后查看</span>';
@@ -194,10 +204,23 @@
     document.body.classList.add('ep-private-locked');
     const gate = document.createElement('main');
     gate.id = 'ep-access-gate';
-    gate.innerHTML = `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>该页面需要登录</h1><p>这里包含个人投稿、审核进度、收藏记录或个人资料，仅向本人开放。</p><div class="ep-gate-hint">首页、已发布作品、教育资讯、公益课程与活动详情均可直接浏览，无需登录。</div><button type="button" data-primary="true">模拟微信登录后查看</button><button type="button" data-public-home="true">返回公开首页</button></section>`;
+    const journalistRegistration = page === 'J07' || page === 'J08';
+    gate.innerHTML = journalistRegistration
+      ? `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>登录后注册小记者</h1><p>需要先完成微信登录，才能提交学生与监护人资料或查看注册状态。</p><div class="ep-gate-hint">登录不会自动成为小记者，注册申请审核通过后才能投稿。</div><button type="button" data-primary="true">模拟微信登录</button><button type="button" data-public-home="true">返回小记者首页</button></section>`
+      : `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>该页面需要登录</h1><p>这里包含个人投稿、审核进度、收藏记录或个人资料，仅向本人开放。</p><div class="ep-gate-hint">首页、已发布作品、教育资讯、公益课程与活动详情均可直接浏览，无需登录。</div><button type="button" data-primary="true">模拟微信登录后查看</button><button type="button" data-public-home="true">返回公开首页</button></section>`;
     document.body.append(gate);
     gate.querySelector('[data-primary]').addEventListener('click', completeLogin);
-    gate.querySelector('[data-public-home]').addEventListener('click', () => go('1'));
+    gate.querySelector('[data-public-home]').addEventListener('click', () => go(journalistRegistration ? '4' : '1'));
+  }
+
+  function showReporterGate() {
+    document.body.classList.add('ep-private-locked');
+    const gate = document.createElement('main');
+    gate.id = 'ep-access-gate';
+    gate.innerHTML = `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>请先注册成为小记者</h1><p>在线投稿、投稿进度、作品档案和电子证书仅向注册审核通过的小记者开放。</p><div class="ep-gate-hint">未注册用户仍可浏览已刊发作品、优秀小记者和投稿指南。</div><button type="button" data-primary="true">前往注册小记者</button><button type="button" data-public-home="true">返回小记者首页</button></section>`;
+    document.body.append(gate);
+    gate.querySelector('[data-primary]').addEventListener('click', () => go('J07'));
+    gate.querySelector('[data-public-home]').addEventListener('click', () => go('4'));
   }
 
   function controlLabel(control) {
@@ -440,7 +463,7 @@
     if (control.dataset.epBrowseAction === 'true') return false;
     if (control.dataset.epRequiresLogin === 'true') return true;
     if (/分享|海报|转发|查看评论|全部评论|评论\s*\(\d+\)/.test(label)) return false;
-    return /点赞|赞同|收藏|关注|发表评论|发布评论|发送评论|写评论|评论输入|举报|投稿|创作入口|发布创作|发布作品|发起新稿|报名|申请入驻|资格申请|提交申请|继续学习|开始学习|进入课堂|我的发布|我的作品|我的收藏|个人资料/.test(label);
+    return /点赞|赞同|收藏|关注|发表评论|发布评论|发送评论|写评论|评论输入|举报|投稿|创作入口|发布创作|发布作品|发起新稿|报名|注册小记者|注册申请|申请入驻|资格申请|提交申请|继续学习|开始学习|进入课堂|我的发布|我的作品|我的收藏|个人资料/.test(label);
   }
 
   document.addEventListener('click', event => {
@@ -474,10 +497,14 @@
     showPrivateGate();
     return;
   }
+  if (reporterPages.has(page) && !isApprovedReporter) {
+    showReporterGate();
+    return;
+  }
   addDemoStrip();
   addAccessNote();
   enhanceActivityCards();
   ensureContentActions();
   window.addEventListener('pagehide', () => window.speechSynthesis?.cancel(), { once: true });
-  window.epAccess = { page, isLoggedIn, privatePages, publishedContentPages, readableContentPages, openLoginDialog };
+  window.epAccess = { page, isLoggedIn, reporterStatus, isApprovedReporter, privatePages, reporterPages, publishedContentPages, readableContentPages, openLoginDialog };
 })();
