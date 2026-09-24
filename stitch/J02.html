@@ -1,27 +1,39 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>小记者在线投稿｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260924-journalist-v1"></head>
+<title>小记者在线投稿｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260924-journalist-pages-v2"></head>
 <body><script>window.EP_PAGE='J02'</script>
 <header class="v3-top"><button class="v3-back" aria-label="返回小记者" onclick="v3Go('4')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>小记者在线投稿</h1><p>图文上传 · 原创确认 · 提交审核</p></div><span class="v3-badge">演示数据</span></header>
 <main class="v3-shell">
 <section class="v3-hero"><small>注册小记者专属</small><h2>记录校园现场<br>提交原创作品</h2><p>支持校园新闻、人物采访和观察记录等图文稿件。</p></section>
-<section class="v3-panel"><div class="v3-section-head"><h3>投稿指南与温馨提醒</h3><span>提交前阅读</span></div><ol class="v3-steps"><li>稿件须由学生本人完成，内容真实、文字原创。</li><li>图片中出现他人时，应事先取得监护人与被拍摄者同意。</li><li>不要填写电话、住址、身份证号等个人敏感信息。</li><li>稿件由编辑部审核，未录用不提供逐稿详细说明。</li></ol></section>
-<form class="v3-card v3-form" id="journalistSubmissionForm">
-<div class="v3-field"><label for="journalistCategory">稿件类型</label><select id="journalistCategory" required><option value="">请选择</option><option>校园新闻</option><option>人物采访</option><option>观察记录</option></select></div>
-<div class="v3-field"><label for="journalistTitle">稿件标题</label><input id="journalistTitle" required maxlength="40" placeholder="请输入作品标题"></div>
-<div class="v3-field"><label for="journalistBody">稿件正文</label><textarea id="journalistBody" required maxlength="5000" placeholder="请输入原创稿件内容"></textarea></div>
-<button class="v3-upload" type="button" id="journalistImageUpload"><span class="material-symbols-outlined">add_photo_alternate</span><strong>添加作品图片</strong><br><small>最多4张，支持 JPG / PNG（演示）</small></button>
-<div class="v3-field"><label for="journalistAuthor">学生姓名</label><input id="journalistAuthor" required autocomplete="off" placeholder="请输入真实姓名"></div>
-<div class="v3-field"><label for="journalistSchool">学校与班级</label><input id="journalistSchool" required autocomplete="off" placeholder="例如：贵阳某小学 五年级3班"></div>
-<div class="v3-field"><label for="journalistTeacher">指导老师（选填）</label><input id="journalistTeacher" autocomplete="off" placeholder="请输入指导老师姓名"></div>
-<label style="font-size:11px;line-height:1.65"><input id="journalistOriginal" type="checkbox" required> 确认稿件为本人原创，内容真实，并同意编辑部审核与公益刊发展示。</label>
-<label style="font-size:11px;line-height:1.65"><input id="journalistGuardianConsent" type="checkbox" required> 涉及未成年人信息与人物照片时，已取得监护人和相关人员同意。</label>
-<button class="v3-btn" type="submit">提交稿件</button></form>
+<section class="v3-registration-flow" aria-label="小记者投稿流程"><div class="v3-flow-title"><strong>在线投稿流程</strong><span>3步完成</span></div><div class="v3-flow-track">
+<div class="v3-flow-step active"><b>1</b><span><strong>填写稿件</strong><small>正文与图片</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step"><b>2</b><span><strong>确认原创</strong><small>作者信息</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step pending"><b>3</b><span><strong>编辑审核</strong><small>进度可查</small></span></div>
+</div></section>
+<section class="v3-rights-panel"><div class="v3-section-head"><h3>投稿须知</h3><span>提交前确认</span></div><div class="v3-rights-grid three">
+<div class="v3-rights-item"><span class="material-symbols-outlined">edit_note</span><strong>本人原创</strong></div><div class="v3-rights-item blue"><span class="material-symbols-outlined">shield_person</span><strong>保护隐私</strong></div><div class="v3-rights-item amber"><span class="material-symbols-outlined">fact_check</span><strong>编辑审核</strong></div>
+</div><p class="v3-rights-note">不填写电话、住址、身份证号等敏感信息；未录用不提供逐稿详细说明。</p></section>
+<form class="v3-card v3-form v3-registration-form" id="journalistSubmissionForm">
+<div class="v3-registration-form-head"><div><small>投稿资料</small><h3>提交原创作品</h3><p>带 * 项为必填，图片最多 4 张</p></div><span>01 / 03</span></div>
+<fieldset class="v3-registration-group"><legend><span class="material-symbols-outlined">article</span>作品内容</legend><div class="v3-registration-grid">
+<div class="v3-field"><label for="journalistCategory">稿件类型 <em>*</em></label><select id="journalistCategory" required><option value="">请选择</option><option>校园新闻</option><option>人物采访</option><option>观察记录</option></select></div>
+<div class="v3-field"><label for="journalistTitle">稿件标题 <em>*</em></label><input id="journalistTitle" required maxlength="40" placeholder="请输入标题"></div>
+<div class="v3-field full"><label for="journalistBody">稿件正文 <em>*</em></label><textarea id="journalistBody" required maxlength="5000" placeholder="请输入原创稿件内容"></textarea></div>
+</div></fieldset>
+<button class="v3-registration-upload" type="button" id="journalistImageUpload"><span class="material-symbols-outlined">add_photo_alternate</span><span class="grow"><strong>添加作品图片</strong><small>最多 4 张 · JPG / PNG（演示）</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+<fieldset class="v3-registration-group v3-registration-author"><legend><span class="material-symbols-outlined">badge</span>作者信息</legend><div class="v3-registration-grid">
+<div class="v3-field"><label for="journalistAuthor">学生姓名 <em>*</em></label><input id="journalistAuthor" required autocomplete="off" placeholder="请输入真实姓名"></div>
+<div class="v3-field"><label for="journalistTeacher">指导老师</label><input id="journalistTeacher" autocomplete="off" placeholder="选填"></div>
+<div class="v3-field full"><label for="journalistSchool">学校与班级 <em>*</em></label><input id="journalistSchool" required autocomplete="off" placeholder="例如：贵阳某小学 五年级3班"></div>
+</div></fieldset>
+<label class="v3-registration-consent"><input id="journalistOriginal" type="checkbox" required><span>确认稿件为本人原创、内容真实，并同意编辑部审核与公益刊发展示。</span></label>
+<label class="v3-registration-consent"><input id="journalistGuardianConsent" type="checkbox" required><span>涉及未成年人信息和人物照片时，已取得监护人及相关人员同意。</span></label>
+<button class="v3-btn v3-registration-submit" type="submit">提交稿件</button></form>
 <div class="v3-note info">本页面为交互原型，不会上传或保存真实稿件、图片与个人信息。</div>
 <script>
-document.getElementById('journalistImageUpload').addEventListener('click',event=>{event.currentTarget.dataset.selected='true';event.currentTarget.innerHTML='<span class="material-symbols-outlined">check_circle</span><strong>已选择2张演示图片</strong><br><small>可继续填写并提交</small>';v3Toast('已选择演示图片')});
+document.getElementById('journalistImageUpload').addEventListener('click',event=>{event.currentTarget.dataset.selected='true';event.currentTarget.innerHTML='<span class="material-symbols-outlined">check_circle</span><span class="grow"><strong>已选择 2 张演示图片</strong><small>可继续填写并提交</small></span><span class="material-symbols-outlined">chevron_right</span>';v3Toast('已选择演示图片')});
 document.getElementById('journalistSubmissionForm').addEventListener('submit',event=>{event.preventDefault();if(!event.currentTarget.reportValidity())return;localStorage.setItem('ep-journalist-submission',JSON.stringify({title:document.getElementById('journalistTitle').value,category:document.getElementById('journalistCategory').value,status:'待审核',time:Date.now()}));v3Toast('稿件已提交，当前状态：待审核');setTimeout(()=>v3Go('J03'),700)});
 try{const profile=JSON.parse(localStorage.getItem('ep-journalist-onboarding')||'null');if(profile){document.getElementById('journalistAuthor').value=profile.studentName||'';document.getElementById('journalistSchool').value=[profile.school,profile.grade].filter(Boolean).join(' ')}}catch{}
 </script>
 </main>
-<script src="../v3-ui.js?v=20260924-journalist-v1"></script><script src="../access-control.js?v=20260924-journalist-v1"></script><script src="../routes.js?v=20260924-journalist-v1"></script></body></html>
+<script src="../v3-ui.js?v=20260924-journalist-pages-v2"></script><script src="../access-control.js?v=20260924-journalist-pages-v2"></script><script src="../routes.js?v=20260924-journalist-pages-v2"></script></body></html>

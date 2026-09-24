@@ -82,6 +82,20 @@ if (!(await page.locator('body').innerText()).includes('注册已通过')) failu
 await open('stitch/J02.html');
 if (await page.locator('#ep-access-gate').count()) failures.push('J02: approved reporter should access submission form');
 if (await page.locator('#journalistSubmissionForm').count() !== 1) failures.push('J02: submission form missing');
+if (await page.locator('.v3-flow-step').count() !== 3) failures.push('J02: submission flow should have 3 steps');
+if (await page.locator('.v3-rights-grid.three .v3-rights-item').count() !== 3) failures.push('J02: submission guidance should have 3 compact items');
+if (await page.locator('.v3-registration-group').count() !== 2) failures.push('J02: content and author groups should be separate');
+await page.locator('#journalistCategory').selectOption({ label: '校园新闻' });
+await page.locator('#journalistTitle').fill('校园科技节观察');
+await page.locator('#journalistBody').fill('这是一篇用于验证投稿流程的演示稿件。');
+await page.locator('#journalistImageUpload').click();
+if (await page.locator('#journalistImageUpload').getAttribute('data-selected') !== 'true') failures.push('J02: image selection interaction failed');
+await page.locator('#journalistOriginal').check();
+await page.locator('#journalistGuardianConsent').check();
+await page.getByRole('button', { name: '提交稿件' }).click();
+await page.waitForTimeout(80);
+const savedSubmission = await page.evaluate(() => JSON.parse(localStorage.getItem('ep-journalist-submission') || 'null'));
+if (savedSubmission?.title !== '校园科技节观察' || savedSubmission?.status !== '待审核') failures.push('J02: submission data was not saved');
 
 await open('stitch/J03.html');
 const progressText = await page.locator('body').innerText();
@@ -90,9 +104,17 @@ for (const status of ['待审核', '已录用', '已刊发', '未录用']) {
 }
 if (/专家已批注|编辑部审改意见|倒计时|分辨率略低/.test(progressText)) failures.push('J03: detailed rejection feedback still present');
 
+await open('stitch/J04.html');
+if (await page.locator('.v3-flow-step').count() !== 3) failures.push('J04: archive process should have 3 steps');
+if (await page.locator('.v3-archive-metrics > div').count() !== 4) failures.push('J04: archive overview should have 4 metrics');
+if (await page.locator('.v3-journalist-actions button').count() !== 2) failures.push('J04: archive quick actions missing');
+
 await open('stitch/J05.html?guest=1');
 const showcaseText = await page.locator('body').innerText();
 if (/十佳|A\+|100%好评|综合评级/.test(showcaseText)) failures.push('J05: ranking language still present');
+if (await page.locator('.v3-flow-step').count() !== 3) failures.push('J05: showcase flow should have 3 steps');
+if (await page.locator('.v3-rights-grid.three .v3-rights-item').count() !== 3) failures.push('J05: showcase criteria should have 3 compact items');
+if (await page.locator('.v3-featured-journalist').count() !== 1) failures.push('J05: featured journalist card missing');
 
 await open('stitch/J06.html');
 const certificateText = await page.locator('body').innerText();
