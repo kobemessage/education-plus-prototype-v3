@@ -21,6 +21,7 @@
 <script>
 document.getElementById('journalistImageUpload').addEventListener('click',event=>{event.currentTarget.dataset.selected='true';event.currentTarget.innerHTML='<span class="material-symbols-outlined">check_circle</span><strong>已选择2张演示图片</strong><br><small>可继续填写并提交</small>';v3Toast('已选择演示图片')});
 document.getElementById('journalistSubmissionForm').addEventListener('submit',event=>{event.preventDefault();if(!event.currentTarget.reportValidity())return;localStorage.setItem('ep-journalist-submission',JSON.stringify({title:document.getElementById('journalistTitle').value,category:document.getElementById('journalistCategory').value,status:'待审核',time:Date.now()}));v3Toast('稿件已提交，当前状态：待审核');setTimeout(()=>v3Go('J03'),700)});
+try{const profile=JSON.parse(localStorage.getItem('ep-journalist-onboarding')||'null');if(profile){document.getElementById('journalistAuthor').value=profile.studentName||'';document.getElementById('journalistSchool').value=[profile.school,profile.grade].filter(Boolean).join(' ')}}catch{}
 </script>
 </main>
 <script src="../v3-ui.js?v=20260924-journalist-v1"></script><script src="../access-control.js?v=20260924-journalist-v1"></script><script src="../routes.js?v=20260924-journalist-v1"></script></body></html>

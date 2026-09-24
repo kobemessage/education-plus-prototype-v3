@@ -104,6 +104,7 @@ pages["03.html"] = page("3", "少年派", '''
 pages["04.html"] = page("4", "小记者", '''
 <section class="v3-hero has-image"><img src="assets/v3/campus-reporter-v2.jpg" alt="校园小记者采访教师的演示图"><div>
 <small>注册 · 投稿 · 档案 · 风采</small><h2>记录校园现场<br>分享真实成长</h2><p>浏览优秀作品，注册后投稿并建立个人作品档案。</p></div></section>
+<section class="v3-panel"><div class="v3-section-head"><h3>测试小记者</h3><span>[演示数据]</span></div><p class="v3-body-copy">载入林奕辰同学的测试身份，可直接体验在线投稿、投稿进度、作品档案、注册状态和电子证书。</p><button class="v3-btn" style="width:100%;margin-top:12px" type="button" data-ep-browse-action="true" onclick="v3LoadJournalistDemo('J02')">载入测试数据并体验全部功能</button></section>
 <section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>小记者服务</h3><span>4项入口</span></div><div class="v3-grid" aria-label="小记者二级导航">
 <button class="v3-card" onclick="v3Go('J07')">''' + icon("person_add") + '''<strong>注册小记者</strong><p>填写学生与监护人信息</p></button>
 <button class="v3-card" onclick="v3Go('J02')">''' + icon("edit_note") + '''<strong>在线投稿</strong><p>上传校园采写图文</p></button>
@@ -265,6 +266,7 @@ pages["12.html"] = page("12", "活动", '''
 
 pages["stitch/J07.html"] = page("J07", "注册小记者", '''
 <section class="v3-hero"><small>小记者注册</small><h2>记录校园<br>分享真实成长</h2><p>填写学生和监护人基础信息，提交后查看注册处理状态。</p></section>
+<section class="v3-panel"><div class="v3-section-head"><h3>快速体验</h3><span>[演示数据]</span></div><p class="v3-body-copy">使用测试小记者“林奕辰”，跳过审核并开放投稿、档案和电子证书。</p><button class="v3-btn" style="width:100%;margin-top:12px" type="button" data-ep-browse-action="true" onclick="v3LoadJournalistDemo('J02')">使用测试小记者体验全部功能</button></section>
 <section class="v3-process" aria-label="小记者注册流程">
 <div class="v3-process-step active"><span class="material-symbols-outlined">person_edit</span><strong>填写资料</strong><small>学生信息</small></div>
 <div class="v3-process-step"><span class="material-symbols-outlined">family_restroom</span><strong>监护确认</strong><small>联系方式</small></div>

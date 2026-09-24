@@ -206,10 +206,11 @@
     gate.id = 'ep-access-gate';
     const journalistRegistration = page === 'J07' || page === 'J08';
     gate.innerHTML = journalistRegistration
-      ? `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>登录后注册小记者</h1><p>需要先完成微信登录，才能提交学生与监护人资料或查看注册状态。</p><div class="ep-gate-hint">登录不会自动成为小记者，注册申请审核通过后才能投稿。</div><button type="button" data-primary="true">模拟微信登录</button><button type="button" data-public-home="true">返回小记者首页</button></section>`
+      ? `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>登录后注册小记者</h1><p>需要先完成微信登录，才能提交学生与监护人资料或查看注册状态。</p><div class="ep-gate-hint">登录不会自动成为小记者，注册申请审核通过后才能投稿。</div><button type="button" data-primary="true">模拟微信登录</button><button type="button" data-demo="true">使用测试小记者体验全部功能</button><button type="button" data-public-home="true">返回小记者首页</button></section>`
       : `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>该页面需要登录</h1><p>这里包含个人投稿、审核进度、收藏记录或个人资料，仅向本人开放。</p><div class="ep-gate-hint">首页、已发布作品、教育资讯、公益课程与活动详情均可直接浏览，无需登录。</div><button type="button" data-primary="true">模拟微信登录后查看</button><button type="button" data-public-home="true">返回公开首页</button></section>`;
     document.body.append(gate);
     gate.querySelector('[data-primary]').addEventListener('click', completeLogin);
+    if (journalistRegistration) gate.querySelector('[data-demo]').addEventListener('click', () => window.v3LoadJournalistDemo?.('J02'));
     gate.querySelector('[data-public-home]').addEventListener('click', () => go(journalistRegistration ? '4' : '1'));
   }
 
@@ -217,9 +218,10 @@
     document.body.classList.add('ep-private-locked');
     const gate = document.createElement('main');
     gate.id = 'ep-access-gate';
-    gate.innerHTML = `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>请先注册成为小记者</h1><p>在线投稿、投稿进度、作品档案和电子证书仅向注册审核通过的小记者开放。</p><div class="ep-gate-hint">未注册用户仍可浏览已刊发作品、优秀小记者和投稿指南。</div><button type="button" data-primary="true">前往注册小记者</button><button type="button" data-public-home="true">返回小记者首页</button></section>`;
+    gate.innerHTML = `<section class="ep-gate-card"><div class="ep-gate-icon" aria-hidden="true">●</div><h1>请先注册成为小记者</h1><p>在线投稿、投稿进度、作品档案和电子证书仅向注册审核通过的小记者开放。</p><div class="ep-gate-hint">未注册用户仍可浏览已刊发作品、优秀小记者和投稿指南。</div><button type="button" data-primary="true">前往注册小记者</button><button type="button" data-demo="true">使用测试小记者体验全部功能</button><button type="button" data-public-home="true">返回小记者首页</button></section>`;
     document.body.append(gate);
     gate.querySelector('[data-primary]').addEventListener('click', () => go('J07'));
+    gate.querySelector('[data-demo]').addEventListener('click', () => window.v3LoadJournalistDemo?.(page));
     gate.querySelector('[data-public-home]').addEventListener('click', () => go('4'));
   }
 

@@ -25,6 +25,16 @@ const homeText = await page.locator('body').innerText();
 for (const label of ['注册小记者', '在线投稿', '作品档案', '优秀小记者', '投稿进度', '电子证书', '投稿指南与温馨提醒']) {
   if (!homeText.includes(label)) failures.push(`04.html: missing ${label}`);
 }
+await page.getByRole('button', { name: '载入测试数据并体验全部功能' }).click();
+await page.waitForTimeout(650);
+const demoState = await page.evaluate(() => ({
+  auth: localStorage.getItem('ep-v3-authenticated'),
+  reporter: localStorage.getItem('ep-v3-reporter-status'),
+  profile: JSON.parse(localStorage.getItem('ep-journalist-onboarding') || 'null')
+}));
+if (demoState.auth !== '1' || demoState.reporter !== 'approved' || demoState.profile?.studentName !== '林奕辰') failures.push('04.html: demo journalist data did not load');
+await open('stitch/J02.html');
+if (await page.locator('#journalistAuthor').inputValue() !== '林奕辰') failures.push('J02: demo profile did not prefill submission form');
 
 for (const route of ['J01', 'J05']) {
   await open(`stitch/${route}.html?guest=1`);
