@@ -1,15 +1,22 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>注册小记者｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260924-journalist-v1"></head>
+<title>注册小记者｜教育Plus V3.0</title><link rel="stylesheet" href="../v3.css?v=20260924-journalist-flow-v1"></head>
 <body><script>window.EP_PAGE='J07'</script><header class="v3-top"><button class="v3-back" aria-label="返回小记者" onclick="v3Go('4')"><span class="material-symbols-outlined">arrow_back_ios_new</span></button><div class="v3-top-copy"><h1>注册小记者</h1><p>学生资料 · 监护确认 · 注册审核</p></div><span class="v3-badge">演示数据</span></header><main class="v3-shell">
 <section class="v3-hero"><small>小记者注册</small><h2>记录校园<br>分享真实成长</h2><p>填写学生和监护人基础信息，提交后查看注册处理状态。</p></section>
 <section class="v3-panel"><div class="v3-section-head"><h3>快速体验</h3><span>[演示数据]</span></div><p class="v3-body-copy">使用测试小记者“林奕辰”，跳过审核并开放投稿、档案和电子证书。</p><button class="v3-btn" style="width:100%;margin-top:12px" type="button" data-ep-browse-action="true" onclick="v3LoadJournalistDemo('J02')">使用测试小记者体验全部功能</button></section>
-<section class="v3-process" aria-label="小记者注册流程">
-<div class="v3-process-step active"><span class="material-symbols-outlined">person_edit</span><strong>填写资料</strong><small>学生信息</small></div>
-<div class="v3-process-step"><span class="material-symbols-outlined">family_restroom</span><strong>监护确认</strong><small>联系方式</small></div>
-<div class="v3-process-step pending"><span class="material-symbols-outlined">fact_check</span><strong>后台审核</strong><small>结果通知</small></div>
-</section>
-<section class="v3-panel"><div class="v3-section-head"><h3>注册后可使用</h3><span>小记者权益</span></div><div class="v3-grid"><div class="v3-card"><span class="v3-icon"><span class="material-symbols-outlined">edit_note</span></span><strong>在线投稿</strong><p>提交校园图文作品</p></div><div class="v3-card"><span class="v3-icon blue"><span class="material-symbols-outlined">folder_copy</span></span><strong>个人档案</strong><p>查看作品与刊发记录</p></div></div><p class="v3-body-copy">活动优惠以教育报具体活动公告为准，一期不提供活动核销功能。</p></section>
+<section class="v3-registration-flow" aria-label="小记者注册流程">
+<div class="v3-flow-title"><strong>小记者注册流程</strong><span>3步完成</span></div>
+<div class="v3-flow-track">
+<div class="v3-flow-step active"><b>1</b><span><strong>填写资料</strong><small>学生信息</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step"><b>2</b><span><strong>监护确认</strong><small>联系方式</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step pending"><b>3</b><span><strong>后台审核</strong><small>结果通知</small></span></div>
+</div></section>
+<section class="v3-rights-panel" aria-label="小记者权益功能"><div class="v3-section-head"><h3>权益功能</h3><span>注册后可用</span></div><div class="v3-rights-grid">
+<div class="v3-rights-item"><span class="material-symbols-outlined">edit_note</span><strong>在线投稿</strong></div>
+<div class="v3-rights-item blue"><span class="material-symbols-outlined">folder_copy</span><strong>作品档案</strong></div>
+<div class="v3-rights-item amber"><span class="material-symbols-outlined">workspace_premium</span><strong>电子证书</strong></div>
+<div class="v3-rights-item"><span class="material-symbols-outlined">confirmation_number</span><strong>活动优惠</strong></div>
+</div><p class="v3-rights-note">活动优惠以教育报具体活动公告为准。</p></section>
 <form class="v3-card v3-form" onsubmit="return v3SubmitJournalist(event)">
 <div class="v3-field"><label for="journalistStudentName">学生姓名</label><input id="journalistStudentName" required autocomplete="off" placeholder="请输入学生姓名"></div>
 <div class="v3-field"><label for="journalistSchool">学校</label><input id="journalistSchool" required autocomplete="off" placeholder="请输入学校名称"></div>
@@ -23,4 +30,4 @@
 <div class="v3-note info">本页为原型演示，不会上传或留存填写的真实个人资料。提交后可进入“注册状态”查看处理进度。</div>
 <div class="v3-note">小记者注册不承诺升学加分、实践学时、纸质证件或固定活动优惠。</div>
 </main>
-<script src="../v3-ui.js?v=20260924-journalist-v1"></script><script src="../access-control.js?v=20260924-journalist-v1"></script><script src="../routes.js?v=20260924-journalist-v1"></script></body></html>
+<script src="../v3-ui.js?v=20260924-journalist-flow-v1"></script><script src="../access-control.js?v=20260924-journalist-flow-v1"></script><script src="../routes.js?v=20260924-journalist-flow-v1"></script></body></html>

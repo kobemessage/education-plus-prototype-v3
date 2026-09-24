@@ -14,7 +14,9 @@ def row(title, desc, route, icon_name="", image="", state=""):
 
 def page(page_id, title, body, active="", subtitle="", home=False, back_route="1", back_label="返回首页"):
     prefix = "../" if page_id[0].isalpha() else ""
-    if page_id in {"4", "10", "11", "J07", "J08"}:
+    if page_id == "J07":
+        cache_version = "20260924-journalist-flow-v1"
+    elif page_id in {"4", "10", "11", "J08"}:
         cache_version = "20260924-journalist-v1"
     elif page_id == "5":
         cache_version = "20260924-colorful-university-v2"
@@ -272,12 +274,19 @@ pages["12.html"] = page("12", "活动", '''
 pages["stitch/J07.html"] = page("J07", "注册小记者", '''
 <section class="v3-hero"><small>小记者注册</small><h2>记录校园<br>分享真实成长</h2><p>填写学生和监护人基础信息，提交后查看注册处理状态。</p></section>
 <section class="v3-panel"><div class="v3-section-head"><h3>快速体验</h3><span>[演示数据]</span></div><p class="v3-body-copy">使用测试小记者“林奕辰”，跳过审核并开放投稿、档案和电子证书。</p><button class="v3-btn" style="width:100%;margin-top:12px" type="button" data-ep-browse-action="true" onclick="v3LoadJournalistDemo('J02')">使用测试小记者体验全部功能</button></section>
-<section class="v3-process" aria-label="小记者注册流程">
-<div class="v3-process-step active"><span class="material-symbols-outlined">person_edit</span><strong>填写资料</strong><small>学生信息</small></div>
-<div class="v3-process-step"><span class="material-symbols-outlined">family_restroom</span><strong>监护确认</strong><small>联系方式</small></div>
-<div class="v3-process-step pending"><span class="material-symbols-outlined">fact_check</span><strong>后台审核</strong><small>结果通知</small></div>
-</section>
-<section class="v3-panel"><div class="v3-section-head"><h3>注册后可使用</h3><span>小记者权益</span></div><div class="v3-grid"><div class="v3-card"><span class="v3-icon"><span class="material-symbols-outlined">edit_note</span></span><strong>在线投稿</strong><p>提交校园图文作品</p></div><div class="v3-card"><span class="v3-icon blue"><span class="material-symbols-outlined">folder_copy</span></span><strong>个人档案</strong><p>查看作品与刊发记录</p></div></div><p class="v3-body-copy">活动优惠以教育报具体活动公告为准，一期不提供活动核销功能。</p></section>
+<section class="v3-registration-flow" aria-label="小记者注册流程">
+<div class="v3-flow-title"><strong>小记者注册流程</strong><span>3步完成</span></div>
+<div class="v3-flow-track">
+<div class="v3-flow-step active"><b>1</b><span><strong>填写资料</strong><small>学生信息</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step"><b>2</b><span><strong>监护确认</strong><small>联系方式</small></span></div><span class="v3-flow-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+<div class="v3-flow-step pending"><b>3</b><span><strong>后台审核</strong><small>结果通知</small></span></div>
+</div></section>
+<section class="v3-rights-panel" aria-label="小记者权益功能"><div class="v3-section-head"><h3>权益功能</h3><span>注册后可用</span></div><div class="v3-rights-grid">
+<div class="v3-rights-item"><span class="material-symbols-outlined">edit_note</span><strong>在线投稿</strong></div>
+<div class="v3-rights-item blue"><span class="material-symbols-outlined">folder_copy</span><strong>作品档案</strong></div>
+<div class="v3-rights-item amber"><span class="material-symbols-outlined">workspace_premium</span><strong>电子证书</strong></div>
+<div class="v3-rights-item"><span class="material-symbols-outlined">confirmation_number</span><strong>活动优惠</strong></div>
+</div><p class="v3-rights-note">活动优惠以教育报具体活动公告为准。</p></section>
 <form class="v3-card v3-form" onsubmit="return v3SubmitJournalist(event)">
 <div class="v3-field"><label for="journalistStudentName">学生姓名</label><input id="journalistStudentName" required autocomplete="off" placeholder="请输入学生姓名"></div>
 <div class="v3-field"><label for="journalistSchool">学校</label><input id="journalistSchool" required autocomplete="off" placeholder="请输入学校名称"></div>

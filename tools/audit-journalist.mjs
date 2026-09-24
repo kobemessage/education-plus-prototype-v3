@@ -51,6 +51,12 @@ if (!(await page.locator('#ep-access-gate').innerText()).includes('请先注册�
 
 await open('stitch/J07.html?auth=1');
 await page.evaluate(() => localStorage.setItem('ep-v3-authenticated', '1'));
+if (await page.locator('.v3-registration-flow').count() !== 1) failures.push('J07: registration flowchart missing');
+if (await page.locator('.v3-flow-step').count() !== 3) failures.push('J07: registration flowchart should have 3 steps');
+if (await page.locator('.v3-flow-arrow').count() !== 2) failures.push('J07: registration flowchart connectors missing');
+if (await page.locator('.v3-rights-item').count() !== 4) failures.push('J07: rights feature list should have 4 compact items');
+const rightsPanelHeight = await page.locator('.v3-rights-panel').evaluate(element => element.getBoundingClientRect().height);
+if (rightsPanelHeight > 145) failures.push(`J07: rights panel is not compact (${Math.round(rightsPanelHeight)}px)`);
 for (const field of ['journalistStudentName', 'journalistSchool', 'journalistGrade', 'journalistGuardian', 'journalistPhone']) {
   if (await page.locator(`#${field}`).count() !== 1) failures.push(`J07: missing field ${field}`);
 }
