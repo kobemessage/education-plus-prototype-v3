@@ -406,13 +406,15 @@
     const section = document.createElement('section');
     section.className = 'ep-content-actions';
     section.dataset.contentType = contentPageTypes.get(page);
-    section.setAttribute('aria-label', '页面末端内容互动');
+    section.setAttribute('aria-label', '内容互动');
     section.style.setProperty('--ep-action-count', String(actions.length));
     const controls = document.createElement('div');
     controls.className = 'ep-content-actions-grid';
     actions.forEach(type => controls.append(createManagedAction(type, page, 'ep-content-action')));
     section.append(controls);
-    main.append(section);
+    const contentAnchor = main.querySelector('[data-content-actions-anchor]');
+    if (contentAnchor) contentAnchor.insertAdjacentElement('afterend', section);
+    else main.append(section);
   }
 
   function enhanceActivityCards() {

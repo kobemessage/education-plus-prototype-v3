@@ -71,6 +71,8 @@ for (const route of routes) {
       }).length,
       actionBars: document.querySelectorAll('.ep-content-actions').length,
       actionTypes: [...document.querySelectorAll('.ep-content-actions [data-ep-action]')].map(control => control.dataset.epAction),
+      hasActionAnchor: Boolean(document.querySelector('[data-content-actions-anchor]')),
+      actionBarFollowsAnchor: !document.querySelector('[data-content-actions-anchor]') || document.querySelector('[data-content-actions-anchor]')?.nextElementSibling?.classList.contains('ep-content-actions'),
       actionBarIsLast: !contentType || document.querySelector('main')?.lastElementChild?.classList.contains('ep-content-actions'),
       actionBarPosition: document.querySelector('.ep-content-actions') ? getComputedStyle(document.querySelector('.ep-content-actions')).position : '',
       visibleLegacyActions: buttons.filter(control => {
@@ -88,14 +90,16 @@ for (const route of routes) {
   if (contentType) {
     const expected = contentType === 'article' ? ['like', 'favorite', 'share', 'read'] : ['like', 'favorite', 'share'];
     if (result.actionBars !== 1 || JSON.stringify(result.actionTypes) !== JSON.stringify(expected)) {
-      failures.push(`${route}: 页末互动项异常 ${JSON.stringify(result)}`);
+      failures.push(`${route}: 内容互动项异常 ${JSON.stringify(result)}`);
     }
-    if (!result.actionBarIsLast || ['fixed', 'sticky'].includes(result.actionBarPosition)) {
-      failures.push(`${route}: 互动区未位于页面末端 ${JSON.stringify(result)}`);
+    const placedAtContent = result.hasActionAnchor && result.actionBarFollowsAnchor;
+    const placedAtPageEnd = !result.hasActionAnchor && result.actionBarIsLast;
+    if ((!placedAtContent && !placedAtPageEnd) || ['fixed', 'sticky'].includes(result.actionBarPosition)) {
+      failures.push(`${route}: 互动区未跟随内容或页面末端 ${JSON.stringify(result)}`);
     }
     if (result.visibleLegacyActions) failures.push(`${route}: 仍有 ${result.visibleLegacyActions} 个中段旧互动按钮`);
   } else if (result.actionBars !== 0) {
-    failures.push(`${route}: 非内容页不应出现页末互动区`);
+    failures.push(`${route}: 非内容页不应出现内容互动区`);
   }
   if (result.missingAlt) failures.push(`${route}: ${result.missingAlt} 张图片缺少 alt 属性`);
   if (result.unnamedControls) failures.push(`${route}: ${result.unnamedControls} 个控件缺少可访问名称`);
@@ -308,7 +312,7 @@ if (failures.length) {
 
 console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
 console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底部悬浮菜单');
-console.log('PASS 19 个内容页的页末点赞、收藏、分享与登录边界');
+console.log('PASS 19 个内容页的互动位置、点赞、收藏、分享与登录边界');
 console.log('PASS 16 个图文页含 AI 朗读，视频与纯版面页不含 AI 朗读');
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
 console.log('PASS 读书会三入口、热门活动、内容搜索、图文与入驻规则');
