@@ -36,7 +36,7 @@
 
   const contentPageTypes = new Map([
     ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
-    ['S01', 'article'], ['S03', 'article'], ['S05', 'article'],
+    ['S01', 'article'], ['S05', 'article'],
     ['J01', 'article'], ['J05', 'article'],
     ['Y01', 'article'], ['Y03', 'article'],
     ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],

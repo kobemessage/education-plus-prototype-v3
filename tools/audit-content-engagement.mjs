@@ -14,7 +14,7 @@ const routes = [
 ].sort();
 const contentPageTypes = new Map([
   ['R02', 'article'], ['R04', 'article'], ['R06', 'article'], ['R08', 'article'], ['R13', 'article'],
-  ['S01', 'article'], ['S03', 'article'], ['S05', 'article'],
+  ['S01', 'article'], ['S05', 'article'],
   ['J01', 'article'], ['J05', 'article'],
   ['Y01', 'article'], ['Y03', 'article'],
   ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
@@ -312,8 +312,8 @@ if (failures.length) {
 
 console.log(`PASS ${routes.length}/${routes.length} 业务页面`);
 console.log('PASS 所有页面无校园自选单、延伸浏览框或可见底部悬浮菜单');
-console.log('PASS 19 个内容页的互动位置、点赞、收藏、分享与登录边界');
-console.log('PASS 16 个图文页含 AI 朗读，视频与纯版面页不含 AI 朗读');
+console.log(`PASS ${contentPageTypes.size} 个内容页的互动位置、点赞、收藏、分享与登录边界`);
+console.log(`PASS ${[...contentPageTypes.values()].filter(type => type === 'article').length} 个图文页含 AI 朗读，视频与纯版面页不含 AI 朗读`);
 console.log('PASS 办事大厅 7 项服务、5 类投稿、搜索与登录边界');
 console.log('PASS 读书会三入口、热门活动、内容搜索、图文与入驻规则');
 console.log('PASS 领读员页面无研训数据块，图文/视频课程与课程详情完整');
