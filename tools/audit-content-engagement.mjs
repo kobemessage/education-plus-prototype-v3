@@ -13,7 +13,7 @@ const routes = [
   ...fs.readdirSync(path.join(root, 'stitch')).filter(name => /^[A-Z]\d{2}\.html$/.test(name)).map(name => `stitch/${name}`)
 ].sort();
 const engagementPages = new Set([
-  '12', 'R04', 'R06', 'R12', 'R13', 'S01', 'S03', 'S05',
+  '12', 'R04', 'R06', 'R13', 'S01', 'S03', 'S05',
   'J01', 'J05', 'Y01', 'Y03', 'C01', 'C03', 'K01', 'K05', 'N01', 'G07'
 ]);
 
