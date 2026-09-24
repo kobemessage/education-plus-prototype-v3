@@ -57,6 +57,9 @@ if (await page.locator('.v3-flow-arrow').count() !== 2) failures.push('J07: regi
 if (await page.locator('.v3-rights-item').count() !== 4) failures.push('J07: rights feature list should have 4 compact items');
 const rightsPanelHeight = await page.locator('.v3-rights-panel').evaluate(element => element.getBoundingClientRect().height);
 if (rightsPanelHeight > 145) failures.push(`J07: rights panel is not compact (${Math.round(rightsPanelHeight)}px)`);
+if (await page.locator('.v3-registration-form').count() !== 1) failures.push('J07: styled registration form missing');
+if (await page.locator('.v3-registration-group').count() !== 2) failures.push('J07: student and guardian groups should be separate');
+if (await page.locator('.v3-registration-upload').count() !== 1) failures.push('J07: compact recommendation upload missing');
 for (const field of ['journalistStudentName', 'journalistSchool', 'journalistGrade', 'journalistGuardian', 'journalistPhone']) {
   if (await page.locator(`#${field}`).count() !== 1) failures.push(`J07: missing field ${field}`);
 }

@@ -15,7 +15,7 @@ def row(title, desc, route, icon_name="", image="", state=""):
 def page(page_id, title, body, active="", subtitle="", home=False, back_route="1", back_label="返回首页"):
     prefix = "../" if page_id[0].isalpha() else ""
     if page_id == "J07":
-        cache_version = "20260924-journalist-flow-v1"
+        cache_version = "20260924-journalist-form-v1"
     elif page_id in {"4", "10", "11", "J08"}:
         cache_version = "20260924-journalist-v1"
     elif page_id == "5":
@@ -287,16 +287,21 @@ pages["stitch/J07.html"] = page("J07", "注册小记者", '''
 <div class="v3-rights-item amber"><span class="material-symbols-outlined">workspace_premium</span><strong>电子证书</strong></div>
 <div class="v3-rights-item"><span class="material-symbols-outlined">confirmation_number</span><strong>活动优惠</strong></div>
 </div><p class="v3-rights-note">活动优惠以教育报具体活动公告为准。</p></section>
-<form class="v3-card v3-form" onsubmit="return v3SubmitJournalist(event)">
-<div class="v3-field"><label for="journalistStudentName">学生姓名</label><input id="journalistStudentName" required autocomplete="off" placeholder="请输入学生姓名"></div>
-<div class="v3-field"><label for="journalistSchool">学校</label><input id="journalistSchool" required autocomplete="off" placeholder="请输入学校名称"></div>
-<div class="v3-field"><label for="journalistGrade">所在年级</label><select id="journalistGrade" required><option value="">请选择</option><option>小学四年级</option><option>小学五年级</option><option>小学六年级</option><option>初中一年级</option></select></div>
-<div class="v3-field"><label for="journalistGuardian">监护人姓名</label><input id="journalistGuardian" required autocomplete="off" placeholder="请输入监护人姓名"></div>
-<div class="v3-field"><label for="journalistPhone">监护人联系方式</label><input id="journalistPhone" required inputmode="tel" pattern="1[3-9][0-9]{9}" autocomplete="off" placeholder="11位手机号"></div>
+<form class="v3-card v3-form v3-registration-form" onsubmit="return v3SubmitJournalist(event)">
+<div class="v3-registration-form-head"><div><small>注册资料</small><h3>填写基本信息</h3><p>带 * 项为必填，请使用真实信息</p></div><span>01 / 03</span></div>
+<fieldset class="v3-registration-group"><legend><span class="material-symbols-outlined">school</span>学生信息</legend><div class="v3-registration-grid">
+<div class="v3-field"><label for="journalistStudentName">学生姓名 <em>*</em></label><input id="journalistStudentName" required autocomplete="off" placeholder="请输入姓名"></div>
+<div class="v3-field"><label for="journalistGrade">所在年级 <em>*</em></label><select id="journalistGrade" required><option value="">请选择</option><option>小学四年级</option><option>小学五年级</option><option>小学六年级</option><option>初中一年级</option></select></div>
+<div class="v3-field full"><label for="journalistSchool">学校 <em>*</em></label><input id="journalistSchool" required autocomplete="off" placeholder="请输入学校全称"></div>
+</div></fieldset>
+<fieldset class="v3-registration-group"><legend><span class="material-symbols-outlined">family_restroom</span>监护人信息</legend><div class="v3-registration-grid">
+<div class="v3-field"><label for="journalistGuardian">监护人姓名 <em>*</em></label><input id="journalistGuardian" required autocomplete="off" placeholder="请输入姓名"></div>
+<div class="v3-field"><label for="journalistPhone">联系方式 <em>*</em></label><input id="journalistPhone" required inputmode="tel" pattern="1[3-9][0-9]{9}" autocomplete="off" placeholder="11位手机号"></div>
+</div></fieldset>
 <input id="journalistProof" type="hidden" value="optional">
-<button class="v3-upload" type="button" onclick="v3SelectJournalistProof()"><span class="material-symbols-outlined">upload_file</span><span id="journalistProofLabel"><strong>学校推荐材料（选填）</strong><br><small>支持照片或 PDF（演示，不会实际上传）</small></span></button>
-<label style="font-size:11px;line-height:1.6"><input type="checkbox" required aria-label="确认已阅读隐私说明并由监护人知情提交"> 已阅读隐私说明，并确认由监护人知情提交</label>
-<button class="v3-btn" type="submit">提交注册申请</button></form>
+<button class="v3-registration-upload" type="button" onclick="v3SelectJournalistProof()"><span class="material-symbols-outlined">upload_file</span><span id="journalistProofLabel"><strong>学校推荐材料</strong><small>选填 · 支持照片或 PDF（演示）</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+<label class="v3-registration-consent"><input type="checkbox" required aria-label="确认已阅读隐私说明并由监护人知情提交"><span>已阅读隐私说明，并确认由监护人知情提交</span></label>
+<button class="v3-btn v3-registration-submit" type="submit">提交注册申请</button></form>
 <div class="v3-note info">本页为原型演示，不会上传或留存填写的真实个人资料。提交后可进入“注册状态”查看处理进度。</div>
 <div class="v3-note">小记者注册不承诺升学加分、实践学时、纸质证件或固定活动优惠。</div>
 ''', subtitle="学生资料 · 监护确认 · 注册审核", back_route="4", back_label="返回小记者")
