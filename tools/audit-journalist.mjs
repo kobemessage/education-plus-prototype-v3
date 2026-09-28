@@ -60,6 +60,7 @@ if (rightsPanelHeight > 145) failures.push(`J07: rights panel is not compact (${
 if (await page.locator('.v3-registration-form').count() !== 1) failures.push('J07: styled registration form missing');
 if (await page.locator('.v3-registration-group').count() !== 2) failures.push('J07: student and guardian groups should be separate');
 if (await page.locator('.v3-registration-upload').count() !== 1) failures.push('J07: compact recommendation upload missing');
+if (!(await page.locator('.v3-validity-card').innerText()).includes('注册有效期：1年')) failures.push('J07: one-year registration validity hint missing');
 for (const field of ['journalistStudentName', 'journalistSchool', 'journalistGrade', 'journalistGuardian', 'journalistPhone']) {
   if (await page.locator(`#${field}`).count() !== 1) failures.push(`J07: missing field ${field}`);
 }
@@ -78,6 +79,11 @@ await open('stitch/J08.html?auth=1');
 if (!(await page.locator('body').innerText()).includes('注册审核中')) failures.push('J08: pending status not shown');
 await page.getByRole('button', { name: '演示审核通过' }).click();
 if (!(await page.locator('body').innerText()).includes('注册已通过')) failures.push('J08: approved status not shown');
+if (await page.locator('#journalistValidityPanel').isHidden()) failures.push('J08: approved validity panel not shown');
+const validityText = await page.locator('#journalistValidityPanel').innerText();
+if (!validityText.includes('注册有效期：1年') || !validityText.includes('有效期至')) failures.push('J08: validity dates missing');
+const approvedProfile = await page.evaluate(() => JSON.parse(localStorage.getItem('ep-journalist-onboarding') || 'null'));
+if (!approvedProfile?.approvedAt || !approvedProfile?.validUntil || approvedProfile.validUntil <= approvedProfile.approvedAt) failures.push('J08: validity data not persisted');
 
 await open('stitch/J02.html');
 if (await page.locator('#ep-access-gate').count()) failures.push('J02: approved reporter should access submission form');
@@ -111,10 +117,15 @@ if (await page.locator('.v3-journalist-actions button').count() !== 2) failures.
 
 await open('stitch/J05.html?guest=1');
 const showcaseText = await page.locator('body').innerText();
-if (/十佳|A\+|100%好评|综合评级/.test(showcaseText)) failures.push('J05: ranking language still present');
-if (await page.locator('.v3-flow-step').count() !== 3) failures.push('J05: showcase flow should have 3 steps');
+if (/十佳|A\+|100%好评|综合评级/.test(showcaseText)) failures.push('J05: disputed honor language still present');
 if (await page.locator('.v3-rights-grid.three .v3-rights-item').count() !== 3) failures.push('J05: showcase criteria should have 3 compact items');
 if (await page.locator('.v3-featured-journalist').count() !== 1) failures.push('J05: featured journalist card missing');
+if (await page.locator('.v3-journalist-activity-metrics > div').count() !== 3) failures.push('J05: activity metrics missing');
+if (await page.locator('.v3-activity-history > div').count() < 3) failures.push('J05: activity participation history missing');
+if (await page.locator('.v3-ranking-list > button').count() !== 3) failures.push('J05: activity ranking list missing');
+for (const text of ['参与活动', '活动参与记录', '活跃度排名', '活动 5 次']) {
+  if (!showcaseText.includes(text)) failures.push(`J05: missing ${text}`);
+}
 
 await open('stitch/J06.html');
 const certificateText = await page.locator('body').innerText();
