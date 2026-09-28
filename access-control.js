@@ -44,7 +44,7 @@
     ['J01', 'article'], ['J05', 'article'],
     ['Y03', 'article'], ['Y06', 'article'],
     ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
-    ['K01', 'article'], ['K05', 'article'],
+    ['K01', 'article'],
     ['N01', 'visual'], ['G07', 'article']
   ]);
   const publishedContentPages = new Set(contentPageTypes.keys());
@@ -113,7 +113,7 @@
       if (page === '4' || page.startsWith('J')) return '注册状态 · 投稿与作品档案';
       if (page === '5' || page.startsWith('Y')) return '3条校园创作 · 3个认证社团';
       if (page === '6' || page.startsWith('C')) return '4节公益课 · 直播与回放演示';
-      if (page === '7' || page.startsWith('K')) return '2条科普作品 · 1条探访记录';
+      if (page === '7' || page.startsWith('K')) return '小小发明家 · 我是寻宝家';
       if (page === '8' || page.startsWith('V')) return '公开信息 · 第三方服务待接入';
       if (page === '9' || page.startsWith('N')) return '数字报预览 · 外部订阅待接入';
       if (page === '10' || page.startsWith('G')) return '个人中心 · 2项进行中 · 5条成长记录';

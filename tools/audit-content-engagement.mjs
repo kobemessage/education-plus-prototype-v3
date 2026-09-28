@@ -18,13 +18,14 @@ const contentPageTypes = new Map([
   ['J01', 'article'], ['J05', 'article'],
   ['Y03', 'article'], ['Y06', 'article'],
   ['C01', 'article'], ['C02', 'video'], ['C03', 'video'],
-  ['K01', 'article'], ['K05', 'article'],
+  ['K01', 'article'],
   ['N01', 'visual'], ['G07', 'article']
 ]);
 
 const failures = [];
 const sourceMissing = routes.filter(route => !fs.readFileSync(path.join(root, route), 'utf8').includes('access-control.js'));
 if (sourceMissing.length) failures.push(`未接入共享内容层: ${sourceMissing.join(', ')}`);
+if (fs.existsSync(path.join(root, 'stitch', 'K05.html'))) failures.push('stitch/K05.html: 已停用的第三类科学港页面仍存在');
 
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const browser = await chromium.launch({ headless: true, ...(fs.existsSync(chromePath) ? { executablePath: chromePath } : {}) });
@@ -106,6 +107,42 @@ for (const route of routes) {
   if (result.overflow > 5) failures.push(`${route}: 水平溢出 ${result.overflow}px`);
   if (errors.length) failures.push(`${route}: ${errors.join(' | ')}`);
   page.off('pageerror', onPageError);
+}
+
+await page.goto(`${baseUrl}/07.html?auth=1`, { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(80);
+const scienceNav = await page.locator('.v3-module-nav .v3-card strong').allTextContents();
+if (JSON.stringify(scienceNav) !== JSON.stringify(['小小发明家', '我是寻宝家'])) {
+  failures.push(`07.html: 科学港不是两个指定入口 ${JSON.stringify(scienceNav)}`);
+}
+const scienceHomeText = await page.locator('body').innerText();
+if (!scienceHomeText.includes('线上仅承接活动说明、作品投稿、内容审核和成果展播')) {
+  failures.push('07.html: 缺少线下活动与线上内容闭环说明');
+}
+if (!scienceHomeText.includes('合作单位、时间与地点待正式确认')) {
+  failures.push('07.html: 官方合作资源未标明待确认边界');
+}
+
+for (const scienceRoute of ['07.html', 'stitch/K01.html', 'stitch/K02.html', 'stitch/K03.html', 'stitch/K04.html']) {
+  await page.goto(`${baseUrl}/${scienceRoute}?auth=1`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(40);
+  const bodyText = await page.locator('body').innerText();
+  if (/科学追问官|我要问科学家|我要提问|专家已回答|我的提问|编辑答疑|一起来寻宝/.test(bodyText)) {
+    failures.push(`${scienceRoute}: 仍出现已取消的问答或旧活动名称`);
+  }
+}
+
+await page.goto(`${baseUrl}/stitch/K02.html?auth=1`, { waitUntil: 'domcontentloaded' });
+if (!(await page.locator('h1').innerText()).includes('我是寻宝家')) failures.push('K02.html: 未使用“我是寻宝家”活动名称');
+if (await page.locator('#treasureTitle,#treasurePlace,#treasureContent,#treasureStudent,#treasureSchool').count() !== 5) failures.push('K02.html: 寻宝家投稿字段不完整');
+
+await page.goto(`${baseUrl}/stitch/K03.html?auth=1`, { waitUntil: 'domcontentloaded' });
+if (await page.locator('#scienceInventionName,#scienceProblem,#scienceIdea,#scienceInventorStudent,#scienceInventorSchool').count() !== 5) failures.push('K03.html: 小小发明家投稿字段不完整');
+
+await page.goto(`${baseUrl}/stitch/K04.html?auth=1`, { waitUntil: 'domcontentloaded' });
+const scienceRecordText = await page.locator('body').innerText();
+for (const activityName of ['小小发明家', '我是寻宝家']) {
+  if (!scienceRecordText.includes(activityName)) failures.push(`K04.html: 投稿记录缺少${activityName}`);
 }
 
 await page.goto(`${baseUrl}/02.html?auth=1`, { waitUntil: 'domcontentloaded' });
@@ -264,8 +301,9 @@ await page.locator('#readingBook').fill('《平凡的世界》');
 await page.locator('#readingTitle').fill('平凡生活里的选择');
 await page.locator('#readingBody').fill('这是一段用于验证投稿流程的演示正文，包含阅读体会、人物理解与个人成长感受。');
 await page.getByRole('button', { name: '提交审核' }).click();
-await page.locator('.v3-toast.show').waitFor({ state: 'visible', timeout: 3000 })
-  .catch(() => failures.push('R05.html: 投稿完成后未给出成功反馈'));
+await page.waitForTimeout(1500);
+const readingFeedback = await page.locator('.v3-toast').allTextContents();
+if (!readingFeedback.some(text => text.includes('已提交'))) failures.push('R05.html: 投稿完成后未给出成功反馈');
 
 await page.goto(`${baseUrl}/stitch/G02.html?auth=1`, { waitUntil: 'domcontentloaded' });
 await page.locator('[data-path="S04"]').dispatchEvent('click');

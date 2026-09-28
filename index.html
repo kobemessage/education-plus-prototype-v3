@@ -14,9 +14,9 @@
     <aside>
       <label>EDUCATION PLUS / V3.0</label>
       <h1>教育Plus<br>V3.0 交互原型</h1>
-      <p>清新校园青绿<br>八大板块 · 68个页面</p>
+      <p>清新校园青绿<br>八大板块 · 67个页面</p>
       <div id="links"></div>
-      <details><summary>全部二级页面（56）</summary><div id="secondary-links"></div></details>
+      <details><summary>全部二级页面（55）</summary><div id="secondary-links"></div></details>
       <p class="tip">点击手机中的按钮体验流程。<br>所有人物、学校、活动和作品均为演示数据。外部平台、视频号及订阅服务为待接入占位。</p>
       <button class="reset" onclick="resetDemo()">重置本次演示</button>
     </aside>
@@ -27,12 +27,12 @@
     const secondary={
       C01:'公益课详情',C02:'公益课直播',C03:'公益课回放',C04:'公益课学校简介',C05:'公益课教师简介',G01:'搜索结果',G02:'消息列表与通知详情',G03:'我的收藏',G04:'我的活动记录',G05:'我的投稿列表',G06:'个人资料',G07:'教育资讯详情',
       J01:'小记者作品详情',J02:'小记者在线投稿',J03:'小记者投稿进度',J04:'小记者作品档案',J05:'优秀小记者',J06:'小记者电子证书',J07:'注册小记者',J08:'小记者注册状态',
-      K01:'科学成果详情',K02:'一起来寻宝作品提交',K03:'小小发明家作品提交',K04:'我的科学港作品',K05:'编辑答疑',N01:'数字报精选版面',N02:'外部订阅服务说明',
+      K01:'我是寻宝家作品详情',K02:'我是寻宝家作品提交',K03:'小小发明家作品提交',K04:'我的科学港作品',N01:'数字报精选版面',N02:'外部订阅服务说明',
       R01:'领读员培训列表',R02:'领读图文课程',R03:'名家谈阅读',R04:'名家文章详情',R05:'读后感精选',R06:'读后感详情',R07:'共读书库',R08:'书目详情',R12:'大家一起读',R13:'学校读书会主页',
       S01:'写作营',S02:'才艺坊',S03:'活动专区',S04:'投稿进度',S05:'少年派作品详情',S06:'成长作品档案',V01:'第三方升学服务目录',V02:'外部服务接入说明',
       Y01:'多彩大学',Y02:'缤纷社团',Y03:'贵州教育报主题活动',Y04:'创作发布',Y05:'我的发布',Y06:'多彩大学动态详情',Y07:'社团入驻与管理员认证',Y08:'社团主页',Y09:'社团管理员工作台',Y10:'发布社团内容',Y11:'关注动态'
     };
-    const prototypeVersion='20260928-journalist-course-flow-v1';
+    const prototypeVersion='20260928-science-core-v1';
     function setLoading(active,label){const loading=document.getElementById('phone-loading'),phone=document.getElementById('phone'),copy=document.getElementById('phone-loading-label');if(copy&&label)copy.textContent='正在打开“'+label+'”';if(loading)loading.hidden=!active;if(phone)phone.setAttribute('aria-busy',String(active))}
     function resetDemo(){Object.keys(localStorage).filter(key=>key.startsWith('ep-')).forEach(key=>localStorage.removeItem(key));sessionStorage.clear();const url=new URL(location.href);url.searchParams.set('reset',Date.now());url.hash='1';location.replace(url.href)}
     function go(id,push=false){id=String(id);if(!secondary[id]&&!(Number(id)>=1&&Number(id)<=12))id='1';let f=document.getElementById('f'+id);const label=secondary[id]||names[Number(id)-1];if(!f){setLoading(true,label);f=document.createElement('iframe');f.id='f'+id;f.title=label;f.addEventListener('load',()=>{f.dataset.loaded='true';if(f.classList.contains('active'))setLoading(false)},{once:true});f.src=(secondary[id]?'stitch/'+id+'.html':id.padStart(2,'0')+'.html')+'?v='+prototypeVersion;document.getElementById('phone').append(f)}document.querySelectorAll('iframe').forEach(x=>x.classList.toggle('active',x===f));if(f.dataset.loaded==='true')setLoading(false);document.querySelectorAll('[data-route]').forEach(x=>x.classList.toggle('active',x.dataset.route===id));if(id==='J08'&&f.contentWindow&&typeof f.contentWindow.v3LoadJournalistReview==='function')f.contentWindow.v3LoadJournalistReview();if(location.hash!=='#'+id)history[push?'pushState':'replaceState'](null,'','#'+id)}

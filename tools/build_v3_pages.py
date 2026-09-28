@@ -20,6 +20,8 @@ def page(page_id, title, body, active="", subtitle="", home=False, back_route="1
         cache_version = "20260924-journalist-v1"
     elif page_id == "5":
         cache_version = "20260924-youth-platform-v1"
+    elif page_id == "7" or page_id.startswith("K"):
+        cache_version = "20260924-science-core-v1"
     else:
         cache_version = "20260923-reading-club-v4"
     if home:
@@ -166,14 +168,13 @@ pages["06.html"] = page("6", "公益课", '''
 
 pages["07.html"] = page("7", "科学港", '''
 <section class="v3-hero has-image"><img src="assets/v3/science-exploration-v2.jpg" alt="学生在贵州喀斯特地貌开展科学探访的演示图"><div>
-<small>探索 · 实践 · 创造 · 分享</small><h2>好奇心<br>让世界更精彩</h2><p>展示科学活动、作品与探访记录。</p></div></section>
-<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>科学探索</h3><span>5项服务</span></div><div class="v3-grid" aria-label="科学港二级导航">
+<small>线下活动 · 线上展播</small><h2>把家乡的科学<br>做成好作品</h2><p>从真实发现出发，记录创意与探索成果。</p></div></section>
+<section class="v3-section v3-module-nav"><div class="v3-section-head"><h3>两大活动</h3><span>2个入口</span></div><div class="v3-grid" aria-label="科学港活动导航">
 <button class="v3-card" onclick="v3Go('K03')">''' + icon("precision_manufacturing") + '''<strong>小小发明家</strong><p>从真实问题开始创造</p></button>
-<button class="v3-card" onclick="v3Go('K02')">''' + icon("travel_explore", "amber") + '''<strong>一起来寻宝</strong><p>发现身边的科学宝藏</p></button>
-<button class="v3-card" onclick="v3Go('K01')">''' + icon("experiment", "blue") + '''<strong>科普作品</strong><p>分享科学发现与创意</p></button>
-<button class="v3-card" onclick="v3Go('K04')">''' + icon("fact_check") + '''<strong>探访记录</strong><p>记录线上探访成果</p></button>
-<button class="v3-card" onclick="v3Go('K05')">''' + icon("forum", "amber") + '''<strong>编辑答疑</strong><p>编辑部精编科普内容</p></button></div></section>
-<div class="v3-note info">科学港展示活动成果和编辑内容，不提供用户向科学家实时提问、专家答复或竞赛获奖承诺。</div>
+<button class="v3-card" onclick="v3Go('K02')">''' + icon("travel_explore", "amber") + '''<strong>我是寻宝家</strong><p>发现身边的科学宝藏</p></button></div></section>
+<section class="v3-panel"><div class="v3-section-head"><h3>本期联合活动</h3><span>[演示数据]</span></div><strong>家乡科学发现计划</strong><p class="v3-body-copy">拟联合科协、教育主管部门与学校发动线下活动，具体合作单位、时间与地点待正式确认。教育Plus 线上仅承接活动说明、作品投稿、内容审核和成果展播。</p><div class="v3-actions"><button class="v3-btn secondary" onclick="v3Go('K04')">查看我的作品</button></div></section>
+<section class="v3-section"><div class="v3-section-head"><h3>优秀成果展播</h3><span>审核后刊发</span></div><div class="v3-list">''' + row("探访织金洞的喀斯特密码", "我是寻宝家 · 图文作品 [演示数据]", "K01", image="assets/v3/science-exploration-v2.jpg") + '''</div></section>
+<div class="v3-note info">本板块不提供活动报名、签到或实时问答；正式活动以主办方发布为准。</div>
 ''', subtitle="探索 · 实践 · 创造 · 分享")
 
 pages["08.html"] = page("8", "填志愿", '''
@@ -253,7 +254,7 @@ pages["11.html"] = page("11", "服务", '''
       <button type="button" data-ep-requires-login="true" onclick="v3Go('S02')">''' + icon("draw", "amber") + '''<span><strong>少年派作品</strong><small>作文、绘画与创意表达</small></span><span class="material-symbols-outlined">chevron_right</span></button>
       <button type="button" data-ep-requires-login="true" onclick="v3Go('J02')">''' + icon("photo_camera", "blue") + '''<span><strong>小记者采写</strong><small>校园新闻与采访作品</small></span><span class="material-symbols-outlined">chevron_right</span></button>
       <button type="button" data-ep-requires-login="true" onclick="v3Go('Y04')">''' + icon("movie") + '''<span><strong>致青春图文 / 短视频</strong><small>高校校园内容</small></span><span class="material-symbols-outlined">chevron_right</span></button>
-      <button type="button" data-ep-requires-login="true" onclick="v3Go('K02')">''' + icon("science", "amber") + '''<span><strong>科学发现作品</strong><small>科学观察与实验记录</small></span><span class="material-symbols-outlined">chevron_right</span></button>
+      <button type="button" data-ep-requires-login="true" onclick="v3Go('7')">''' + icon("science", "amber") + '''<span><strong>科学活动作品</strong><small>小小发明家 · 我是寻宝家</small></span><span class="material-symbols-outlined">chevron_right</span></button>
     </div>
   </section>
 </div>
@@ -352,26 +353,24 @@ pages["stitch/R13.html"] = page("R13", "学校读书会主页", '''
 <div class="v3-note info">学校、人物、数量、动态和书目信息均为演示数据。</div>
 ''', subtitle="学校资料 · 共读书目 · 活动动态", back_route="R12", back_label="返回全省校园读书会")
 
-pages["stitch/K01.html"] = page("K01", "科学成果详情", '''
-<section class="v3-hero has-image"><img src="../assets/v3/science-exploration-v2.jpg" alt="学生开展科学探访的演示图"><div><small>小小发明家 · 精选成果</small><h2>校园节水装置</h2><p>学生作品 · 演示数据</p></div></section>
-<div class="v3-card"><strong>作品说明</strong><p>从校园用水观察出发，完成问题记录、方案草图和模型验证。作品经编辑部审核后进行成果展播。</p></div>
-<div class="v3-actions"><button class="v3-btn" onclick="v3Toast('已收藏作品')">收藏</button><button class="v3-btn secondary" onclick="v3Toast('分享海报已生成（演示）')">分享</button></div>
+pages["stitch/K01.html"] = page("K01", "我是寻宝家作品详情", '''
+<section class="v3-hero has-image"><img src="../assets/v3/science-exploration-v2.jpg" alt="学生开展科学探访的演示图"><div><small>我是寻宝家 · 优秀作品</small><h2>探访织金洞的喀斯特密码</h2><p>学生作品 · 演示数据</p></div></section>
+<div class="v3-card"><strong>作品说明</strong><p>学生从家乡地貌观察出发，用图片、文字和短视频记录探访过程。作品经平台审核后进行成果展播。</p></div>
+<div class="v3-actions"><button class="v3-btn" onclick="v3Go('K02')">我也要参加</button></div>
 ''')
-pages["stitch/K02.html"] = page("K02", "一起来寻宝作品提交", '''
-<section class="v3-hero has-image"><img src="../assets/v3/science-exploration-v2.jpg" alt="学生开展科学探访的演示图"><div><small>探访记录 · 作品征集</small><h2>记录家乡的<br>科学宝藏</h2><p>提交探访图文或短视频，审核通过后进入成果展播。</p></div></section>
-<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceTreasureTitle">作品标题</label><input id="scienceTreasureTitle" required></div><div class="v3-field"><label for="scienceTreasurePlace">探访地点</label><input id="scienceTreasurePlace" required></div><div class="v3-field"><label for="scienceTreasureDescription">作品说明</label><textarea id="scienceTreasureDescription" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加图片或视频（演示）</button><button class="v3-btn" type="submit">提交作品</button></form>
+pages["stitch/K02.html"] = page("K02", "我是寻宝家作品提交", '''
+<div class="v3-note info">[演示数据] 本期活动：家乡科学发现计划。请提交学生参与线下观察、探访后形成的原创内容；活动安排以正式发布为准。</div>
+<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceTreasureTitle">作品标题</label><input id="scienceTreasureTitle" required></div><div class="v3-field"><label for="scienceTreasurePlace">探访地点</label><input id="scienceTreasurePlace" required></div><div class="v3-field"><label for="scienceTreasureDescription">作品说明</label><textarea id="scienceTreasureDescription" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加图片或视频（演示）</button><button class="v3-btn" type="submit">提交审核</button></form>
 ''')
 pages["stitch/K03.html"] = page("K03", "小小发明家作品提交", '''
-<section class="v3-hero"><small>科普作品 · 创意征集</small><h2>让小创意<br>解决真问题</h2><p>提交问题观察、创意方案和模型照片，编辑审核后择优展播。</p></section>
-<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceInventionName">发明名称</label><input id="scienceInventionName" required></div><div class="v3-field"><label for="scienceProblem">想解决的问题</label><textarea id="scienceProblem" required></textarea></div><div class="v3-field"><label for="scienceIdea">创意方案</label><textarea id="scienceIdea" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加模型照片（演示）</button><button class="v3-btn" type="submit">提交作品</button></form>
+<section class="v3-hero"><small>线下实践 · 线上展播</small><h2>让小创意<br>解决真问题</h2><p>提交问题观察、创意方案和模型照片，平台审核后择优展播。</p></section>
+<div class="v3-note info">[演示数据] 本期活动：家乡科学发现计划。拟由科协、教育主管部门与学校共同发动，合作单位和具体安排待正式确认。</div>
+<form class="v3-card v3-form" onsubmit="return v3Submit(this)"><div class="v3-field"><label for="scienceInventionName">发明名称 *</label><input id="scienceInventionName" required></div><div class="v3-field"><label for="scienceProblem">想解决的问题 *</label><textarea id="scienceProblem" required></textarea></div><div class="v3-field"><label for="scienceIdea">创意方案 *</label><textarea id="scienceIdea" required></textarea></div><button class="v3-upload" type="button" onclick="v3Toast('素材上传为原型演示')"><span class="material-symbols-outlined">add_photo_alternate</span>添加模型照片（演示）</button><div class="v3-field"><label for="scienceInventorStudent">学生姓名 *</label><input id="scienceInventorStudent" required></div><div class="v3-field"><label for="scienceInventorSchool">学校 *</label><input id="scienceInventorSchool" required></div><label class="v3-note info"><input type="checkbox" required> 我确认作品为原创内容，并同意平台审核后展播。</label><button class="v3-btn" type="submit">提交审核</button></form>
 ''')
 pages["stitch/K04.html"] = page("K04", "我的科学港作品", '''
-<section class="v3-hero"><small>作品记录</small><h2>我的科学创作</h2><p>查看科普作品和探访记录的审核状态。</p></section><div class="v3-list">
+<section class="v3-hero"><small>两大活动 · 作品记录</small><h2>我的科学创作</h2><p>查看“小小发明家”和“我是寻宝家”作品的审核状态。</p></section><div class="v3-list">
 ''' + row("校园节水装置", "小小发明家 · 提交日期（演示）", "K01", icon_name="precision_manufacturing", state="审核中") + '''
-''' + row("桥梁结构探访", "一起来寻宝 · 提交日期（演示）", "K01", icon_name="landscape", state="已展播") + '''</div>
-''')
-pages["stitch/K05.html"] = page("K05", "编辑答疑", '''
-<section class="v3-hero"><small>编辑部精编科普</small><h2>为什么溶洞里<br>会形成石笋？</h2><p>内容来源：公开科普资料整理 · 演示数据</p></section><div class="v3-card"><strong>编辑解读</strong><p>雨水渗入石灰岩层后溶解矿物质，水滴落到洞底时二氧化碳逸出，矿物质逐渐沉积。漫长岁月里，沉积物由下向上生长，形成石笋。</p></div><div class="v3-note info">本栏目由编辑部策划发布，不提供用户提问或专家实时答复。</div>
+''' + row("探访织金洞的喀斯特密码", "我是寻宝家 · 提交日期（演示）", "K01", icon_name="landscape", state="已展播") + '''</div>
 ''')
 
 pages["stitch/N01.html"] = page("N01", "数字报精选版面", '''
